@@ -16,7 +16,7 @@ public class Calculator {
         return stack.pop();
     }
 
-public void operation(char operator){
+public void getOperationType(char operator){
        int y = stack.pop();
        int x = stack.pop();
        int res = 0;
@@ -40,19 +40,19 @@ public void operation(char operator){
         Item next = expr[instructionPointer++];
         switch (next.getType()) {
             case ADD: {
-            operation('+');
+            getOperationType('+');
             break;
             }
             case SUB: {
-            operation('-');
+            getOperationType('-');
             break;
             }
             case DIV: {
-            operation('/');
+            getOperationType('/');
             break;
             }
             case MUL: {
-            operation('*');
+            getOperationType('*');
             break;
             }
             case VALUE: {
@@ -63,13 +63,24 @@ public void operation(char operator){
     }
 
 public static void main(String[] args) { 
+    /*
+    StaticStack stack = new StaticStack(3);
+    stack.push(5);
+    stack.push(4);
+    System.out.println(stack.pop());
+    stack.push(5);
+    stack.push(2);
+    System.out.println(stack.pop());
+     */
     // 10 2 5 * +   in reversed Polish notation
     Item[] expr = {
         Item.Value(10),
         Item.Value(2),
         Item.Value(5),
         Item.Mul(),
-        Item.Add()
+        Item.Value(5),
+        Item.Add(),
+        Item.Add(),
 };
     Calculator calc = new Calculator(expr);
     int res = calc.run();

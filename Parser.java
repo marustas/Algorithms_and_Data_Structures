@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
 public class Parser {
-    public ArrayList<Item> parse(String input) {
+    public Item[] parse(String input) {
         String[] inputSplit = input.split(" ");
-        ArrayList<Item> expr = new ArrayList<Item>();
+        Item[] expr;
         for (String each : inputSplit) {
             switch (each) {
                 case "*":
