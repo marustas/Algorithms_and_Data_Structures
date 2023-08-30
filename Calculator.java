@@ -19,7 +19,7 @@ public class Calculator {
 public void operation(char operator){
        int y = stack.pop();
        int x = stack.pop();
-              int res = 0;
+       int res = 0;
        switch (operator) {
         case '+':
             res = x+y;
@@ -28,11 +28,11 @@ public void operation(char operator){
             res = x-y;
             break;
         case '*':
-            res = x*y;
-            break;    
+            res = x*y; 
+            break;
         case '/':
             res = x/y;
-            break; 
+            break;
        }
         stack.push(res);
 }
@@ -41,18 +41,23 @@ public void operation(char operator){
         switch (next.getType()) {
             case ADD: {
             operation('+');
+            break;
             }
             case SUB: {
             operation('-');
+            break;
             }
             case DIV: {
             operation('/');
+            break;
             }
             case MUL: {
             operation('*');
+            break;
             }
             case VALUE: {
             stack.push(next.getValue());
+            break;
             }
         }
     }
