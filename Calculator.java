@@ -64,26 +64,19 @@ public void getOperationType(char operator){
 
 public static void main(String[] args) { 
     /*
-    StaticStack stack = new StaticStack(3);
+        StaticStack stack = new StaticStack(3);
     stack.push(5);
     stack.push(4);
     System.out.println(stack.pop());
-    stack.push(5);
-    stack.push(2);
-    System.out.println(stack.pop());
      */
-    // 10 2 5 * +   in reversed Polish notation
-    Item[] expr = {
-        Item.Value(10),
-        Item.Value(2),
-        Item.Value(5),
-        Item.Mul(),
-        Item.Value(5),
-        Item.Add(),
-        Item.Add(),
-};
+    String test = "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 + * + * + * + * + * + * + * +";
+    Item[] expr = Parser.parse(test);
     Calculator calc = new Calculator(expr);
     int res = calc.run();
     System.out.println(" Calculator: res = " + res);
+
+    // 10 2 5 * +   in reversed Polish notation
+
+    //System.out.println(stack.pop());
 }
 }

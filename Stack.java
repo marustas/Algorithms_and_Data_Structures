@@ -30,7 +30,7 @@ public class Stack {
     }
 
     public boolean isFull() {
-        if (index + 1 == arr.length) {
+        if (index + 1 >= arr.length) {
             return true;
         }
         return false;
