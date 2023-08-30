@@ -2,7 +2,7 @@ public class Parser {
     public static Item[] parse(String input) {
         String[] inputSplit = input.split(" ");
         int ip =0;
-       Item[] expr = new Item[ip+1];
+       Item[] expr = new Item[inputSplit.length];
         for (String each : inputSplit) {
             switch (each) {
                 case "*":
