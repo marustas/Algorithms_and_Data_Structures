@@ -1,0 +1,21 @@
+= Algorithms and Data Structures
+Marudau Stanislau <marudov.stas@gmail.com>
+1.2, February 27, 2023: Add filtered events to scenarios
+:toc:
+:toclevels: 5
+:icons: font
+:url-quickref: https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/
+
+== A Calculator
+
+HP=35 pocket calculator uses Reverse Polish notation(writing mathematical expressions with the operand last)
+
+=== How to run
+
+TODO
+
+=== Implementation
+
+TODO
+
+=== Benchmarking

@@ -33,3 +33,9 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/.gitignore
+/.idea/checkstyle-idea.xml
+/.idea/hybrisProjectSettings.xml
+/.idea/misc.xml
+/.idea/vcs.xml
