@@ -1,3 +1,5 @@
+package by.example.stack;
+
 public class DynamicStack extends Stack {
     private int[] array = new int[0];
 

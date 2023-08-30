@@ -1,3 +1,5 @@
+package by.example.stack;
+
 import java.util.EmptyStackException;
 
 public class Stack {
