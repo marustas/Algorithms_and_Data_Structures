@@ -1,19 +1,22 @@
 package by.example;
 
 import by.example.expression.Item;
+import by.example.stack.DynamicStack;
 import by.example.stack.Stack;
+import by.example.stack.StaticStack;
 
 import java.util.Scanner;
 
 public class Calculator {
-    Item[] expr;
-    int instructionPointer;
-    Stack stack;
+    private final Item[] expr;
+    private int instructionPointer;
+    private final Stack stack;
 
-    public Calculator(Item[] expr) {
-        this.expr = expr;
+
+    public Calculator(Item[] expr, Stack stack) {
         this.instructionPointer = 0;
-        this.stack = new Stack();
+        this.expr = expr;
+        this.stack = stack;
     }
 
     public int run() {
@@ -81,13 +84,27 @@ public class Calculator {
                 }
                 try {
                     Item[] expr = Parser.parse(input);
-                    Calculator calc = new Calculator(expr);
+                    System.out.println("Select stack: D-Dynamic, S -Static");
+                    String stackType = scanner.nextLine();
+                    Stack stack = createStackByType(stackType, expr.length);
+                    Calculator calc = new Calculator(expr, stack);
                     int res = calc.run();
                     System.out.println("Calculator result: " + res);
                 } catch (Exception e) {
                     System.out.printf("An error occurred: %s%n", e.getMessage());
                 }
             }
+        }
+    }
+
+    private static Stack createStackByType(String stackType, int size) {
+        switch (stackType.toUpperCase()) {
+            case "D":
+                return new DynamicStack();
+            case "S":
+                return new StaticStack(size);
+            default:
+                throw new IllegalArgumentException("Invalid stack type");
         }
     }
 }
