@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static by.example.Parser.parse;
 import static java.lang.System.nanoTime;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CalculatorTest {
@@ -24,7 +25,7 @@ class CalculatorTest {
             "'10 2 5 + *', 70",
             "'1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 + * + * + * + * + * + * + * +', 20643839"
     })
-    public void testDynamicStackCalculation(String test, int expectedResult) {
+    void testDynamicStackCalculation(String test, int expectedResult) {
         Item[] expr = parse(test);
         Calculator calc = new Calculator(expr, new DynamicStack());
         assertEquals(expectedResult, calc.run());
@@ -40,7 +41,7 @@ class CalculatorTest {
             "'10 2 5 + *', 70",
             "'1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 + * + * + * + * + * + * + * +', 20643839"
     })
-    public void testStaticStackCalculation(String test, int expectedResult) {
+    void testStaticStackCalculation(String test, int expectedResult) {
         Item[] expr = parse(test);
         Calculator calc = new Calculator(expr, new StaticStack(expr.length));
         assertEquals(expectedResult, calc.run());
@@ -49,23 +50,44 @@ class CalculatorTest {
     @ParameterizedTest
     @ValueSource(ints = {100, 500, 1_000, 5_000, 10_000, 100_000})
     void benchmarkStaticStackCalculation(int amountOfNumbers) {
-        execute(new StaticStack(amountOfNumbers * 2), amountOfNumbers);
+        assertDoesNotThrow(() ->
+                execute(new StaticStack(amountOfNumbers * 2), amountOfNumbers)
+        );
     }
 
     @ParameterizedTest
     @ValueSource(ints = {100, 500, 1_000, 5_000, 10_000, 100_000})
     void benchmarkDynamicStackCalculation(int amountOfNumbers) {
-        execute(new DynamicStack(), amountOfNumbers);
+        assertDoesNotThrow(() ->
+                execute(new DynamicStack(), amountOfNumbers)
+        );
     }
 
-    private static void execute(Stack stack, int amountOfNumbers) {
+    private void execute(Stack stack, int amountOfNumbers) {
         long time = nanoTime();
         try {
             StringBuilder inputNumbers = new StringBuilder();
             StringBuilder operations = new StringBuilder();
             for (int i = 0; i < amountOfNumbers; i++) {
-                inputNumbers.append(i).append(" ");
-                operations.append(" ").append(i % 10 == 0 ? "*" : (i % 3 == 0 ? "+" : "-"));
+                inputNumbers
+                        .append(i)
+                        .append(" ");
+                operations
+                        .append(" ")
+                        .append(
+                                i % 31 == 0
+                                        ? "*"
+                                        : (
+                                        (i % 23 == 0)
+                                                ? "/"
+                                                : (
+                                                (i % 19 == 0)
+                                                        ? "*"
+                                                        : (
+                                                        (i % 11 == 0)
+                                                                ? "-"
+                                                                : "+")))
+                        );
             }
             String input = inputNumbers + "123" + operations;
             System.out.println("input = " + input);

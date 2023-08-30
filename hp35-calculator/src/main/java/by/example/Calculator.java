@@ -84,7 +84,7 @@ public class Calculator {
                 }
                 try {
                     Item[] expr = Parser.parse(input);
-                    System.out.println("Select stack: D-Dynamic, S -Static");
+                    System.out.println("Select stack: D - Dynamic, S - Static");
                     String stackType = scanner.nextLine();
                     Stack stack = createStackByType(stackType, expr.length);
                     Calculator calc = new Calculator(expr, stack);
