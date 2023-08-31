@@ -48,7 +48,7 @@ class CalculatorTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {100, 500, 1_000, 5_000, 10_000, 100_000})
+    @ValueSource(ints = {100, 1_000, 10_000, 100_000})
     void benchmarkStaticStackCalculation(int amountOfNumbers) {
         assertDoesNotThrow(() ->
                 execute(new StaticStack(amountOfNumbers * 2), amountOfNumbers)
@@ -56,7 +56,7 @@ class CalculatorTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {100, 500, 1_000, 5_000, 10_000, 100_000})
+    @ValueSource(ints = {100, 1_000, 10_000, 100_000})
     void benchmarkDynamicStackCalculation(int amountOfNumbers) {
         assertDoesNotThrow(() ->
                 execute(new DynamicStack(), amountOfNumbers)
@@ -64,6 +64,7 @@ class CalculatorTest {
     }
 
     private void execute(Stack stack, int amountOfNumbers) {
+        long memBefore = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
         long time = nanoTime();
         try {
             StringBuilder inputNumbers = new StringBuilder();
@@ -90,14 +91,16 @@ class CalculatorTest {
                         );
             }
             String input = inputNumbers + "123" + operations;
-            System.out.println("input = " + input);
+//            System.out.println("input = " + input);
             Item[] expr = parse(input);
             Calculator calc = new Calculator(expr, stack);
             var result = calc.run();
             System.out.println("result = " + result);
         } finally {
             time = nanoTime() - time;
-            System.out.printf("%s | Execution time = %dms%n", stack.getClass(), (time / 1_000_000));
+            long memAfter = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
+            System.out.printf("%s | Execution time = %dms, Memory used = %dMb%n",
+                    stack.getClass(), (time / 1_000_000), (memAfter-memBefore)/1024/1024);
         }
     }
 
