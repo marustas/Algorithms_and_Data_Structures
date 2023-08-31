@@ -1,6 +1,6 @@
 package by.example.stack;
 
-public class DynamicStack extends Stack {
+public class DynamicStack implements Stack {
     private int[] array = new int[0];
 
     @Override
@@ -23,4 +23,5 @@ public class DynamicStack extends Stack {
         this.array = tempArray;
         return lastItem;
     }
+
 }
