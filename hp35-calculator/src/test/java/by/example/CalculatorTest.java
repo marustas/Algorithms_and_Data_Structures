@@ -64,7 +64,7 @@ class CalculatorTest {
     }
 
     private void execute(Stack stack, int amountOfNumbers) {
-        long memBefore = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
+        long memBefore = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
         long time = nanoTime();
         try {
             StringBuilder inputNumbers = new StringBuilder();
@@ -98,9 +98,9 @@ class CalculatorTest {
             System.out.println("result = " + result);
         } finally {
             time = nanoTime() - time;
-            long memAfter = Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
+            long memAfter = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
             System.out.printf("%s | Execution time = %dms, Memory used = %dMb%n",
-                    stack.getClass(), (time / 1_000_000), (memAfter-memBefore)/1024/1024);
+                    stack.getClass(), (time / 1_000_000), (memAfter - memBefore) / (1024 * 1024));
         }
     }
 
