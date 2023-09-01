@@ -1,20 +1,28 @@
-package by.example.stack;
+package by.example;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import by.example.stack.DynamicStack;
+import by.example.stack.Stack;
+import by.example.stack.StaticStack;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 import static java.lang.System.nanoTime;
 
-class DynamicStackTest {
+public class StackRunner {
+    public static void main(String[] args) {
+        int amountOfNumbers = 10_000;
+        // Memory used:
+        // 16 bytes of object overhead
+        // 4 bytes for the int length field of the array
+        // 4 * length bytes to store the int values (4 bytes per int)
+        System.out.println("RESULTS");
+        execute(amountOfNumbers, new StaticStack(amountOfNumbers));
+        execute(amountOfNumbers, new DynamicStack());
+    }
 
-    @ParameterizedTest
-    @ValueSource(ints = {1_000, 10_000, 100_000})
-    void benchmark(int amountOfNumbers) {
+    private static void execute(int amountOfNumbers, Stack stack) {
         long memBefore = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
         long time = nanoTime();
-        Stack stack = new DynamicStack();
         try {
             var random = ThreadLocalRandom.current();
             for (int i = 0; i < amountOfNumbers; i++) {
@@ -28,9 +36,7 @@ class DynamicStackTest {
             time = nanoTime() - time;
             long memAfter = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
             System.out.printf("%s | %15d elements | Execution time = %5dms | Memory used = %.2fKb%n",
-                    stack.getClass(), amountOfNumbers, (time / 1_000_000), ((double)(memAfter - memBefore))/1024);
+                    stack.getClass(), amountOfNumbers, (time / 1_000_000), ((double) (memAfter - memBefore)) / 1024);
         }
-
     }
-
 }
