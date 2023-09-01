@@ -10,7 +10,7 @@ import static java.lang.System.nanoTime;
 class StaticStackTest {
 
     @ParameterizedTest
-    @ValueSource(ints = {10_000, 100_000, 1_000_000})
+    @ValueSource(ints = {1_000, 10_000, 100_000})
     void benchmark(int amountOfNumbers) {
         // Memory used:
         // 16 bytes of object overhead
