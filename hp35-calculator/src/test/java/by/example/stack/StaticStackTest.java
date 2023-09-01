@@ -31,7 +31,7 @@ class StaticStackTest {
             time = nanoTime() - time;
             long memAfter = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
             System.out.printf("%s | %15d elements | Execution time = %5dms | Memory used = %.2fKb%n",
-                    stack.getClass(), amountOfNumbers, (time / 1_000_000), ((double)(memAfter - memBefore))/1024);
+                    stack.getClass(), amountOfNumbers, time, ((double)(memAfter - memBefore))/1024);
         }
     }
 
