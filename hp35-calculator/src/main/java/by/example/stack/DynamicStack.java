@@ -31,7 +31,10 @@ public class DynamicStack implements Stack {
             throw new EmptyStackException();
         }
         pointer--;
-        if (pointer > 0 && pointer == array.length/4) resize(array.length/2);
+        // pointer >0 убрать
+        if (pointer > 0 && pointer == array.length/4){
+            resize(array.length/2);
+        }
         return value;
     }
 

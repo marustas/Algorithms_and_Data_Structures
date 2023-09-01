@@ -26,10 +26,10 @@ public class StaticStack implements Stack {
 
     @Override
     public int pop() {
-        int value = array[pointer];
         if (pointer == -1) {
             throw new EmptyStackException();
         }
+        int value = array[pointer];
         pointer--;
         return value;
     }
