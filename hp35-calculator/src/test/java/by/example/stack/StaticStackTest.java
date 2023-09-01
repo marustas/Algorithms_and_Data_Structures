@@ -8,7 +8,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import static java.lang.System.nanoTime;
 
 class StaticStackTest {
-
     @ParameterizedTest
     @ValueSource(ints = {1_000, 10_000, 100_000})
     void benchmark(int amountOfNumbers) {

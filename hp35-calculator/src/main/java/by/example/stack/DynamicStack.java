@@ -1,34 +1,51 @@
 package by.example.stack;
 
-import java.util.Arrays;
+import java.util.EmptyStackException;
 
+/**
+ * A fixed sized stack where the size is given when the stack is created.
+ * The stack should allocate an array of this size and keep track of a stack pointer (an index).
+ */
 public class DynamicStack implements Stack {
-    private int[] array = new int[0];
+    private int[] array;
+    private int pointer;
+
+    public DynamicStack() {
+        array = new int[4];
+        pointer = -1;
+    }
 
     @Override
     public void push(int value) {
-        resize(array.length + 1);
-        array[array.length - 1] = value;
+        pointer++;
+        if (pointer >= array.length) {
+            resize(2*array.length);
+        }
+        array[pointer] = value;
     }
 
     @Override
     public int pop() {
-        if (array.length == 0) {
-            throw new RuntimeException("Stack underflow!");
+        int value = array[pointer];
+        if (pointer == -1) {
+            throw new EmptyStackException();
         }
-        int lastItem = array[array.length - 1];
-        resize(array.length - 1);
-        return lastItem;
+        if (pointer > 0 && pointer == array.length/4) resize(array.length/2);
+        pointer--;
+        return value;
     }
 
-    private void resize(int newCapacity) {
-        int[] tempArray = new int[newCapacity];
-        var length = Math.min(array.length, newCapacity);
-        for (int i = 0; i < length; i++) {
-            tempArray[i] = array[i];
-        }
-        array = tempArray;
-        //array = Arrays.copyOf(array, newCapacity);
-    }
+    private void resize(int capacity) {
+        assert capacity >= pointer;
 
+        // textbook implementation
+        int[] copy = new int[capacity];
+        for (int i = 0; i < pointer; i++) {
+            copy[i] = array[i];
+        }
+        array = copy;
+
+        // alternative implementation
+        // a = java.util.Arrays.copyOf(a, capacity);
+    }
 }
