@@ -1,7 +1,11 @@
+package by.example;
+
+import by.example.impl.Binary;
+import by.example.impl.Linear;
+
 import java.util.Random;
 
-
-class Bench {
+class Benchmark {
 
     private static void linear(int[] array, int[] indx) {
         for (int j : indx) {
@@ -9,13 +13,11 @@ class Bench {
         }
     }
 
-
     private static void binary(int[] array, int[] indx) {
         for (int j : indx) {
             Binary.search(array, j);
         }
     }
-
 
     private static int[] sorted(int n) {
         Random rnd = new Random();
@@ -29,7 +31,6 @@ class Bench {
         return array;
     }
 
-
     private static int[] keys(int loop, int n) {
         Random rnd = new Random();
         int[] indx = new int[loop];
@@ -39,13 +40,12 @@ class Bench {
         return indx;
     }
 
-
     public static void main(String[] arg) {
 
         int[] sizes = {100, 200, 400, 800, 1600, 3200, 6400, 12800, 25600};
 
-        System.out.printf("# searching through an array of length n, time in ns\n");
-        System.out.printf("#%7s\t %8s %8s\t %8s %8s\n", "n", "linear", "lin/n", "binary", "bin/lg(n)");
+        System.out.printf("# searching through an array of length n, time in ns %n");
+        System.out.printf("| %-7s | %-10s | %-10s | %-10s | %-10s | %n", "n", "linear", "lin/n", "binary", "bin/lg(n)");
         for (int n : sizes) {
 
             int loop = 10000;
@@ -67,7 +67,7 @@ class Bench {
                     min = t;
             }
 
-            System.out.printf("%8.0f %.2f", (min / loop), (min * 10 / n / loop));
+            System.out.printf("%8.0f | %.2f", (min / loop), (min * 10 / n / loop));
 
             min = Double.POSITIVE_INFINITY;
 
@@ -80,7 +80,7 @@ class Bench {
                     min = t;
             }
 
-            System.out.printf("%8.0f %.2f\n", (min / loop), (min * 10 / loop / Math.log(n)));
+            System.out.printf("%8.0f | %.2f %n", (min / loop), (min * 10 / loop / Math.log(n)));
 
         }
     }

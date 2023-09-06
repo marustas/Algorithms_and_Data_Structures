@@ -1,3 +1,5 @@
+package by.example.impl;
+
 public class Binary {
     public static boolean search(int[] array, int key) {
         int first = 0;
