@@ -17,7 +17,7 @@ public class Binary {
                 last = index - 1;
                 continue;
             }
-             break;
+            break;
         }
         return false;
     }
