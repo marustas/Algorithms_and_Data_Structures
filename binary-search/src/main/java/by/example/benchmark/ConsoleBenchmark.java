@@ -1,15 +1,18 @@
-package by.example;
+package by.example.benchmark;
 
+import by.example.DuplicateSearch;
 import by.example.impl.Binary;
 import by.example.impl.Linear;
 
 import java.util.Random;
 
-class Benchmark {
+class ConsoleBenchmark {
 
     public static void main(String[] arg) {
 
-        int[] sizes = {100, 200, 400, 800, 1600, 3200, 6400, 12800, 25600};
+        DuplicateSearch binary = new Binary();
+        DuplicateSearch linear = new Linear();
+        int[] sizes = { 100, 200, 400, 800, 1600, 3200, 6400, 12800, 25600 };
 
         System.out.printf("# searching through an array of length n, time in ns %n");
         System.out.printf("| %-7s | %-10s | %-10s | %-10s | %-10s | %n", "n", "linear", "lin/n", "binary", "bin/lg(n)");
@@ -18,7 +21,7 @@ class Benchmark {
             int loop = 10000;
 
             int[] array = sorted(n);
-            int[] indx = keys(loop, n);
+            int[] keys = keys(loop, n);
 
             System.out.printf("%8d", n);
 
@@ -27,11 +30,12 @@ class Benchmark {
 
             for (int i = 0; i < k; i++) {
                 long t0 = System.nanoTime();
-                linear(array, indx);
+                linear.search(array, keys);
                 long t1 = System.nanoTime();
                 double t = (t1 - t0);
-                if (t < min)
+                if (t < min) {
                     min = t;
+                }
             }
 
             System.out.printf("%8.0f | %.2f", (min / loop), (min * 10 / n / loop));
@@ -40,27 +44,16 @@ class Benchmark {
 
             for (int i = 0; i < k; i++) {
                 long t0 = System.nanoTime();
-                binary(array, indx);
+                binary.search(array, keys);
                 long t1 = System.nanoTime();
                 double t = (t1 - t0);
-                if (t < min)
+                if (t < min) {
                     min = t;
+                }
             }
 
             System.out.printf("%8.0f | %.2f %n", (min / loop), (min * 10 / loop / Math.log(n)));
 
-        }
-    }
-
-    private static void linear(int[] array, int[] indx) {
-        for (int j : indx) {
-            Linear.search(array, j);
-        }
-    }
-
-    private static void binary(int[] array, int[] indx) {
-        for (int j : indx) {
-            Binary.search(array, j);
         }
     }
 

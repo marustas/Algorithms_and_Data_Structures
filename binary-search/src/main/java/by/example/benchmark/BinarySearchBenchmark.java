@@ -19,82 +19,74 @@ import java.util.concurrent.TimeUnit;
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 public class BinarySearchBenchmark {
 
-	private static final int LOOP = 1_000;
+    private static final int LOOP = 1_000;
 
-	@Param({ "100", "1000", "10000" })
-	private int n;
+    @Param({ "100", "1000", "10000" })
+    private int n;
 
-	private int[] SORTED_SOURCE_DATA;
-	private int[] SORTED_KEYS;
+    private int[] SORTED_SOURCE_DATA;
+    private int[] SORTED_KEYS;
 
-	private int[] UNSORTED_SOURCE_DATA;
-	private int[] UNSORTED_KEYS;
+    private int[] UNSORTED_SOURCE_DATA;
+    private int[] UNSORTED_KEYS;
 
-	public static void main(String[] args) throws RunnerException {
+    private final Random rnd = new Random();
 
-		Options opt = new OptionsBuilder()
-				.include(BinarySearchBenchmark.class.getSimpleName())
-				.forks(1)
-				.build();
+    private final Binary binarySearch = new Binary();
+    private final Linear linearSearch = new Linear();
+    private final Enhanced enhancedSearch = new Enhanced();
 
-		new Runner(opt).run();
-	}
+    public static void main(String[] args) throws RunnerException {
 
-	@Setup
-	public void setup() {
-		SORTED_SOURCE_DATA = createSortedArray(n, n);
-		SORTED_KEYS = createSortedArray(LOOP, 3);
-		UNSORTED_SOURCE_DATA = generateUnsortedArray(n, n);
-		UNSORTED_KEYS = generateUnsortedArray(LOOP, n * 5);
-	}
+        Options opt = new OptionsBuilder()
+                .include(BinarySearchBenchmark.class.getSimpleName())
+                .forks(1)
+                .build();
 
-	@Benchmark
-	public void binarySearch(Blackhole bh) {
-		int i = 0;
-		while (i < SORTED_KEYS.length) {
-			boolean res = Binary.search(SORTED_SOURCE_DATA, SORTED_KEYS[i]);
-			bh.consume(res);
-			i++;
-		}
-	}
+        new Runner(opt).run();
+    }
 
-	@Benchmark
-	public void linearSearch(Blackhole bh) {
-		int i = 0;
-		while (i < UNSORTED_KEYS.length) {
-			boolean res = Linear.search(UNSORTED_SOURCE_DATA, UNSORTED_KEYS[i]);
-			bh.consume(res);
-			i++;
-		}
-	}
+    @Setup
+    public void setup() {
+        SORTED_SOURCE_DATA = createSortedArray(n, n);
+        SORTED_KEYS = createSortedArray(LOOP, 3);
+        UNSORTED_SOURCE_DATA = generateUnsortedArray(n, n);
+        UNSORTED_KEYS = generateUnsortedArray(LOOP, n * 5);
+    }
 
-	@Benchmark
-	public void enhancedSearch(Blackhole bh) {
-		int i = 0;
-		while (i < SORTED_KEYS.length) {
-			boolean res = Enhanced.search(SORTED_SOURCE_DATA, SORTED_SOURCE_DATA);
-			bh.consume(res);
-			i++;
-		}
-	}
+    @Benchmark
+    public void binarySearchDuplicates(Blackhole bh) {
+        boolean res = binarySearch.search(SORTED_SOURCE_DATA, SORTED_KEYS);
+        bh.consume(res);
+    }
 
-	private int[] createSortedArray(int amountOfElements, int stepBound) {
-		Random rnd = new Random();
-		int[] keys = new int[amountOfElements];
-		int nxt = rnd.nextInt(stepBound);
-		for (int i = 0; i < amountOfElements; i++) {
-			keys[i] = nxt;
-			nxt += 1 + rnd.nextInt(stepBound);
-		}
-		return keys;
-	}
+    @Benchmark
+    public void linearSearchDuplicates(Blackhole bh) {
+        boolean res = linearSearch.search(UNSORTED_SOURCE_DATA, UNSORTED_KEYS);
+        bh.consume(res);
+    }
 
-	private int[] generateUnsortedArray(int amountOfElements, int bound) {
-		Random rnd = new Random();
-		int[] keys = new int[amountOfElements];
-		for (int i = 0; i < amountOfElements; i++) {
-			keys[i] = rnd.nextInt(bound);
-		}
-		return keys;
-	}
+    @Benchmark
+    public void enhancedSearchDuplicates(Blackhole bh) {
+        boolean res = enhancedSearch.search(SORTED_SOURCE_DATA, SORTED_SOURCE_DATA);
+        bh.consume(res);
+    }
+
+    private int[] createSortedArray(int amountOfElements, int stepBound) {
+        int[] keys = new int[amountOfElements];
+        int nxt = rnd.nextInt(stepBound);
+        for (int i = 0; i < amountOfElements; i++) {
+            keys[i] = nxt;
+            nxt += 1 + rnd.nextInt(stepBound);
+        }
+        return keys;
+    }
+
+    private int[] generateUnsortedArray(int amountOfElements, int bound) {
+        int[] keys = new int[amountOfElements];
+        for (int i = 0; i < amountOfElements; i++) {
+            keys[i] = rnd.nextInt(bound);
+        }
+        return keys;
+    }
 }
