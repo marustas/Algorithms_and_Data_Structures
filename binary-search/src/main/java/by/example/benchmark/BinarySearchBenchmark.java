@@ -48,7 +48,7 @@ public class BinarySearchBenchmark {
 
     @Setup
     public void setup() {
-        SORTED_SOURCE_DATA = createSortedArray(n, n);
+        SORTED_SOURCE_DATA = createSortedArray(n, 3);
         SORTED_KEYS = createSortedArray(LOOP, 3);
         UNSORTED_SOURCE_DATA = generateUnsortedArray(n, n);
         UNSORTED_KEYS = generateUnsortedArray(LOOP, n * 5);
@@ -68,7 +68,7 @@ public class BinarySearchBenchmark {
 
     @Benchmark
     public void enhancedSearchDuplicates(Blackhole bh) {
-        boolean res = enhancedSearch.search(SORTED_SOURCE_DATA, SORTED_SOURCE_DATA);
+        boolean res = enhancedSearch.search(SORTED_SOURCE_DATA, SORTED_KEYS);
         bh.consume(res);
     }
 
