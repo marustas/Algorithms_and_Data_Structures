@@ -7,39 +7,6 @@ import java.util.Random;
 
 class Benchmark {
 
-    private static void linear(int[] array, int[] indx) {
-        for (int j : indx) {
-            Linear.search(array, j);
-        }
-    }
-
-    private static void binary(int[] array, int[] indx) {
-        for (int j : indx) {
-            Binary.search(array, j);
-        }
-    }
-
-    private static int[] sorted(int n) {
-        Random rnd = new Random();
-        int[] array = new int[n];
-        int nxt = rnd.nextInt(10);
-
-        for (int i = 0; i < n; i++) {
-            array[i] = nxt;
-            nxt += rnd.nextInt(10) + 1;
-        }
-        return array;
-    }
-
-    private static int[] keys(int loop, int n) {
-        Random rnd = new Random();
-        int[] indx = new int[loop];
-        for (int i = 0; i < loop; i++) {
-            indx[i] = rnd.nextInt(n * 5);
-        }
-        return indx;
-    }
-
     public static void main(String[] arg) {
 
         int[] sizes = {100, 200, 400, 800, 1600, 3200, 6400, 12800, 25600};
@@ -83,5 +50,38 @@ class Benchmark {
             System.out.printf("%8.0f | %.2f %n", (min / loop), (min * 10 / loop / Math.log(n)));
 
         }
+    }
+
+    private static void linear(int[] array, int[] indx) {
+        for (int j : indx) {
+            Linear.search(array, j);
+        }
+    }
+
+    private static void binary(int[] array, int[] indx) {
+        for (int j : indx) {
+            Binary.search(array, j);
+        }
+    }
+
+    private static int[] sorted(int n) {
+        Random rnd = new Random();
+        int[] array = new int[n];
+        int nxt = rnd.nextInt(10);
+
+        for (int i = 0; i < n; i++) {
+            array[i] = nxt;
+            nxt += rnd.nextInt(10) + 1;
+        }
+        return array;
+    }
+
+    private static int[] keys(int loop, int n) {
+        Random rnd = new Random();
+        int[] indx = new int[loop];
+        for (int i = 0; i < loop; i++) {
+            indx[i] = rnd.nextInt(n * 5);
+        }
+        return indx;
     }
 }

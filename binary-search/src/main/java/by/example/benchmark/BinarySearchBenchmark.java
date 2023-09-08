@@ -3,6 +3,7 @@ package by.example.benchmark;
 import by.example.impl.Binary;
 import by.example.impl.Enhanced;
 import by.example.impl.Linear;
+
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.Runner;
@@ -17,99 +18,83 @@ import java.util.concurrent.TimeUnit;
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 public class BinarySearchBenchmark {
-    private static final int LOOP = 1000;
-    @Param({"1000"})
-    private int n;
-    private int[] SORTED_DATA_FOR_TESTING;
-    private int[] SORTED_KEYS;
 
-    private int[] UNSORTED_DATA_FOR_TESTING;
-    private int[] UNSORTED_KEYS;
+	private static final int LOOP = 1_000;
 
-    public static void main(String[] args) throws RunnerException {
+	@Param({ "100", "1000", "10000" })
+	private int n;
 
-        Options opt = new OptionsBuilder()
-                .include(BinarySearchBenchmark.class.getSimpleName())
-                .forks(1)
-                .build();
+	private int[] SORTED_SOURCE_DATA;
+	private int[] SORTED_KEYS;
 
-        new Runner(opt).run();
-    }
+	private int[] UNSORTED_SOURCE_DATA;
+	private int[] UNSORTED_KEYS;
 
-    @Setup
-    public void setup() {
-        SORTED_DATA_FOR_TESTING = createSortedData();
-        SORTED_KEYS = createSortedKeys();
-        UNSORTED_DATA_FOR_TESTING = createUnsortedData();
-        UNSORTED_KEYS = createUnsortedKeys();
-    }
+	public static void main(String[] args) throws RunnerException {
 
-    @Benchmark
-    public void binarySearch(Blackhole bh) {
-        int i = 0;
-        while (i < SORTED_KEYS.length) {
-            boolean res = Binary.search(SORTED_DATA_FOR_TESTING, SORTED_KEYS[i]);
-            bh.consume(res);
-            i++;
-        }
-    }
+		Options opt = new OptionsBuilder()
+				.include(BinarySearchBenchmark.class.getSimpleName())
+				.forks(1)
+				.build();
 
-    @Benchmark
-    public void linearSearch(Blackhole bh) {
-        int i = 0;
-        while (i < UNSORTED_KEYS.length) {
-            boolean res = Linear.search(UNSORTED_DATA_FOR_TESTING, UNSORTED_KEYS[i]);
-            bh.consume(res);
-            i++;
-        }
-    }
+		new Runner(opt).run();
+	}
 
-    @Benchmark
-    public void enhancedSearch(Blackhole bh) {
-        int i = 0;
-        while (i < SORTED_KEYS.length) {
-            boolean res = Enhanced.search(SORTED_DATA_FOR_TESTING, SORTED_DATA_FOR_TESTING);
-            bh.consume(res);
-            i++;
-        }
-    }
-    private int[] createSortedData() {
-        Random rnd = new Random();
-        int[] array = new int[n];
-        int nxt = rnd.nextInt(10);
-        for (int i = 0; i < n; i++) {
-            array[i] = nxt;
-            nxt += rnd.nextInt(10) + 1;
-        }
-        return array;
-    }
+	@Setup
+	public void setup() {
+		SORTED_SOURCE_DATA = createSortedArray(n, n);
+		SORTED_KEYS = createSortedArray(LOOP, 3);
+		UNSORTED_SOURCE_DATA = generateUnsortedArray(n, n);
+		UNSORTED_KEYS = generateUnsortedArray(LOOP, n * 5);
+	}
 
-    private int[] createSortedKeys() {
-        Random rnd = new Random();
-        int[] keys = new int[LOOP];
-        int nxt = rnd.nextInt(n*5);
-        for (int i = 0; i < n; i++) {
-            keys[i] = nxt;
-            nxt += rnd.nextInt(n*5) + 1;
-        }
-        return keys;
-    }
+	@Benchmark
+	public void binarySearch(Blackhole bh) {
+		int i = 0;
+		while (i < SORTED_KEYS.length) {
+			boolean res = Binary.search(SORTED_SOURCE_DATA, SORTED_KEYS[i]);
+			bh.consume(res);
+			i++;
+		}
+	}
 
-    private int[] createUnsortedData() {
-        Random rnd = new Random();
-        int[] array = new int[n];
-        for (int i = 0; i < n; i++) {
-            array[i] = rnd.nextInt(10);
-        }
-        return array;
-    }
+	@Benchmark
+	public void linearSearch(Blackhole bh) {
+		int i = 0;
+		while (i < UNSORTED_KEYS.length) {
+			boolean res = Linear.search(UNSORTED_SOURCE_DATA, UNSORTED_KEYS[i]);
+			bh.consume(res);
+			i++;
+		}
+	}
 
-    private int[] createUnsortedKeys() {
-        Random rnd = new Random();
-        int[] keys = new int[LOOP];
-        for (int i = 0; i < LOOP; i++) {
-            keys[i] = rnd.nextInt(n * 5);
-        }
-        return keys;
-    }
+	@Benchmark
+	public void enhancedSearch(Blackhole bh) {
+		int i = 0;
+		while (i < SORTED_KEYS.length) {
+			boolean res = Enhanced.search(SORTED_SOURCE_DATA, SORTED_SOURCE_DATA);
+			bh.consume(res);
+			i++;
+		}
+	}
+
+	private int[] createSortedArray(int amountOfElements, int stepBound) {
+		Random rnd = new Random();
+		int[] keys = new int[amountOfElements];
+		int nxt = rnd.nextInt(stepBound);
+		for (int i = 0; i < amountOfElements; i++) {
+			keys[i] = nxt;
+			nxt += 1 + rnd.nextInt(stepBound);
+		}
+		return keys;
+	}
+
+	private int[] generateUnsortedArray(int amountOfElements, int bound) {
+		Random rnd = new Random();
+		int[] keys = new int[amountOfElements];
+		for (int i = 0; i < amountOfElements; i++) {
+			keys[i] = rnd.nextInt(bound);
+		}
+		return keys;
+	}
 }
