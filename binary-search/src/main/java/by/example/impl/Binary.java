@@ -1,19 +1,7 @@
 package by.example.impl;
 
-import by.example.DuplicateSearch;
-import by.example.KeySearch;
-
-public class Binary implements KeySearch, DuplicateSearch {
-
-    boolean debug;
-
-    public Binary debug(boolean debug) {
-        this.debug = debug;
-        return this;
-    }
-
-    @Override
-    public boolean search(int[] array, int key) {
+public class Binary {
+    public static boolean search(int[] array, int key) {
         int first = 0;
         int last = array.length - 1;
         while (true) {
@@ -34,21 +22,5 @@ public class Binary implements KeySearch, DuplicateSearch {
             break;
         }
         return false;
-    }
-
-    @Override
-    public boolean search(int[] where, int[] what) {
-        boolean foundDuplicates = false;
-        int counter = 0;
-        for (int key : what) {
-            if (search(where, key)) {
-                foundDuplicates = true;
-                counter++;
-            }
-        }
-        if(debug) {
-            System.out.printf("%d DUPLICATES found%n", counter);
-        }
-        return foundDuplicates;
     }
 }
