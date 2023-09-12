@@ -1,15 +1,21 @@
 package org.example;
 
 public class SelectionSort {
-    public void sort(int[] array) {
+    private static void sort(int[] array) {
         for (int i = 0; i < array.length - 1; i++) {
-            int candidate = array[i];
-            for (int j = i; j < array.length; j++) {
-                if (candidate > array[j]) {
-                    candidate = array[j];
+            int candidate = i;
+            for (int j = i + 1; j < array.length; j++) {
+                if (array[j] < array[candidate]) {
+                    candidate = j;
                 }
             }
-            array[i] = candidate;
+            swap(array, i, candidate);
         }
+    }
+
+    private static void swap(int[] array, int a, int b) {
+        int temp = array[a];
+        array[a] = array[b];
+        array[b] = temp;
     }
 }
