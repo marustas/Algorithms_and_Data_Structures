@@ -13,11 +13,18 @@ public class SortingBenchmark {
     }
 
     public static void main(String[] arg) {
-int[] sizes = {5, 10, 20, 40, 80};
+int[] sizes = {5, 10, 15, 20};
 for(int s: sizes){
     int[] array = createData(s);
+
     System.out.println("BEFORE SORTING:\n");
-    for (int j = 0; j < 10; j++) {
+    for (int j = 0; j < s; j++) {
+        System.out.println(array[j]);
+    }
+
+    System.out.println("AFTER SORTING:\n");
+    InsertionSort.sort(array);
+    for (int j = 0; j < s; j++) {
         System.out.println(array[j]);
     }
 }
