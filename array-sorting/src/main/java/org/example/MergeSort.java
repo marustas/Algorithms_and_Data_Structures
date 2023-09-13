@@ -11,6 +11,7 @@ public class MergeSort {
     private static void sort(int[] org, int[] aux, int lo, int hi) {
         if (lo != hi) {
             int mid = (lo + hi) / 2;
+
             sort(org, aux, lo, mid);
 
 // sort the items from mid+1 to hi
@@ -22,7 +23,7 @@ public class MergeSort {
 
     private static void merge(int[] org, int[] aux, int lo, int mid, int hi) {
 // copy all items from lo to hi from org to aux
-        for (int i = lo; i < hi; i++) {
+        for (int i = lo; i <= hi; i++) {
             aux[i] = org[i];
         }
 // let's do the merging
@@ -33,25 +34,27 @@ public class MergeSort {
             // if i is greater than mid then
             // move the j'th item to the org array, update j
             if (i > mid) {
-                org[k] = aux[j++];
+                org[k] = aux[j];
+                j++;
             }
             // else if j is greate than hi then
             // move the i'th item to the org array, update i
             else if (j > hi) {
-                org[k] = aux[i++];
+                org[k] = aux[i];
+                i++;
             }
             // else if the i'th item is smaller than the j¨ath item,
-                // move the i'th item to the org array, update i
+            // move the i'th item to the org array, update i
             else if (aux[i] < aux[j]) {
-                org[k] = aux[i++];
+                org[k] = aux[i];
+                i++;
             }
             // else
             // move the j'th item to the org array, update j
             else {
-                org[k] = aux[j++];
+                org[k] = aux[j];
+                j++;
             }
-
-
         }
     }
 }
