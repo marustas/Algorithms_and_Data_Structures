@@ -43,12 +43,12 @@ public class MergeSort {
             // else if the i'th item is smaller than the j¨ath item,
                 // move the i'th item to the org array, update i
             else if (aux[i] < aux[j]) {
-                org[k] = aux[i];
+                org[k] = aux[i++];
             }
             // else
             // move the j'th item to the org array, update j
             else {
-                org[k] = aux[j];
+                org[k] = aux[j++];
             }
 
 
