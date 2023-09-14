@@ -1,13 +1,8 @@
 package org.example;
 
-import org.openjdk.jmh.annotations.*;
-import org.openjdk.jmh.runner.Runner;
-import org.openjdk.jmh.runner.RunnerException;
-import org.openjdk.jmh.runner.options.Options;
-import org.openjdk.jmh.runner.options.OptionsBuilder;
-
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 //@State(Scope.Benchmark)
 //@BenchmarkMode(Mode.AverageTime)
@@ -70,7 +65,7 @@ public class SortingBenchmark {
         int[] sizes = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000, 15000};
         int loop = 10;
         int tries = 100;
-        System.out.printf("Number of elements\t Selection time\t Insertion time\t Merge time\t Ratio \n");
+        System.out.printf("Number of elements\t Selection time\t Insertion time\t Merge time \t Improved Merge time\n");
         for (int s : sizes) {
             int[] array = createData(s);
 
@@ -113,8 +108,23 @@ public class SortingBenchmark {
                 }
             }
 
-            double ratio = (minInsertTime / (loop * 1000)) / (minSelectTime / (loop * 1000));
-            System.out.printf("%d\t\t\t\t%8.0f\t\t\t%8.0f\t\t%8.0f\t%.2f\n", s, minSelectTime / (loop * 1000), minInsertTime / (loop * 1000), minMergeTime / (loop * 1000), ratio);
+            double minImprovedMergeTime = Double.POSITIVE_INFINITY;
+            for (int i = 0; i < tries; i++) {
+                double ImprovedMergeStart = System.nanoTime();
+                for (int j = 0; j < loop; j++) {
+                    int[] clone = array.clone();
+                    ImprovedMergeSort.sort(clone);
+                }
+                double ImprovedMergeTime = System.nanoTime() - ImprovedMergeStart;
+                if (ImprovedMergeTime < minImprovedMergeTime) {
+                    minImprovedMergeTime = ImprovedMergeTime;
+                }
+            }
+
+            double insertionFunction = minInsertTime / (loop * s * s ) * 10;
+            double selectionFunction = minSelectTime / (loop * s * s) * 10;
+            double mergeFunction = minMergeTime / (loop * s * Math.log(s)) * 10;
+            System.out.printf("%d\t\t\t\t%.2f\t\t\t%.2f\t\t%.2f\t\t%.2f\n", s, minSelectTime/(loop*1000), minInsertTime/(loop*1000),minMergeTime/(loop*1000), minImprovedMergeTime/(loop*1000));
 
         }
     }
