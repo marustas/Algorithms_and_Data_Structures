@@ -1,6 +1,6 @@
 package by.example.sort;
 
-public class ImprovedMerge implements Sortable{
+public class ImprovedMerge implements Sortable {
     @Override
     public void sort(int[] array) {
         if (array.length == 0)
