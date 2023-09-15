@@ -4,6 +4,7 @@ import static by.example.TestDataUtils.createData;
 
 import java.util.concurrent.TimeUnit;
 
+import by.example.sort.ImprovedMerge;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -40,9 +41,14 @@ public class SortingJmhBenchmark {
 	}
 
 	@Benchmark
+	public void improvedMergeSort() {
+		int[] clone = DATA_FOR_TESTING.clone();
+		new ImprovedMerge().sort(clone);
+	}
+	@Benchmark
 	public void mergeSort() {
 		int[] clone = DATA_FOR_TESTING.clone();
-		new Merge.sort(clone);
+		new Merge().sort(clone);
 	}
 
 	@Benchmark

@@ -1,15 +1,15 @@
 package by.example.sort;
 
-public class ImprovedMergeSort implements Sortable{
+public class ImprovedMerge implements Sortable{
     @Override
-    public void sort(int[] org) {
-        if (org.length == 0)
+    public void sort(int[] array) {
+        if (array.length == 0)
             return;
-        int[] aux = new int[org.length];
-        for (int i = 0; i < org.length; i++) {
-            aux[i] = org[i];
+        int[] aux = new int[array.length];
+        for (int i = 0; i < array.length; i++) {
+            aux[i] = array[i];
         }
-        sort(aux, org, 0, org.length - 1);
+        sort(aux, array, 0, array.length - 1);
     }
 
     private static void sort(int[] org, int[] aux, int lo, int hi) {
