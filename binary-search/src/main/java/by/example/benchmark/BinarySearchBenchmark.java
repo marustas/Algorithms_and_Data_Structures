@@ -9,6 +9,7 @@ import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -40,6 +41,7 @@ public class BinarySearchBenchmark {
 
     @Benchmark
     public void binarySearch(Blackhole bh) {
+        System.out.println(" binarySearch#DATA_FOR_TESTING = " + Arrays.toString(DATA_FOR_TESTING));
         int i = 0;
         while (i < KEYS.length) {
             boolean res = Binary.search(DATA_FOR_TESTING, KEYS[i]);
