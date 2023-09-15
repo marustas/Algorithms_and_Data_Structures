@@ -18,7 +18,7 @@ import by.example.sort.Selection;
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 public class SortingJmhBenchmark {
-	@Param({ "2000", "5000" })
+	@Param({ "1000", "2000", "3000", "4000", "5000", "6000", "7000", "8000", "9000", "10000", "11000", "12000", "13000", "14000", "15000", })
 	private int n;
 	private int[] DATA_FOR_TESTING;
 
@@ -28,7 +28,7 @@ public class SortingJmhBenchmark {
 				.include(SortingJmhBenchmark.class.getSimpleName())
 				.forks(1)
 				.threads(1)
-				.warmupIterations(1)
+				.warmupIterations(5)
 				.build();
 
 		new Runner(opt).run();
@@ -42,7 +42,7 @@ public class SortingJmhBenchmark {
 	@Benchmark
 	public void mergeSort() {
 		int[] clone = DATA_FOR_TESTING.clone();
-		new Merge().sort(clone);
+		new Merge.sort(clone);
 	}
 
 	@Benchmark
@@ -56,6 +56,4 @@ public class SortingJmhBenchmark {
 		int[] clone = DATA_FOR_TESTING.clone();
 		new Insertion().sort(clone);
 	}
-
-
 }

@@ -1,7 +1,8 @@
-package org.example;
+package by.example.sort;
 
-public class ImprovedMergeSort {
-    public static void sort(int[] org) {
+public class ImprovedMergeSort implements Sortable{
+    @Override
+    public void sort(int[] org) {
         if (org.length == 0)
             return;
         int[] aux = new int[org.length];
