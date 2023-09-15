@@ -1,7 +1,5 @@
 package org.example;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Random;
 
 //@State(Scope.Benchmark)
@@ -121,10 +119,10 @@ public class SortingBenchmark {
                 }
             }
 
-            double insertionFunction = minInsertTime / (loop * s * s ) * 10;
-            double selectionFunction = minSelectTime / (loop * s * s) * 10;
-            double mergeFunction = minMergeTime / (loop * s * Math.log(s)) * 10;
-            System.out.printf("%d\t\t\t\t%.2f\t\t\t%.2f\t\t%.2f\t\t%.2f\n", s, minSelectTime/(loop*1000), minInsertTime/(loop*1000),minMergeTime/(loop*1000), minImprovedMergeTime/(loop*1000));
+//            double insertionFunction = minInsertTime / (loop * s * s ) * 10;
+//            double selectionFunction = minSelectTime / (loop * s * s) * 10;
+//            double mergeFunction = minMergeTime / (loop * s * Math.log(s)) * 10;
+            System.out.printf("%d\t\t\t\t%.0f\t\t\t%.0f\t\t%.0f\t\t%.0f\n", s, minSelectTime / (loop * 1000), minInsertTime / (loop * 1000), minMergeTime / (loop * 1000), minImprovedMergeTime / (loop * 1000));
 
         }
     }
