@@ -3,6 +3,14 @@ package org.example;
 class LinkedList {
     Cell first;
 
+    LinkedList(int n) {
+        Cell last = null;
+        for (int i = 0; i < n; i++) {
+            last = new Cell(i, last);
+        }
+        first = last;
+    }
+
     private class Cell {
         int head;
         Cell tail;
@@ -13,7 +21,7 @@ class LinkedList {
         }
 
         private Cell add(int item) {
-            return new Cell(item, first);
+            return new Cell(item, null);
         }
 
         private int length() {
@@ -66,7 +74,7 @@ class LinkedList {
             nxt = nxt.tail;
         }
         nxt.tail = b.first;
-        b.first.tail = null;
+        b.first = null;
     }
 
 }
