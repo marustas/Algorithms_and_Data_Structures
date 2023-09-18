@@ -1,7 +1,7 @@
 package org.example;
 
 class LinkedList {
-    Cell firts;
+    Cell first;
 
     private class Cell {
         int head;
@@ -13,7 +13,7 @@ class LinkedList {
         }
 
         private Cell add(int item) {
-            return new Cell(item, this);
+            return new Cell(item, first);
         }
 
         private int length() {
@@ -28,8 +28,12 @@ class LinkedList {
 
         private boolean find(int item) {
             Cell nxt = this;
-            while (nxt.head != item) {
-                nxt = nxt.tail;
+            for (int i = 0; i < length(); i++) {
+                if (nxt.head == item) {
+                    return true;
+                } else {
+                    nxt = nxt.tail;
+                }
             }
             return false;
         }
@@ -51,6 +55,18 @@ class LinkedList {
             else
                 return this;
         }
+
+    }
+
+    public void append(LinkedList b) {
+        Cell nxt = this.first;
+        Cell prv = null;
+        while (nxt.tail != null) {
+            prv = nxt;
+            nxt = nxt.tail;
+        }
+        nxt.tail = b.first;
+        b.first.tail = null;
     }
 
 }
