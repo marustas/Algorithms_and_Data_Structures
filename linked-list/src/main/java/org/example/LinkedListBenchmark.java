@@ -36,7 +36,7 @@ public class LinkedListBenchmark {
         int sizes[] = {100, 200, 400, 800, 1600, 3200, 6400, 12800, 25600};
         //The time depends on the size of the array that gets the appendix.
         //If the array is constant, then O(1), if it grows, then O(n), where n is its size§
-        int sizeB = 100;
+        int sizeB = 800;
         int tries = 1000;
         System.out.printf("Number of elements\t\t Linked list time \t\t Array time\n");
         for (int sizeA : sizes) {
