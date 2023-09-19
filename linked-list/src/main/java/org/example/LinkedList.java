@@ -22,7 +22,6 @@ public class LinkedList {
     }
 
     public Cell add(int item) {
-
         return new Cell(item, first);
     }
 

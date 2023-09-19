@@ -16,7 +16,7 @@ import static org.example.LinkedListBenchmark.appendArrays;
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 public class LinkedListJmhBenchmark {
-    @Param({"100", "200", "400", "800", "1600", "3200", "6400", "12800", "25600"})
+    @Param({"100", "200", "400", "800", "1600", "3200", "6400", "12800"})
     private int sizeA;
     private int sizeB = 100;
     private int[] arrayA;
@@ -56,6 +56,7 @@ public class LinkedListJmhBenchmark {
         linkedListA.append(linkedListB);
     }
 
+    @Benchmark
     public void appendGrowingArray() {
         int[] cloneA = arrayA.clone();
         int[] cloneB = arrayB.clone();
