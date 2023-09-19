@@ -9,16 +9,17 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 import java.util.concurrent.TimeUnit;
 
-import static by.example.TestDataUtils.createData;
 import static org.example.LinkedListBenchmark.appendArrays;
+import static org.example.LinkedListBenchmark.createArray;
 
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
-@OutputTimeUnit(TimeUnit.MICROSECONDS)
+@OutputTimeUnit(TimeUnit.NANOSECONDS)
 public class LinkedListJmhBenchmark {
     @Param({"100", "200", "400", "800", "1600", "3200", "6400", "12800"})
     private int sizeA;
-    private int[] arrayA;
+    private int sizeB = 100;
+        private int[] arrayA;
     private int[] arrayB;
     private LinkedList linkedListA;
     private LinkedList linkedListB;
@@ -37,9 +38,8 @@ public class LinkedListJmhBenchmark {
 
     @Setup
     public void setup() {
-        arrayA = createData(sizeA);
-        int sizeB = 100;
-        arrayB = createData(sizeB);
+        arrayA = createArray(sizeA);
+        arrayB = createArray(sizeB);
         linkedListA = new LinkedList(sizeA);
         linkedListB = new LinkedList(sizeB);
     }

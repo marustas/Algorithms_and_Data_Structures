@@ -71,7 +71,9 @@ public class LinkedList {
 
     public void append(LinkedList b) {
         Cell nxt = first;
+        Cell prv = null;
         while (nxt.tail != null) {
+            prv = nxt;
             nxt = nxt.tail;
         }
         nxt.tail = b.first;
