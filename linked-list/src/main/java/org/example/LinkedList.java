@@ -1,8 +1,6 @@
 package org.example;
 
 public class LinkedList {
-    Cell first;
-
     public LinkedList(int n) {
         Cell last = null;
         for (int i = 0; i < n; i++) {
@@ -10,6 +8,8 @@ public class LinkedList {
         }
         first = last;
     }
+
+    Cell first;
 
     private static class Cell {
         int head;
@@ -21,22 +21,20 @@ public class LinkedList {
         }
     }
 
-    public Cell add(int item) {
-        return new Cell(item, first);
+    public void add(int item) {
+        first = new Cell(item, first);
     }
 
     public int length() {
-        int length = 1;
-        if (first.tail != null) {
-            Cell nxt = first;
-            while (nxt.tail != null) {
-                length++;
-                nxt = nxt.tail;
-            }
-        } else {
-            length = 0;
+        int count = 0;
+        Cell crnt = first;
+
+        while (crnt != null) {
+            count++;
+            crnt = crnt.tail;
         }
-        return length;
+
+        return count;
     }
 
     public boolean find(int item) {
@@ -51,21 +49,24 @@ public class LinkedList {
         return false;
     }
 
-    public Cell remove(int item) {
-        Cell nxt = first;
-        Cell prv = null;
-        while (nxt != null) {
-            if (nxt.head == item) {
-                prv.tail = nxt.tail;
-                break;
-            }
-            prv = nxt;
-            nxt = nxt.tail;
+    public void remove(int item) {
+        if (first == null) {
+            return;
         }
-        if (first == nxt)
-            return null;
-        else
-            return first;
+
+        if (first.head == item) {
+            first = first.tail;
+            return;
+        }
+
+        Cell crnt = first;
+        while (crnt.tail != null) {
+            if (crnt.tail.head == item) {
+                crnt.tail = crnt.tail.tail;
+                return;
+            }
+            crnt = crnt.tail;
+        }
     }
 
     public void append(LinkedList b) {

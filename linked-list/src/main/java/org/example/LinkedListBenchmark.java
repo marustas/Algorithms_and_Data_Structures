@@ -13,6 +13,7 @@ public class LinkedListBenchmark {
         }
         return array;
     }
+
     public static void appendArrays(int[] arr1, int[] arr2) {
         // Calculate the length of the new array
         int totalLength = arr1.length + arr2.length;
@@ -69,5 +70,18 @@ public class LinkedListBenchmark {
             System.out.printf("%d\t\t %.2f\t\t %.2f\n", sizeA, minLinked, minArray);
 
         }
+//        LinkedList a = new LinkedList(5);
+//        a.add(5);
+//        a.add(6);
+//        a.add(13);
+//        a.add(34);
+//
+//        LinkedList b = new LinkedList(5);
+//        b.add(8);
+//        b.add(9);
+//        b.add(14);
+//        b.add(22);
+//        a.append(b);
+//        System.out.println(a.length());
     }
 }

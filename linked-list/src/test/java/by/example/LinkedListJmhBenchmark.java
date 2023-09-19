@@ -18,7 +18,6 @@ import static org.example.LinkedListBenchmark.appendArrays;
 public class LinkedListJmhBenchmark {
     @Param({"100", "200", "400", "800", "1600", "3200", "6400", "12800"})
     private int sizeA;
-    private int sizeB = 100;
     private int[] arrayA;
     private int[] arrayB;
     private LinkedList linkedListA;
@@ -39,6 +38,7 @@ public class LinkedListJmhBenchmark {
     @Setup
     public void setup() {
         arrayA = createData(sizeA);
+        int sizeB = 100;
         arrayB = createData(sizeB);
         linkedListA = new LinkedList(sizeA);
         linkedListB = new LinkedList(sizeB);
