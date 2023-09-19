@@ -11,7 +11,7 @@ class LinkedList {
         first = last;
     }
 
-    private class Cell {
+    private static class Cell {
         int head;
         Cell tail;
 
@@ -19,58 +19,59 @@ class LinkedList {
             head = val;
             tail = tl;
         }
+    }
 
-        private Cell add(int item) {
-            return new Cell(item, null);
-        }
+    public Cell add(int item) {
 
-        private int length() {
-            int length = 0;
-            Cell nxt = this;
+        return new Cell(item, first);
+    }
+
+    public int length() {
+        int length = 1;
+        if (first.tail != null) {
+            Cell nxt = first;
             while (nxt.tail != null) {
                 length++;
                 nxt = nxt.tail;
             }
-            return length;
+        } else {
+            length = 0;
         }
+        return length;
+    }
 
-        private boolean find(int item) {
-            Cell nxt = this;
-            for (int i = 0; i < length(); i++) {
-                if (nxt.head == item) {
-                    return true;
-                } else {
-                    nxt = nxt.tail;
-                }
-            }
-            return false;
-        }
-
-        private Cell remove(int item) {
-            Cell nxt = this;
-            Cell prv = null;
-            while (nxt != null) {
-                if (nxt.head == item) {
-                    prv.tail = nxt.tail;
-                    break
-                            ;
-                }
-                prv = nxt;
+    public boolean find(int item) {
+        Cell nxt = first;
+        for (int i = 0; i < length(); i++) {
+            if (nxt.head == item) {
+                return true;
+            } else {
                 nxt = nxt.tail;
             }
-            if (this == nxt)
-                return null;
-            else
-                return this;
         }
+        return false;
+    }
 
+    public Cell remove(int item) {
+        Cell nxt = first;
+        Cell prv = null;
+        while (nxt != null) {
+            if (nxt.head == item) {
+                prv.tail = nxt.tail;
+                break;
+            }
+            prv = nxt;
+            nxt = nxt.tail;
+        }
+        if (first == nxt)
+            return null;
+        else
+            return first;
     }
 
     public void append(LinkedList b) {
-        Cell nxt = this.first;
-        Cell prv = null;
+        Cell nxt = first;
         while (nxt.tail != null) {
-            prv = nxt;
             nxt = nxt.tail;
         }
         nxt.tail = b.first;
