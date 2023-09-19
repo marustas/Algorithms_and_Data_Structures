@@ -1,9 +1,9 @@
 package org.example;
 
-class LinkedList {
+public class LinkedList {
     Cell first;
 
-    LinkedList(int n) {
+    public LinkedList(int n) {
         Cell last = null;
         for (int i = 0; i < n; i++) {
             last = new Cell(i, last);
