@@ -36,17 +36,14 @@ public class LinkedListBenchmark {
         int sizes[] = {100, 200, 400, 800, 1600, 3200, 6400, 12800, 25600};
         //The time depends on the size of the array that gets the appendix.
         //If the array is constant, then O(1), if it grows, then O(n), where n is its size§
-        int sizeB = 800;
         int tries = 1000;
-        System.out.printf("Number of elements\t\t Linked list time \t\t Array time\n");
-        for (int sizeA : sizes) {
+        System.out.printf("Number of elements\t\t Ratio\n");
+        for (int size : sizes) {
 
             double minList = Double.POSITIVE_INFINITY;
             for (int i = 0; i < tries; i++) {
-                    LinkedList a = new LinkedList(sizeA);
-                    LinkedList b = new LinkedList(sizeB);
                 double appendStart = System.nanoTime();
-                    b.append(a);
+                LinkedList list = new LinkedList(size);
                 double listExecutionTime = System.nanoTime() - appendStart;
                 if (listExecutionTime < minList) {
                     minList = listExecutionTime;
@@ -55,19 +52,16 @@ public class LinkedListBenchmark {
 
             double minArray = Double.POSITIVE_INFINITY;
             for (int i = 0; i < tries; i++) {
-                int[] a = createArray(sizeA);
-                int[] b = createArray(sizeB);
-
-                int[] cloneA = a.clone();
-                int[] cloneB = b.clone();
                 double appendArrayStart = System.nanoTime();
-                appendArrays(cloneB, cloneA);
+                int[] array = createArray(size);
                 double executionTime = System.nanoTime() - appendArrayStart;
                 if (executionTime < minArray) {
                     minArray = executionTime;
                 }
             }
-            System.out.printf("%d\t\t %.2f\t\t %.2f\n", sizeA, minList, minArray);
+
+            double ratio = minList/minArray;
+            System.out.printf("%d\t\t %.2f\n", size, ratio);
         }
     }
 }
