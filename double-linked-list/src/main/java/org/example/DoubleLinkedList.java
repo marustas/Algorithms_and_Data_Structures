@@ -2,13 +2,32 @@ package org.example;
 
 public class DoubleLinkedList {
     Cell first;
+    Cell[] temp;
+
+    public DoubleLinkedList(int n) {
+        temp = new Cell[n];
+        Cell last = null;
+        for (int i = 0; i < n; i++) {
+            last = new Cell(i, last, null);
+            temp[i] = last;
+        }
+        first = last;
+    }
+
+    public Cell[] createCellReferences() {
+        Cell[] array = new Cell[temp.length];
+        for (int i = 0; i < temp.length; i++) {
+            array[i] = temp[i];
+        }
+        return array;
+    }
 
     public static class Cell {
         int head;
         Cell front;
         Cell behind;
 
-        Cell(int val, Cell frnt, Cell bhnd) {
+        public Cell(int val, Cell frnt, Cell bhnd) {
             head = val;
             front = frnt;
             behind = bhnd;
@@ -43,6 +62,35 @@ public class DoubleLinkedList {
         return false;
     }
 
+    public void remove(int item) {
+        Cell current = first;
+
+        // Search for the node with the given key
+        while (current != null) {
+            if (current.head == item) {
+                // Found the node to remove
+
+                // If the node to remove is the head
+                if (current == first) {
+                    first = current.front;
+                    if (first != null) {
+                        first.behind = null;
+                    }
+                } else {
+                    // If the node to remove is not the head
+                    current.behind.front = current.front;
+                    if (current.front != null) {
+                        current.front.behind = current.behind;
+                    }
+                }
+
+                // Node removed
+                return;
+            }
+            current = current.front;
+        }
+
+    }
 
     public void unlink(Cell cell) {
         if (first == null || cell == null) {

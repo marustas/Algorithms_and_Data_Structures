@@ -1,17 +1,28 @@
 package org.example;
 
 public class LinkedList {
+    Cell first;
+    Cell[] temp;
+
     public LinkedList(int n) {
+        temp = new Cell[n];
         Cell last = null;
         for (int i = 0; i < n; i++) {
             last = new Cell(i, last);
+            temp[i] = last;
         }
         first = last;
     }
 
-    Cell first;
+    public Cell[] createCellReferences() {
+        Cell[] array = new Cell[temp.length];
+        for (int i = 0; i < temp.length; i++) {
+            array[i] = temp[i];
+        }
+        return array;
+    }
 
-    private static class Cell {
+    public static class Cell {
         int head;
         Cell tail;
 
@@ -78,6 +89,31 @@ public class LinkedList {
         }
         nxt.tail = b.first;
         b.first = null;
+    }
+
+    public void unlink(Cell cell) {
+        if (first == null || cell == null) {
+            return;
+        }
+
+        if (first == cell) {
+            first = first.tail;
+            return;
+        }
+
+        Cell current = first;
+        while (current.tail != null && current.tail != cell) {
+            current = current.tail;
+        }
+
+        if (current.tail == cell) {
+            current.tail = cell.tail;
+        }
+    }
+
+    public void insert(Cell cell) {
+        cell.tail = first;
+        first = cell;
     }
 
 }
