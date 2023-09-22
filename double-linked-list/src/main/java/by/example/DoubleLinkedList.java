@@ -15,8 +15,17 @@ public class DoubleLinkedList implements List {
 		if (size >= data.length) {
 			throw new ArrayIndexOutOfBoundsException("Impossible to store the element");
 		}
-		head = new Cell(item, head, null);
-		data[size++] = head;
+		Cell newCell;
+		if (head == null) {
+			newCell = new Cell(item, null, null);
+			head = newCell;
+		} else {
+			newCell = new Cell(item, head, null);
+			head.previous = newCell;
+			head = newCell;
+		}
+
+		data[size++] = newCell;
 	}
 
 	// NULL|1|NULL, NULL|3|1|NULL, NULL|5|3|1|NULL, NULL|7|5|3|1|NULL, NULL|9|7|5|3|1|NULL
@@ -109,9 +118,9 @@ public class DoubleLinkedList implements List {
 		private Cell next;
 		private Cell previous;
 
-		public Cell(int value, Cell prev, Cell previous) {
+		public Cell(int value, Cell next, Cell previous) {
 			this.value = value;
-			this.next = prev;
+			this.next = next;
 			this.previous = previous;
 		}
 	}

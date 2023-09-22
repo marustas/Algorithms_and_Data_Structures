@@ -8,8 +8,8 @@ public class DoubleLinkedListBenchmark {
 
 	public static void main(String[] arg) {
 		var random = new Random();
-		int k = 1000;
-		int tries = 1000;
+		int k = 1_000;
+		int tries = 100_000;
 		int[] sizes = { 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000 };
 		System.out.print("Number of elements\t\t Time\n");
 		for (int size : sizes) {
@@ -21,9 +21,11 @@ public class DoubleLinkedListBenchmark {
 					list.add(i);
 				}
 				Cell[] references = list.getReferences();
+				int[] randomIndexes = random.ints(k, 0, size - 1).toArray();
 				double start = System.nanoTime();
-				for (int j = 0; j < k; j++) {
-					var randomIndex = random.nextInt(size - 1);
+				for (int randomIndex: randomIndexes) {
+					// remove and insert the random element k times
+					// (k is the number of operations performed in one iteration)
 					var randomReference = references[randomIndex];
 					list.unlink(randomReference);
 					list.insert(randomReference);
