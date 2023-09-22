@@ -1,119 +1,119 @@
 package by.example;
 
-public class DoubleLinkedList {
-    Cell first;
-    Cell[] temp;
+public class DoubleLinkedList implements List {
+	private Cell head;
+	private final Cell[] data;
 
-    public DoubleLinkedList(int n) {
-        temp = new Cell[n];
-        Cell last = null;
-        for (int i = 0; i < n; i++) {
-            last = new Cell(i, last, null);
-            temp[i] = last;
-        }
-        first = last;
-    }
+	private int size = 0;
 
-    public Cell[] createCellReferences() {
-        Cell[] array = new Cell[temp.length];
-        for (int i = 0; i < temp.length; i++) {
-            array[i] = temp[i];
-        }
-        return array;
-    }
+	public DoubleLinkedList(int n) {
+		data = new Cell[n];
+	}
 
-    public static class Cell {
-        public int head;
-        Cell front;
-        Cell behind;
+	@Override
+	public void add(int item) {
+		if (size >= data.length) {
+			throw new ArrayIndexOutOfBoundsException("Impossible to store the element");
+		}
+		head = new Cell(item, head, null);
+		data[size++] = head;
+	}
 
-        public Cell(int val, Cell frnt, Cell bhnd) {
-            head = val;
-            front = frnt;
-            behind = bhnd;
-        }
-    }
+	// NULL|1|NULL, NULL|3|1|NULL, NULL|5|3|1|NULL, NULL|7|5|3|1|NULL, NULL|9|7|5|3|1|NULL
+	@Override
+	public int length() {
+		int count = 0;
+		Cell crnt = head;
 
-    public void add(int item) {
-        first = new Cell(item, first, null);
-    }
+		while (crnt != null) {
+			count++;
+			crnt = crnt.next;
+		}
+		return count;
+	}
 
-    public int length() {
-        int count = 0;
-        Cell crnt = first;
+	@Override
+	public boolean find(int item) {
+		Cell nxt = head;
+		for (int i = 0; i < length(); i++) {
+			if (nxt.value == item) {
+				return true;
+			}
+			nxt = nxt.next;
+		}
+		return false;
+	}
 
-        while (crnt != null) {
-            count++;
-            crnt = crnt.front;
-        }
-        return count;
-    }
+	@Override
+	public void remove(int item) {
+		Cell current = head;
 
-    public boolean find(int item) {
-        Cell nxt = first;
-        for (int i = 0; i < length(); i++) {
-            if (nxt.head == item) {
-                return true;
-            } else {
-                nxt = nxt.front;
-            }
-        }
-        return false;
-    }
+		// Search for the node with the given key
+		while (current != null) {
+			if (current.value == item) {
+				// Found the node to remove
 
-    public void remove(int item) {
-        Cell current = first;
+				// If the node to remove is the head
+				if (current == head) {
+					head = current.next;
+					if (head != null) {
+						head.previous = null;
+					}
+				} else {
+					// If the node to remove is not the head
+					current.previous.next = current.next;
+					if (current.next != null) {
+						current.next.previous = current.previous;
+					}
+				}
 
-        // Search for the node with the given key
-        while (current != null) {
-            if (current.head == item) {
-                // Found the node to remove
+				// Node removed
+				return;
+			}
+			current = current.next;
+		}
 
-                // If the node to remove is the head
-                if (current == first) {
-                    first = current.front;
-                    if (first != null) {
-                        first.behind = null;
-                    }
-                } else {
-                    // If the node to remove is not the head
-                    current.behind.front = current.front;
-                    if (current.front != null) {
-                        current.front.behind = current.behind;
-                    }
-                }
+	}
 
-                // Node removed
-                return;
-            }
-            current = current.front;
-        }
+	public void unlink(Cell cell) {
+		if (head == null || cell == null) {
+			return;
+		}
 
-    }
+		if (head == cell) {
+			head = head.next;
+		}
+		if (cell.next != null) {
+			cell.next.previous = cell.previous;
+		}
+		if (cell.previous != null) {
+			cell.previous.next = cell.next;
+		}
+	}
 
-    public void unlink(Cell cell) {
-        if (first == null || cell == null) {
-            return;
-        }
+	public void insert(Cell cell) {
+		cell.previous = null;
+		cell.next = head;
+		if (head != null) {
+			head.previous = cell;
+		}
+		head = cell;
+	}
 
-        if (first == cell) {
-            first = first.front;
-        }
-        if (cell.front != null) {
-            cell.front.behind = cell.behind;
-        }
-        if (cell.behind != null) {
-            cell.behind.front = cell.front;
-        }
-    }
+	public Cell[] getReferences() {
+		return data;
+	}
 
-    public void insert(Cell cell) {
-        cell.behind = null;
-        cell.front = first;
-        if (first != null) {
-            first.behind = cell;
-        }
-        first = cell;
-    }
+	static class Cell {
+		private final int value;
+		private Cell next;
+		private Cell previous;
+
+		public Cell(int value, Cell prev, Cell previous) {
+			this.value = value;
+			this.next = prev;
+			this.previous = previous;
+		}
+	}
 
 }

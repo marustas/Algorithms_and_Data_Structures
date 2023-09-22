@@ -1,6 +1,6 @@
 package by.example;
 
-public class LinkedList {
+public class LinkedList implements List {
 	public LinkedList(int n) {
 		Cell last = null;
 		for (int i = 0; i < n; i++) {
@@ -9,22 +9,15 @@ public class LinkedList {
 		first = last;
 	}
 
-	Cell first;
 
-	static class Cell {
-		int head;
-		Cell tail;
+	private Cell first;
 
-		Cell(int element, Cell tl) {
-			head = element;
-			tail = tl;
-		}
-	}
-
+	@Override
 	public void add(int element) {
 		first = new Cell(element, first);
 	}
 
+	@Override
 	public int length() {
 		int count = 0;
 		Cell crnt = first;
@@ -37,6 +30,7 @@ public class LinkedList {
 		return count;
 	}
 
+	@Override
 	public boolean find(int item) {
 		Cell nxt = first;
 		for (int i = 0; i < length(); i++) {
@@ -49,6 +43,7 @@ public class LinkedList {
 		return false;
 	}
 
+	@Override
 	public void remove(int item) {
 		if (first == null) {
 			return;
@@ -84,5 +79,15 @@ public class LinkedList {
 		return "LinkedList{" +
 				"length=" + length()
 				+ "}";
+	}
+
+	static class Cell {
+		int head;
+		Cell tail;
+
+		Cell(int element, Cell tl) {
+			head = element;
+			tail = tl;
+		}
 	}
 }
