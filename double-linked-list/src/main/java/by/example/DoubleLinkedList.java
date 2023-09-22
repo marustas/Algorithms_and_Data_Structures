@@ -1,4 +1,4 @@
-package org.example;
+package by.example;
 
 public class DoubleLinkedList {
     Cell first;
