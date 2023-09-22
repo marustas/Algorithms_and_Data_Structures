@@ -48,13 +48,12 @@ public class LinkedList {
         return count;
     }
 
-    public boolean find(int item) {
+    public boolean find(Cell cell) {
         Cell nxt = first;
-        for (int i = 0; i < length(); i++) {
-            if (nxt.head == item) {
+        while (nxt.tail != cell) {
+            nxt = nxt.tail;
+            if (nxt.tail == cell) {
                 return true;
-            } else {
-                nxt = nxt.tail;
             }
         }
         return false;

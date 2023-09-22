@@ -64,7 +64,7 @@ public class LinkedListBenchmark {
 //            System.out.printf("%d\t\t %.2f\n", size, ratio);
 //        }
         int k = 1000;
-        int tries = 100;
+        int tries = 1000;
         int[] sizes = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000};
         System.out.print("Number of elements\t\t Time\n");
         for (int s : sizes) {
@@ -76,8 +76,9 @@ public class LinkedListBenchmark {
 
                 double start = System.nanoTime();
                 for (int index : indices) {
-                    list.unlink(references[index]);
-                    list.insert(references[index]);
+                    list.find(references[index]);
+//                    list.unlink(references[index]);
+//                    list.insert(references[index]);
                 }
                 double executionTime = System.nanoTime() - start;
 
