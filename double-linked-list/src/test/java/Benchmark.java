@@ -8,7 +8,7 @@ public class Benchmark {
         int[] array = new int[n];
         var length = array.length;
         for (int a = 0; a < length; a++) {
-            array[a] = rnd.nextInt(0, bound - 1);
+            array[a] = rnd.nextInt(bound - 1);
         }
         return array;
     }

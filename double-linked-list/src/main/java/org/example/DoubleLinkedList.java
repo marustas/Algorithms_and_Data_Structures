@@ -23,7 +23,7 @@ public class DoubleLinkedList {
     }
 
     public static class Cell {
-        int head;
+        public int head;
         Cell front;
         Cell behind;
 
@@ -46,7 +46,6 @@ public class DoubleLinkedList {
             count++;
             crnt = crnt.front;
         }
-
         return count;
     }
 
@@ -111,7 +110,10 @@ public class DoubleLinkedList {
     public void insert(Cell cell) {
         cell.behind = null;
         cell.front = first;
-        first.behind = cell;
+        if (first != null) {
+            first.behind = cell;
+        }
+        first = cell;
     }
 
 }
