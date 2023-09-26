@@ -19,13 +19,27 @@ public class BinaryTree {
         root = null;
     }
 
-    public void lookup(int key) {
+    public Integer lookup(Integer key) {
+        return lookupRec(root, key);
+    }
 
+    private Integer lookupRec(Node current, Integer key) {
+        if (current == null) {
+            return null;
+        }
+        if (key.equals(current.key)) {
+            return current.value;
+        } else if (key < current.key) {
+            return lookupRec(current.left, key);
+        } else {
+            return lookupRec(current.right, key);
+        }
     }
 
     public void add(Integer key, Integer value) {
         root = addRecursive(root, key, value);
     }
+
     private Node addRecursive(Node current, Integer key, Integer value) {
         if (current == null) {
             return new Node(key, value);
