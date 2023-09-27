@@ -61,6 +61,7 @@ public class BinaryTree implements Iterable<Integer> {
         }
     }
 
+    //If root is static, the debug can't see the nodes in the tree
     static Node root;
 
     public BinaryTree() {
@@ -100,7 +101,6 @@ public class BinaryTree implements Iterable<Integer> {
         } else {
             current.right = addRecursive(current.right, key, value);
         }
-
         return current;
     }
 }
