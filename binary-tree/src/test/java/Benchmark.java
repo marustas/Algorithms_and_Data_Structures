@@ -9,7 +9,7 @@ public class Benchmark {
         int tries = 100_000;
         int bound = 100_000;
         int[] sizes = {10, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000};
-        System.out.print("Number of nodes\t\t Time\n");
+        System.out.print("Number of nodes\tTime\n");
         for (int size : sizes) {
             double min = Double.POSITIVE_INFINITY;
             for (int t = 0; t < tries; t++) {
@@ -34,7 +34,7 @@ public class Benchmark {
                     min = executionTime;
                 }
             }
-            System.out.printf("%d\t\t%.2f\n", size, min / 1000);
+            System.out.printf("%d\t\t\t\t%.2f\n", size, min / 1000);
         }
     }
 }
