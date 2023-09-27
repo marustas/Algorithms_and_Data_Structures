@@ -7,7 +7,7 @@ import java.util.Stack;
 public class BinaryTree implements Iterable<Integer> {
     public static class TreeIterator implements Iterator<Integer> {
         private Node next;
-        private Stack<Node> stack;
+        private final Stack<Node> stack;
 
         private void moveLeft(Node current) {
             while (current != null) {
