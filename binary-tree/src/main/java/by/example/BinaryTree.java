@@ -20,19 +20,19 @@ public class BinaryTree {
     }
 
     public Integer lookup(Integer key) {
-        return lookupRec(root, key);
+        return lookupRecursive(root, key);
     }
 
-    private Integer lookupRec(Node current, Integer key) {
+    private Integer lookupRecursive(Node current, Integer key) {
         if (current == null) {
             return null;
         }
         if (key.equals(current.key)) {
             return current.value;
         } else if (key < current.key) {
-            return lookupRec(current.left, key);
+            return lookupRecursive(current.left, key);
         } else {
-            return lookupRec(current.right, key);
+            return lookupRecursive(current.right, key);
         }
     }
 
@@ -55,7 +55,5 @@ public class BinaryTree {
 
         return current;
     }
-
-
 }
 
