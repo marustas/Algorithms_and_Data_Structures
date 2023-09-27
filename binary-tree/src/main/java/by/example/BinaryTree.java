@@ -1,6 +1,54 @@
 package by.example;
 
-public class BinaryTree {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Stack;
+
+public class BinaryTree implements Iterable<Integer> {
+    public static class TreeIterator implements Iterator<Integer> {
+        private Node next;
+        private Stack<Node> stack;
+
+        private void moveLeft(Node current) {
+            while (current != null) {
+                stack.push(current);
+                current = current.left;
+            }
+        }
+
+        public TreeIterator() {
+            stack = new Stack<>();
+            moveLeft(root);
+        }
+
+        @Override
+        public boolean hasNext() {
+            return !stack.isEmpty();
+        }
+
+        @Override
+        public Integer next() {
+            if (!hasNext())
+                throw new NoSuchElementException();
+
+            Node current = stack.pop();
+
+            if (current.right != null)
+                moveLeft(current.right);
+
+            return current.value;
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+    }
+
+    public Iterator<Integer> iterator() {
+        return new TreeIterator();
+    }
+
     public static class Node {
         public int key;
         public int value;
@@ -13,7 +61,7 @@ public class BinaryTree {
         }
     }
 
-    Node root;
+    static Node root;
 
     public BinaryTree() {
         root = null;
