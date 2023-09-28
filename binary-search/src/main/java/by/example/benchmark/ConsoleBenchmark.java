@@ -11,19 +11,16 @@ class ConsoleBenchmark {
         Binary binary = new Binary();
         int[] sizes = { 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000 };
         var random = new Random();
-        System.out.printf("| %-7s | %n", "n", "time");
+        System.out.printf("| %-7s | %-7s", "n", "time");
         for (int size : sizes) {
             int bound = 100_000;
             int k = 1000;
-            int[] array = createData(size, bound);
-            int tries = 1000;
+            int tries = 10_000;
             double min = Double.POSITIVE_INFINITY;
 
             for (int i = 0; i < tries; i++) {
-                int[] randomKeys = new int[k];
-                for (int j = 0; j < k; j++) {
-                    randomKeys[i] = random.nextInt(bound);
-                }
+                int[] array = createData(size, bound);
+                int[] randomKeys = keys(k, bound);
                 double t0 = System.nanoTime();
                 for (int randomKey : randomKeys) {
                     binary.search(array, randomKey);
@@ -35,7 +32,7 @@ class ConsoleBenchmark {
                 }
             }
 
-            System.out.printf("%8d | %.2f\n", size, min / 1000);
+            System.out.printf("%8d | %.2f\n", size, min/1000);
 
         }
     }
