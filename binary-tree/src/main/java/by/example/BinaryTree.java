@@ -8,16 +8,22 @@ public class BinaryTree implements Iterable<Integer> {
     public static class TreeIterator implements Iterator<Integer> {
         private final Stack<Node> stack;
 
+        public TreeIterator() {
+            stack = new Stack<>();
+            moveLeft(root);
+//Alternative implementation
+//            Node current = root;
+//            while (current != null) {
+//                stack.push(current);
+//                current = current.left;
+//            }
+        }
+
         private void moveLeft(Node current) {
             while (current != null) {
                 stack.push(current);
                 current = current.left;
             }
-        }
-
-        public TreeIterator() {
-            stack = new Stack<>();
-            moveLeft(root);
         }
 
         @Override
@@ -31,10 +37,16 @@ public class BinaryTree implements Iterable<Integer> {
                 throw new NoSuchElementException();
 
             Node current = stack.pop();
-
             if (current.right != null)
                 moveLeft(current.right);
-
+//Alternative implementation:
+//            Node next = current.right;
+//
+//            if (next != null)
+//                while (next != null) {
+//                    stack.push(next);
+//                    next = next.left;
+//                }
             return current.value;
         }
 
