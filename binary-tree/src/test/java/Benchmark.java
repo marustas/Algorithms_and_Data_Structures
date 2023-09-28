@@ -1,10 +1,8 @@
-import by.example.BinaryTree;
-
-import java.util.Random;
+import by.example.BinarySearchTree;
 
 public class Benchmark {
     public static void main(String[] args) {
-        BinaryTree tree = new BinaryTree();
+        BinarySearchTree tree = new BinarySearchTree();
         tree.add(5,105);
         tree.add(2,102);
         tree.add(7,107);

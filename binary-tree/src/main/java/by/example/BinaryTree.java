@@ -1,118 +1,70 @@
 package by.example;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Stack;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
-public class BinaryTree implements Iterable<Integer> {
-    public static class TreeIterator implements Iterator<Integer> {
-        private final Stack<Node> stack;
+public class BinaryTree<K extends Comparable<K>, V> implements Iterable<K> {
+	private Node<K, V> root;
 
-        public TreeIterator() {
-            stack = new Stack<>();
-            moveLeft(root);
-//Alternative implementation
-//            Node current = root;
-//            while (current != null) {
-//                stack.push(current);
-//                current = current.left;
-//            }
-        }
+/*	@Override
+	public Iterator<V> iterator() {
+		return new TreeIterator<V>();
+	}*/
 
-        private void moveLeft(Node current) {
-            while (current != null) {
-                stack.push(current);
-                current = current.left;
-            }
-        }
+	@Override
+	public Iterator<K> iterator() {
+		return new TreeIterator<K>();;
+	}
 
-        @Override
-        public boolean hasNext() {
-            return !stack.isEmpty();
-        }
+	@Override
+	public void forEach(Consumer<? super K> action) {
+		Iterable.super.forEach(action);
+	}
 
-        @Override
-        public Integer next() {
-            if (!hasNext())
-                throw new NoSuchElementException();
+	@Override
+	public Spliterator<K> spliterator() {
+		return Iterable.super.spliterator();
+	}
 
-            Node current = stack.pop();
-            if (current.right != null)
-                moveLeft(current.right);
-//Alternative implementation:
-//            Node next = current.right;
-//
-//            if (next != null)
-//                while (next != null) {
-//                    stack.push(next);
-//                    next = next.left;
-//                }
-            return current.value;
-        }
+	public void add(K key, V value) {
+		root = addNode(root, key, value);
+	}
 
-        @Override
-        public void remove() {
-            throw new UnsupportedOperationException();
-        }
-    }
+	private Node<K, V> addNode(Node<K, V> current, K key, V value) {
+		if (current == null) {
+			return new Node<K, V>(key, value);
+		}
 
-    public Iterator<Integer> iterator() {
-        return new TreeIterator();
-    }
+		int cmp = key.compareTo(current.getKey());
+		if (cmp < 0) {
+			current.setLeft(addNode(current.getLeft(), key, value));
+		} else if (cmp > 0) {
+			current.setRight((addNode(current.getRight(), key, value));
+		} else {
+			// Key already exists, update the value
+			current.setValue(value);
+		}
 
-    public static class Node {
-        public int key;
-        public int value;
-        public Node left, right;
+		return current;
+	}
 
-        public Node(int key, int value) {
-            this.key = key;
-            this.value = value;
-            this.left = this.right = null;
-        }
-    }
+	public V lookup(K key) {
+		return findValue(root, key);
+	}
 
-    //If root is static, the debug can't see the nodes in the tree
-    static Node root;
+	private V findValue(Node<K, V> current, K key) {
+		if (current == null) {
+			return null;
+		}
 
-    public BinaryTree() {
-        root = null;
-    }
-
-    public Integer lookup(Integer key) {
-        return lookupRecursive(root, key);
-    }
-
-    private Integer lookupRecursive(Node current, Integer key) {
-        if (current == null) {
-            return null;
-        }
-        if (key.equals(current.key)) {
-            return current.value;
-        } else if (key < current.key) {
-            return lookupRecursive(current.left, key);
-        } else {
-            return lookupRecursive(current.right, key);
-        }
-    }
-
-    public void add(Integer key, Integer value) {
-        root = addRecursive(root, key, value);
-    }
-
-    private Node addRecursive(Node current, Integer key, Integer value) {
-        if (current == null) {
-            return new Node(key, value);
-        }
-
-        if (key.equals(current.key)) {
-            current.value = value;
-        } else if (key < current.key) {
-            current.left = addRecursive(current.left, key, value);
-        } else {
-            current.right = addRecursive(current.right, key, value);
-        }
-        return current;
-    }
+		int cmp = key.compareTo(current.getKey());
+		if (cmp < 0) {
+			return findValue(current.getLeft(), key);
+		} else if (cmp > 0) {
+			return findValue(current.getRight(), key);
+		} else {
+			return current.getValue();
+		}
+	}
 }
-
