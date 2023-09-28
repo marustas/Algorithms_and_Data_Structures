@@ -25,8 +25,8 @@ class ConsoleBenchmark {
                     randomKeys[i] = random.nextInt(bound);
                 }
                 double t0 = System.nanoTime();
-                for (int j = 0; j < randomKeys.length; j++) {
-                    binary.search(array, randomKeys[j]);
+                for (int randomKey : randomKeys) {
+                    binary.search(array, randomKey);
                 }
                 double t1 = System.nanoTime();
                 double t = (t1 - t0);
