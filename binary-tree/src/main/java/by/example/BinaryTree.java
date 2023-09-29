@@ -68,7 +68,6 @@ public class BinaryTree implements Iterable<Integer> {
         public Node(int key, int value) {
             this.key = key;
             this.value = value;
-            this.left = this.right = null;
         }
 
         private int maxDepth() {
