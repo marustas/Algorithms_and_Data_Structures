@@ -70,6 +70,25 @@ public class BinaryTree implements Iterable<Integer> {
             this.value = value;
             this.left = this.right = null;
         }
+
+        private int maxDepth() {
+            int lm = 0;
+            int rm = 0;
+            if (left != null)
+                lm = left.maxDepth();
+
+            if (right != null)
+                rm = right.maxDepth();
+            return Math.max(lm + 1, rm + 1);
+        }
+    }
+
+    public int maxDepth() {
+        if (root != null) {
+            return root.maxDepth();
+        } else {
+            return 0;
+        }
     }
 
     //If root is static, the debug can't see the nodes in the tree
