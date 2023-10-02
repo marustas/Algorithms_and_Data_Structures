@@ -13,12 +13,12 @@ public class QueueBinaryTree implements Iterable<Integer> {
         }
 
         private void enqueue(Node current) {
-                if (current.left != null) {
-                    queue.add(current.left);
-                }
-                if (current.right != null) {
-                    queue.add(current.right);
-                }
+            if (current.left != null) {
+                queue.add(current.left);
+            }
+            if (current.right != null) {
+                queue.add(current.right);
+            }
         }
 
         @Override
