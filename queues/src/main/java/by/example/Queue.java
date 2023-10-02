@@ -31,10 +31,19 @@ public class Queue {
     public QueueBinaryTree.Node remove() {
         if (first == null) {
             return null;
+        } else if (first.equals(last)) {
+            Node tempNode = first;
+            last = null;
+            first = null;
+            return tempNode.item;
         } else {
             Node tempNode = first;
             first = first.next;
             return tempNode.item;
         }
+    }
+
+    public boolean isEmpty() {
+        return first == null;
     }
 }

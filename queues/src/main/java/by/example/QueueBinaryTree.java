@@ -16,18 +16,13 @@ public class QueueBinaryTree implements Iterable<Integer> {
 
         private void enqueue(Node current) {
             if (current != null) {
-                if (current.left != null) {
-                    queue.add(current.left);
-                }
-                if (current.right != null) {
-                    queue.add(current.right);
-                }
+                queue.add(current);
             }
         }
 
         @Override
         public boolean hasNext() {
-            return queue.first != null;
+            return !queue.isEmpty();
         }
 
         @Override
@@ -35,7 +30,8 @@ public class QueueBinaryTree implements Iterable<Integer> {
             if (!hasNext())
                 throw new NoSuchElementException();
             Node current = queue.remove();
-            enqueue(current);
+            enqueue(current.left);
+            enqueue(current.right);
             return current.value;
         }
 
