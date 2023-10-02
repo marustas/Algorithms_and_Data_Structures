@@ -1,7 +1,8 @@
 package by.example;
 
 public class Queue {
-    Node head;
+    Node first;
+    Node last;
 
     private static class Node {
         Integer item;
@@ -14,18 +15,26 @@ public class Queue {
     }
 
     public Queue() {
-        LinkedList list = new LinkedList(0);
+        first = last = null;
     }
 
     public void add(Integer item) {
-        if (head == null)
-            head = new Node(item, null);
-
-        Node newNode = new Node(item, head);
-        head = newNode;
+        Node newNode = new Node(item, null);
+        if (last == null) {
+            first = last = newNode;
+        } else {
+            last.next = newNode;
+            last = newNode;
+        }
     }
 
     public Integer remove() {
-        return 0;
+        if (first == null) {
+            return null;
+        } else {
+            Node tempNode = first;
+            first = first.next;
+            return tempNode.item;
+        }
     }
 }
