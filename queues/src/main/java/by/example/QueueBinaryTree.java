@@ -9,12 +9,14 @@ public class QueueBinaryTree implements Iterable<Integer> {
 
         public TreeIterator() {
             queue = new Queue();
-            moveLeft(root);
+            enqueue(root);
         }
 
-        private void moveLeft(Node current) {
-                if (current.left != null && current.right != null) {
+        private void enqueue(Node current) {
+                if (current.left != null) {
                     queue.add(current.left);
+                }
+                if (current.right != null) {
                     queue.add(current.right);
                 }
         }
@@ -30,8 +32,7 @@ public class QueueBinaryTree implements Iterable<Integer> {
                 throw new NoSuchElementException();
 
             Node current = queue.remove();
-            if (queue.first != null)
-                moveLeft(current);
+            enqueue(current);
             return current.value;
         }
 
@@ -53,25 +54,6 @@ public class QueueBinaryTree implements Iterable<Integer> {
         public Node(int key, int value) {
             this.key = key;
             this.value = value;
-        }
-
-        private int maxDepth() {
-            int lm = 0;
-            int rm = 0;
-            if (left != null)
-                lm = left.maxDepth();
-
-            if (right != null)
-                rm = right.maxDepth();
-            return Math.max(lm + 1, rm + 1);
-        }
-    }
-
-    public int maxDepth() {
-        if (root != null) {
-            return root.maxDepth();
-        } else {
-            return 0;
         }
     }
 
