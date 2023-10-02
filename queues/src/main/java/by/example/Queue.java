@@ -1,14 +1,14 @@
 package by.example;
 
 public class Queue {
-    Node first;
-    Node last;
+    QueueNode first;
+    QueueNode last;
 
-    private static class Node {
+    private static class QueueNode {
         Integer item;
-        Node next;
+        QueueNode next;
 
-        private Node(Integer item, Node list) {
+        private QueueNode(Integer item, QueueNode list) {
             this.item = item;
             this.next = list;
         }
@@ -19,7 +19,7 @@ public class Queue {
     }
 
     public void add(Integer item) {
-        Node newNode = new Node(item, null);
+        QueueNode newNode = new QueueNode(item, null);
         if (last == null) {
             first = last = newNode;
         } else {
@@ -32,7 +32,7 @@ public class Queue {
         if (first == null) {
             return null;
         } else {
-            Node tempNode = first;
+            QueueNode tempNode = first;
             first = first.next;
             return tempNode.item;
         }
