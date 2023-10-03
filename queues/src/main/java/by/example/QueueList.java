@@ -31,16 +31,13 @@ public class QueueList<T> {
     public T remove() {
         if (first == null) {
             return null;
-        } else if (first.equals(last)) {
-            Node tempNode = first;
-            last = null;
-            first = null;
-            return tempNode.item;
-        } else {
-            Node tempNode = first;
-            first = first.next;
-            return tempNode.item;
         }
+        T item = first.item;
+        first = first.next;
+        if (first == null) {
+            last = null;
+        }
+        return item;
     }
 
     public boolean isEmpty() {
