@@ -1,14 +1,14 @@
 package by.example;
 
-public class Queue {
+public class Queue<T> {
     Node first;
     Node last;
 
-    private static class Node {
-        QueueBinaryTree.Node item;
+    private class Node {
+        T item;
         Node next;
 
-        private Node(QueueBinaryTree.Node item, Node list) {
+        private Node(T item, Node list) {
             this.item = item;
             this.next = list;
         }
@@ -18,7 +18,7 @@ public class Queue {
         first = last = null;
     }
 
-    public void add(QueueBinaryTree.Node item) {
+    public void add(T item) {
         Node newNode = new Node(item, null);
         if (last == null) {
             first = last = newNode;
@@ -28,7 +28,7 @@ public class Queue {
         }
     }
 
-    public QueueBinaryTree.Node remove() {
+    public T remove() {
         if (first == null) {
             return null;
         } else if (first.equals(last)) {
