@@ -1,4 +1,3 @@
-import by.example.Queue;
 import by.example.QueueBinaryTree;
 
 public class Benchmark {

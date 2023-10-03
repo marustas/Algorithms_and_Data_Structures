@@ -1,6 +1,6 @@
 package by.example;
 
-public class Queue<T> {
+public class QueueList<T> {
     Node first;
     Node last;
 
@@ -14,7 +14,7 @@ public class Queue<T> {
         }
     }
 
-    public Queue() {
+    public QueueList() {
         first = last = null;
     }
 

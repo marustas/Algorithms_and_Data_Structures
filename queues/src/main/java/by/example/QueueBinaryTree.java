@@ -5,10 +5,10 @@ import java.util.NoSuchElementException;
 
 public class QueueBinaryTree implements Iterable<Integer> {
     public static class TreeIterator implements Iterator<Integer> {
-        private final Queue<Node> queue;
+        private final QueueList<Node> queue;
 
         public TreeIterator() {
-            queue = new Queue<>();
+            queue = new QueueList<>();
             if (root != null) {
                 enqueue(root);
             }
