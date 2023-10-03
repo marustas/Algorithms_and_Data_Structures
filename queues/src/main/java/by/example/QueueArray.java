@@ -36,6 +36,7 @@ public class QueueArray {
             return null;
         }
         Integer item = queue[first];
+        queue[first] = null;
         first = (first + 1) % size;
         return item;
     }
@@ -51,8 +52,6 @@ public class QueueArray {
         queueArray.add(17);
         queueArray.add(13);
         queueArray.add(22);
-        System.out.println(queueArray.remove());
-        System.out.println(queueArray.remove());
         System.out.println(queueArray.remove());
     }
 }
