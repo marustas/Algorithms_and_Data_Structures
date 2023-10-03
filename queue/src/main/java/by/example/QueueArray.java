@@ -38,6 +38,17 @@ public class QueueArray {
         Integer item = queue[first];
         queue[first] = null;
         first = (first + 1) % size;
+        if(last - first <= size/4){
+            Integer[] copy = new Integer[size / 2];
+            int c = 0;
+            for (int i = first; i < last; i++) {
+                copy[c++] = queue[i];
+            }
+            queue = copy;
+            first = 0;
+            last = c;
+            size = size / 2;
+        }
         return item;
     }
 
