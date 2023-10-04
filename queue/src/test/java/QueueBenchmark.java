@@ -22,7 +22,8 @@ public class QueueBenchmark {
 
                 double listStart = System.nanoTime();
                 for (int j = 0; j < size; j++) {
-                    queueList.remove();
+                    Integer item = queueList.remove();
+                    queueList.add(item);
                 }
                 double queueListTime = System.nanoTime() - listStart;
 
@@ -40,7 +41,8 @@ public class QueueBenchmark {
 
                 double arrayStart = System.nanoTime();
                 for (int j = 0; j < size; j++) {
-                    queueArray.remove();
+                    Integer item = queueArray.remove();
+                    queueArray.add(item);
                 }
                 double queueArrayTime = System.nanoTime() - arrayStart;
 
