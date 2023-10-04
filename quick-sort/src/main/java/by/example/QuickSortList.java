@@ -1,66 +1,77 @@
 package by.example;
 
 public class QuickSortList {
-    Node first;
+    static LinkedList smallNodes = new LinkedList();
+    static LinkedList largeNodes = new LinkedList();
 
-    void add(int item) {
-        if (first == null) {
-            first = new Node(item, null);
-            return;
-        }
+    public static void sort(LinkedList list) {
+        sortRecursive(list);
+        smallNodes.append(largeNodes);
+    }
 
-        Node current = first;
-        while (current.next != null)
+    private static void sortRecursive(LinkedList list) {
+        partition(list);
+        sortRecursive(smallNodes);
+        sortRecursive(largeNodes);
+    }
+
+    private static Node partition(LinkedList list) {
+
+        Node pivot = list.first;
+        Node current = list.first;
+
+        while (current != null) {
+            while (current.value <= pivot.value) {
+                smallNodes.add(current.value);
+                current = smallNodes.last.next;
+            }
+            while (current.value > pivot.value) {
+                largeNodes.add(current.value);
+                current = largeNodes.last.next;
+            }
             current = current.next;
-
-        current.next = new Node(item, null);
-    }
-
-    public static void sort(int[] array) {
-        int min = 0;
-        int max = array.length - 1;
-        sortRecursive(array, min, max);
-    }
-
-    private static void sortRecursive(int[] array, int min, int max) {
-        if (min < max) {
-            int pivotIndex = partition(array, min, max);
-            sortRecursive(array, min, pivotIndex - 1);
-            sortRecursive(array, pivotIndex + 1, max);
         }
+        return pivot;
     }
 
-    public static int partition(int[] array, int min, int max) {
-        int i = min;
-        int j = max;
-        int pivot = array[min];
-        while (true) {
-            while (i <= j && array[i] <= pivot) {
-                i++;
-            }
-            while (j >= i && array[j] >= pivot) {
-                j--;
-            }
-            if (i <= j) {
-                int temp = array[i];
-                array[i] = array[j];
-                array[j] = temp;
-            } else {
-                int temp = array[min];
-                array[min] = array[j];
-                array[j] = temp;
-                return j;
-            }
-        }
-    }
-
-    private class Node {
+    private static class Node {
         int value;
         Node next;
 
-        private Node(int value, Node next) {
-            this.value = value;
-            this.next = next;
+        Node(int element, Node tl) {
+            value = element;
+            next = tl;
         }
+    }
+
+    private static class LinkedList {
+        private Node first;
+        private Node last;
+
+        public void add(int item) {
+            Node newCell;
+            if (first == null) {
+                last = first = new Node(item, null);
+            } else {
+                newCell = new Node(item, null);
+                last.next = newCell;
+                last = newCell;
+            }
+        }
+
+        public void append(LinkedList anotherList) {
+            last.next = anotherList.first;
+            anotherList.first = null;
+        }
+
+    }
+
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+        list.add(6);
+        list.add(4);
+        list.add(7);
+        sort(list);
+        System.out.println();
     }
 }
