@@ -14,38 +14,60 @@ public class QuickSortList {
         }
     }
 
+    public void sort(LinkedList list) {
+        if (list.first == null || list.first == list.last) {
+            return;
+        }
+
+        LinkedList smallNodes = new LinkedList();
+        LinkedList largeNodes = new LinkedList();
+
+        Node pivot = list.first;
+        Node current = pivot.next;
+        pivot.next = null;
+        list.last = pivot;
+        int p = pivot.value;
+        while (current != null) {
+            Node next = current.next;
+            if (current.value <= p) {
+                smallNodes.move(current);
+            } else {
+                largeNodes.move(current);
+            }
+            current = next;
+        }
+        sort(smallNodes);
+        sort(largeNodes);
+
+        prepend(list, smallNodes);
+        append(list, largeNodes);
+    }
+
+    public void prepend(LinkedList list, LinkedList small) {
+        if (small != null) {
+            if (small.last != null)
+                small.last.next = list.first;
+            if (list.last == null)
+                list.last = small.last;
+            if (small.first != null)
+                list.first = small.first;
+        }
+    }
+
+    public void append(LinkedList list, LinkedList large) {
+        if (large != null) {
+            if (list.last != null)
+                list.last.next = large.first;
+            else
+                list.first = large.first;
+            if (large.last != null)
+                list.last = large.last;
+        }
+    }
+
     private static class LinkedList {
         private Node first;
         private Node last;
-
-        public void sort() {
-            if (this.first == null || this.first == this.last) {
-                return;
-            }
-
-            LinkedList smallNodes = new LinkedList();
-            LinkedList largeNodes = new LinkedList();
-
-            Node pivot = first;
-            Node current = pivot.next;
-            pivot.next = null;
-            last = pivot;
-            int p = pivot.value;
-            while (current != null) {
-                Node next = current.next;
-                if (current.value <= p) {
-                    smallNodes.move(current);
-                } else {
-                    largeNodes.move(current);
-                }
-                current = next;
-            }
-            smallNodes.sort();
-            largeNodes.sort();
-
-            prepend(smallNodes);
-            append(largeNodes);
-        }
 
         public void add(int item) {
             Node newCell = new Node(item, first);
@@ -61,37 +83,16 @@ public class QuickSortList {
             first = node;
         }
 
-        public void prepend(LinkedList large) {
-            if (large != null) {
-                if (large.last != null)
-                    large.last.next = first;
-                if (last == null)
-                    last = large.last;
-                if (large.first != null)
-                    first = large.first;
-            }
-        }
-
-        public void append(LinkedList small) {
-            if (small != null) {
-                if (last != null)
-                    last.next = small.first;
-                else
-                    first = small.first;
-                if (small.last != null)
-                    last = small.last;
-            }
-        }
     }
 
     public static void main(String[] args) {
+        QuickSortList quickSortList = new QuickSortList();
         Random random = new Random();
         LinkedList list = new LinkedList();
         for (int i = 0; i < 10; i++) {
             list.add(random.nextInt(100));
         }
-        list.sort();
-
+        quickSortList.sort(list);
         Node current = list.first;
         while (current != null) {
             System.out.print(current.value + " ");
