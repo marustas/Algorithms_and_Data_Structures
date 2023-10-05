@@ -63,15 +63,12 @@ public class QuickSortList {
 
         public void prepend(LinkedList large) {
             if (large != null) {
-                if (large.last != null) {
+                if (large.last != null)
                     large.last.next = first;
-                }
-                if (last == null) {
+                if (last == null)
                     last = large.last;
-                }
-                if (large.first != null) {
+                if (large.first != null)
                     first = large.first;
-                }
             }
         }
 
