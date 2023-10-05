@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class QuickSortList {
 
-    private static class Node {
+    public static class Node {
         int value;
         Node next;
 
@@ -65,7 +65,7 @@ public class QuickSortList {
         }
     }
 
-    private static class LinkedList {
+    public static class LinkedList {
         private Node first;
         private Node last;
 
@@ -83,20 +83,5 @@ public class QuickSortList {
             first = node;
         }
 
-    }
-
-    public static void main(String[] args) {
-        QuickSortList quickSortList = new QuickSortList();
-        Random random = new Random();
-        LinkedList list = new LinkedList();
-        for (int i = 0; i < 10; i++) {
-            list.add(random.nextInt(100));
-        }
-        quickSortList.sort(list);
-        Node current = list.first;
-        while (current != null) {
-            System.out.print(current.value + " ");
-            current = current.next;
-        }
     }
 }
