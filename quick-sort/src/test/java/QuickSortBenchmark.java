@@ -15,10 +15,10 @@ public class QuickSortBenchmark {
     }
 
     public static void main(String[] args) {
-        int[] sizes = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000};
+        int[] sizes = {100, 200, 400, 800, 1600, 3200, 6400, 12800};
         int bound = 100_000;
         int tries = 100_000;
-        System.out.println("Number of elements\t\t List time \t\t Array time");
+        System.out.println("N\t\tList time\t\tArray time\t\t List function\t\t Array function");
         for (int size : sizes) {
             double min1 = Double.POSITIVE_INFINITY;
             for (int t = 0; t < tries; t++) {
@@ -52,8 +52,9 @@ public class QuickSortBenchmark {
                     min2 = arrayTime;
                 }
             }
-
-            System.out.printf("%d \t\t %.2f \t\t %.2f\n", size, min1 / 1000, min2 / 1000);
+            double functionList = min1 / 1000 / size / Math.log(size);
+            double functionArray = min2 / 1000 / size / Math.log(size);
+            System.out.printf("%d \t\t %.2f \t\t %.2f \t\t %.2f \t\t %.2f\n", size, min1 / 1000, min2 / 1000, functionList, functionArray);
         }
 
         System.out.println();

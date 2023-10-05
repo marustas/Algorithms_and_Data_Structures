@@ -1,7 +1,5 @@
 package by.example;
 
-import java.util.Random;
-
 public class QuickSortList {
 
     public static class Node {
