@@ -1,9 +1,9 @@
 package by.example;
 
-import java.util.Arrays;
+import java.util.Random;
 
 public class QuickSortArray {
-    public static void sort(int[] array) {
+    public void sort(int[] array) {
         int min = 0;
         int max = array.length - 1;
         sortRecursive(array, min, max);
@@ -39,11 +39,5 @@ public class QuickSortArray {
                 return j;
             }
         }
-    }
-
-    public static void main(String[] args) {
-        int[] array = {9, 5, 7, 10, 4, 8, 2, 1, 13, 15};
-        sort(array);
-        System.out.println(Arrays.toString(array));
     }
 }
