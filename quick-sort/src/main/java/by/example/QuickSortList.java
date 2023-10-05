@@ -1,4 +1,5 @@
 package by.example;
+
 public class QuickSortList {
     public void sort(LinkedList list) {
         if (list.first == null || list.first == list.last) {
@@ -9,19 +10,16 @@ public class QuickSortList {
         LinkedList largeNodes = new LinkedList();
 
         Node pivot = list.first;
-        list.first = pivot.next;
+        Node current = pivot.next;
         pivot.next = null;
-
-        Node current = list.first;
+        list.last = pivot;
 
         while (current != null) {
             Node next = current.next;
             if (current.value <= pivot.value) {
-                current.next = smallNodes.first;
-                smallNodes.first = current;
+                smallNodes.move(current);
             } else {
-                current.next = largeNodes.first;
-                largeNodes.first = current;
+                largeNodes.move(current);
             }
             current = next;
         }
@@ -29,49 +27,10 @@ public class QuickSortList {
         sort(smallNodes);
         sort(largeNodes);
 
-        list.first = append(smallNodes.first, pivot, largeNodes.first);
-        list.last = findLast(list.first);
+        list.prepend(smallNodes);
+        list.append(largeNodes);
     }
 
-    private Node append(Node small, Node pivot, Node large) {
-        if (small == null) {
-            if (large == null) {
-                return pivot;
-            } else {
-                return append(pivot, large);
-            }
-        } else {
-            Node lastSmall = findLast(small);
-            lastSmall.next = pivot;
-            if (large == null) {
-                return small;
-            } else {
-                lastSmall = findLast(large);
-                lastSmall.next = null;
-                return append(small, large);
-            }
-        }
-    }
-
-    private Node append(Node first, Node second) {
-        if (first == null) {
-            return second;
-        }
-
-        Node current = first;
-        while (current.next != null) {
-            current = current.next;
-        }
-        current.next = second;
-        return first;
-    }
-
-    private Node findLast(Node node) {
-        while (node != null && node.next != null) {
-            node = node.next;
-        }
-        return node;
-    }
 
     private static class Node {
         int value;
@@ -88,12 +47,40 @@ public class QuickSortList {
         private Node last;
 
         public void add(int item) {
-            Node newCell = new Node(item, null);
-            if (first == null) {
-                last = first = newCell;
-            } else {
-                last.next = newCell;
+            Node newCell = new Node(item, first);
+            if (last == null)
                 last = newCell;
+            first = newCell;
+        }
+
+        public void move(Node node) {
+            if (last == null)
+                last = node;
+            node.next = first;
+            first = node;
+        }
+
+        public void prepend(LinkedList anotherList) {
+            if (anotherList != null) {
+                if (anotherList.last != null) {
+                    anotherList.last.next = first;
+                }
+                if (last == null) {
+                    last = anotherList.last;
+                }
+                if (anotherList.first != null) {
+                    first = anotherList.first;
+                }
+            }
+        }
+
+        public void append(LinkedList anotherList) {
+            if (anotherList != null) {
+                if (last != null) {
+                    last.next = anotherList.first;
+                } else {
+                    first = anotherList.first;
+                }
             }
         }
     }
@@ -106,6 +93,8 @@ public class QuickSortList {
         list.add(7);
         list.add(2);
         list.add(9);
+        list.add(8);
+        list.add(5);
         quickSort.sort(list);
 
         Node current = list.first;
