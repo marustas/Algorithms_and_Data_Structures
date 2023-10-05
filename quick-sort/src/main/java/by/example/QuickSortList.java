@@ -1,36 +1,6 @@
 package by.example;
 
 public class QuickSortList {
-    public void sort(LinkedList list) {
-        if (list.first == null || list.first == list.last) {
-            return;
-        }
-
-        LinkedList smallNodes = new LinkedList();
-        LinkedList largeNodes = new LinkedList();
-
-        Node pivot = list.first;
-        Node current = pivot.next;
-        pivot.next = null;
-        list.last = pivot;
-
-        while (current != null) {
-            Node next = current.next;
-            if (current.value <= pivot.value) {
-                smallNodes.move(current);
-            } else {
-                largeNodes.move(current);
-            }
-            current = next;
-        }
-
-        sort(smallNodes);
-        sort(largeNodes);
-
-        list.prepend(smallNodes);
-        list.append(largeNodes);
-    }
-
 
     private static class Node {
         int value;
@@ -46,6 +16,36 @@ public class QuickSortList {
         private Node first;
         private Node last;
 
+        public void sort() {
+            if (this.first == null || this.first == this.last) {
+                return;
+            }
+
+            LinkedList smallNodes = new LinkedList();
+            LinkedList largeNodes = new LinkedList();
+
+            Node pivot = this.first;
+            Node current = pivot.next;
+            pivot.next = null;
+            this.last = pivot;
+
+            while (current != null) {
+                Node next = current.next;
+                if (current.value < pivot.value) {
+                    smallNodes.move(current);
+                } else {
+                    largeNodes.move(current);
+                }
+                current = next;
+            }
+            System.out.println();
+            smallNodes.sort();
+            largeNodes.sort();
+
+            this.prepend(smallNodes);
+            this.append(largeNodes);
+        }
+
         public void add(int item) {
             Node newCell = new Node(item, first);
             if (last == null)
@@ -54,10 +54,10 @@ public class QuickSortList {
         }
 
         public void move(Node node) {
-            if (last == null)
-                last = node;
-            node.next = first;
-            first = node;
+            if (this.last == null)
+                this.last = node;
+            node.next = this.first;
+            this.first = node;
         }
 
         public void prepend(LinkedList anotherList) {
@@ -86,16 +86,16 @@ public class QuickSortList {
     }
 
     public static void main(String[] args) {
-        QuickSortList quickSort = new QuickSortList();
         LinkedList list = new LinkedList();
         list.add(6);
         list.add(4);
         list.add(7);
+        list.add(1);
         list.add(2);
         list.add(9);
         list.add(8);
         list.add(5);
-        quickSort.sort(list);
+        list.sort();
 
         Node current = list.first;
         while (current != null) {
