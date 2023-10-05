@@ -1,5 +1,7 @@
 package by.example;
 
+import java.util.Random;
+
 public class QuickSortList {
 
     private static class Node {
@@ -7,8 +9,8 @@ public class QuickSortList {
         Node next;
 
         Node(int element, Node tl) {
-            value = element;
-            next = tl;
+            this.value = element;
+            this.next = tl;
         }
     }
 
@@ -24,26 +26,25 @@ public class QuickSortList {
             LinkedList smallNodes = new LinkedList();
             LinkedList largeNodes = new LinkedList();
 
-            Node pivot = this.first;
+            Node pivot = first;
             Node current = pivot.next;
             pivot.next = null;
-            this.last = pivot;
-
+            last = pivot;
+            int p = pivot.value;
             while (current != null) {
                 Node next = current.next;
-                if (current.value < pivot.value) {
+                if (current.value <= p) {
                     smallNodes.move(current);
                 } else {
                     largeNodes.move(current);
                 }
                 current = next;
             }
-            System.out.println();
             smallNodes.sort();
             largeNodes.sort();
 
-            this.prepend(smallNodes);
-            this.append(largeNodes);
+            prepend(smallNodes);
+            append(largeNodes);
         }
 
         public void add(int item) {
@@ -53,48 +54,45 @@ public class QuickSortList {
             first = newCell;
         }
 
-        public void move(Node node) {
-            if (this.last == null)
-                this.last = node;
-            node.next = this.first;
-            this.first = node;
+        private void move(Node node) {
+            if (last == null)
+                last = node;
+            node.next = first;
+            first = node;
         }
 
-        public void prepend(LinkedList anotherList) {
-            if (anotherList != null) {
-                if (anotherList.last != null) {
-                    anotherList.last.next = first;
+        public void prepend(LinkedList large) {
+            if (large != null) {
+                if (large.last != null) {
+                    large.last.next = first;
                 }
                 if (last == null) {
-                    last = anotherList.last;
+                    last = large.last;
                 }
-                if (anotherList.first != null) {
-                    first = anotherList.first;
+                if (large.first != null) {
+                    first = large.first;
                 }
             }
         }
 
-        public void append(LinkedList anotherList) {
-            if (anotherList != null) {
-                if (last != null) {
-                    last.next = anotherList.first;
-                } else {
-                    first = anotherList.first;
-                }
+        public void append(LinkedList small) {
+            if (small != null) {
+                if (last != null)
+                    last.next = small.first;
+                else
+                    first = small.first;
+                if (small.last != null)
+                    last = small.last;
             }
         }
     }
 
     public static void main(String[] args) {
+        Random random = new Random();
         LinkedList list = new LinkedList();
-        list.add(6);
-        list.add(4);
-        list.add(7);
-        list.add(1);
-        list.add(2);
-        list.add(9);
-        list.add(8);
-        list.add(5);
+        for (int i = 0; i < 10; i++) {
+            list.add(random.nextInt(100));
+        }
         list.sort();
 
         Node current = list.first;
