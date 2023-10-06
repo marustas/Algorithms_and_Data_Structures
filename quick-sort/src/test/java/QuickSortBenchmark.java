@@ -7,10 +7,10 @@ public class QuickSortBenchmark {
     public static int[] createArray(int n, int bound) {
         Random rnd = new Random();
         int[] array = new int[n];
-        var length = array.length;
-        array[0] = 100001;
-        for (int a = 1; a < length; a++) {
-            array[a] = rnd.nextInt(bound);
+        int nxt = rnd.nextInt(bound);
+        for (int i = 0; i < n; i++) {
+            array[i] = nxt;
+            nxt += 1 + rnd.nextInt(bound);
         }
         return array;
     }
