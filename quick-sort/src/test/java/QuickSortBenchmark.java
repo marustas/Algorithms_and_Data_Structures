@@ -8,18 +8,34 @@ public class QuickSortBenchmark {
         Random rnd = new Random();
         int[] array = new int[n];
         var length = array.length;
-        for (int a = 0; a < length; a++) {
+        array[0] = 100001;
+        for (int a = 1; a < length; a++) {
             array[a] = rnd.nextInt(bound);
         }
         return array;
     }
 
     public static void main(String[] args) {
-        int[] sizes = {10, 200, 400, 800, 1600, 3200, 6400, 12800};
+        int[] sizes = {100, 200, 400, 800, 1600, 3200, 6400, 12800};
         int bound = 100_000;
         int tries = 100_000;
+        int warmup = 10_000;
         System.out.println("N\t\tList time\t\tArray time\t\t List function\t\t Array function");
         for (int size : sizes) {
+
+            for (int t = 0; t < warmup; t++) {
+                QuickSortArray quickSortArray = new QuickSortArray();
+                int[] array = createArray(size, bound);
+                int[] clone = array.clone();
+                quickSortArray.sort(clone);
+
+                QuickSortList quickSortList = new QuickSortList();
+                QuickSortList.LinkedList list = new QuickSortList.LinkedList();
+                for (int i = 0; i < size; i++) {
+                    list.add(array[i]);
+                }
+                quickSortList.sort(list);
+            }
 
             double min2 = Double.POSITIVE_INFINITY;
             double min1 = Double.POSITIVE_INFINITY;
@@ -38,8 +54,8 @@ public class QuickSortBenchmark {
 
                 QuickSortList quickSortList = new QuickSortList();
                 QuickSortList.LinkedList list = new QuickSortList.LinkedList();
-                for (int i = 0; i < size; i++) {
-                    list.add(array[i]);
+                for (int item : array) {
+                    list.add(item);
                 }
 
                 double listStart = System.nanoTime();
