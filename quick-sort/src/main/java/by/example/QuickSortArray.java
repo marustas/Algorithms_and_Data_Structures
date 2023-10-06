@@ -1,7 +1,4 @@
 package by.example;
-
-import java.util.Random;
-
 public class QuickSortArray {
     public void sort(int[] array) {
         int min = 0;
@@ -28,7 +25,7 @@ public class QuickSortArray {
             while (j >= i && array[j] >= pivot) {
                 j--;
             }
-            if (i <= j) {
+            if (i < j) {
                 int temp = array[i];
                 array[i] = array[j];
                 array[j] = temp;

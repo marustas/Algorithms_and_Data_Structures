@@ -34,8 +34,13 @@ public class QuickSortList {
             }
             current = next;
         }
-        sort(smallNodes);
-        sort(largeNodes);
+
+        if (smallNodes.last != null) {
+            sort(smallNodes);
+        }
+        if (largeNodes.last != null) {
+            sort(largeNodes);
+        }
 
         prepend(list, smallNodes);
         append(list, largeNodes);
@@ -80,6 +85,5 @@ public class QuickSortList {
             node.next = first;
             first = node;
         }
-
     }
 }
