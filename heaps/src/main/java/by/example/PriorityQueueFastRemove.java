@@ -11,21 +11,17 @@ public class PriorityQueueFastRemove {
     }
 
     public void add(int value) {
-        int minValue = queue.get(0);
-        int minIndex = 0;
-        for (int i = 1; i < queue.size(); i++) {
-            if (queue.get(i) < minValue) {
-                minIndex = i;
-                minValue = queue.get(i);
-            }
+        int index = 0;
+        while (index < queue.size() && value > queue.get(index)) {
+            index++;
         }
-        queue.add(minIndex,value);
+        queue.add(index, value);
     }
 
     public Integer remove() {
+        int start = 0;
         if (isEmpty()) {
-            int minIndex = 0;
-            return queue.remove(minIndex);
+            return queue.remove(start);
         } else {
             return null;
         }
