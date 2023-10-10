@@ -3,6 +3,8 @@ package by.example;
 import java.util.ArrayList;
 import java.util.List;
 
+//Unsorted list, add to the first, remove by searching for smallest element
+// More or less better, because we can't remove more than we added
 public class PriorityQueueFastAdd {
     private final List<Integer> queue;
 

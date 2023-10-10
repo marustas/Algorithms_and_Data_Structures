@@ -2,7 +2,7 @@ package by.example;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//Sorted list, from small to big, add based on the priority, remove the first element
 public class PriorityQueueFastRemove {
     private final List<Integer> queue;
 
