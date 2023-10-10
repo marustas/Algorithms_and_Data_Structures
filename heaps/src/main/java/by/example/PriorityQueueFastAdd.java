@@ -1,41 +1,59 @@
 package by.example;
 
-import java.util.ArrayList;
-import java.util.List;
-
 //Unsorted list, add to the first, remove by searching for smallest element
 // More or less better, because we can't remove more than we added
 public class PriorityQueueFastAdd {
-    private final List<Integer> queue;
+    Node first;
 
     public PriorityQueueFastAdd() {
-        queue = new ArrayList<>();
+        first = null;
     }
 
-    public void add(int value) {
-        queue.add(value);
-    }
-
-    public Integer remove() {
-        if (isEmpty()) {
-            int minIndex = 0;
-            int minValue = queue.get(0);
-
-            for (int i = 1; i < queue.size(); i++) {
-                if (queue.get(i) < minValue) {
-                    minIndex = i;
-                    minValue = queue.get(i);
-                }
-            }
-
-            return queue.remove(minIndex);
+    public void add(int item) {
+        Node newNode = new Node(item, null);
+        if (first == null) {
+            first = newNode;
         } else {
-            return null;
+            newNode.next = first;
         }
+        first = newNode;
+    }
+
+    public int remove() {
+        if (isEmpty()) {
+            return -1;
+        }
+        Node current = first;
+        int minPriority = first.priority;
+        Node previous = first;
+        Node candidate = first;
+        while (current.next != null) {
+            if (minPriority > current.next.priority) {
+                previous = current;
+                candidate = current.next;
+            }
+            current = current.next;
+        }
+        if (previous == candidate) {
+            first = candidate.next;
+        } else {
+            previous.next = candidate.next;
+        }
+        return candidate.priority;
     }
 
     public boolean isEmpty() {
-        return !queue.isEmpty();
+        return first == null;
+    }
+
+    private static class Node {
+        int priority;
+        Node next;
+
+        private Node(int item, Node list) {
+            this.priority = item;
+            this.next = list;
+        }
     }
 
     public static void main(String[] args) {
@@ -45,8 +63,10 @@ public class PriorityQueueFastAdd {
         pq.add(4);
         pq.add(2);
 
-        while (pq.isEmpty()) {
-            System.out.println(pq.remove());
-        }
+        System.out.println(pq.remove());
+        System.out.println(pq.remove());
+        System.out.println(pq.remove());
+        System.out.println(pq.remove());
+        System.out.println();
     }
 }

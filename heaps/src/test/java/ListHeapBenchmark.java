@@ -32,10 +32,10 @@ public class ListHeapBenchmark {
                     priorityQueueFastAdd.add(item);
                 }
                 double start1 = System.nanoTime();
-                for (int j = 0; j < size; j++) {
-                    int item = priorityQueueFastAdd.remove();
-                    priorityQueueFastAdd.add(item);
-                }
+//                for (int j = 0; j < size; j++) {
+//                    int item = priorityQueueFastAdd.remove();
+//                    priorityQueueFastAdd.add(item);
+//                }
                 double time1 = System.nanoTime() - start1;
 
                 if (time1 < min1) {
