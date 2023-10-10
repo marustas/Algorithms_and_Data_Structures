@@ -1,34 +1,50 @@
 package by.example;
 
-import java.util.ArrayList;
-import java.util.List;
 //Sorted list, from small to big, add based on the priority, remove the first element
 public class PriorityQueueFastRemove {
-    private final List<Integer> queue;
+    Node first;
 
     public PriorityQueueFastRemove() {
-        queue = new ArrayList<>();
+        first = null;
     }
 
-    public void add(int value) {
-        int index = 0;
-        while (index < queue.size() && value > queue.get(index)) {
-            index++;
-        }
-        queue.add(index, value);
-    }
-
-    public Integer remove() {
-        int start = 0;
-        if (isEmpty()) {
-            return queue.remove(start);
+    public void add(int item) {
+        Node newNode = new Node(item, null);
+        if (first == null || first.priority >= newNode.priority) {
+            newNode.next = first;
+            first = newNode;
         } else {
-            return null;
+            Node current = first;
+            while (current.next != null && current.next.priority < newNode.priority) {
+                current = current.next;
+            }
+            newNode.next = current.next;
+            current.next = newNode;
         }
+    }
+
+    public int remove() {
+        Node temp = first;
+        if (isEmpty()) {
+            return -1;
+        } else {
+            first = first.next;
+        }
+        return temp.priority;
     }
 
     public boolean isEmpty() {
-        return !queue.isEmpty();
+        return first == null;
+    }
+
+    private static class Node {
+        int priority;
+        Node next;
+
+        private Node(int item, Node list) {
+            this.priority = item;
+            this.next = list;
+        }
     }
 
     public static void main(String[] args) {
@@ -38,8 +54,10 @@ public class PriorityQueueFastRemove {
         pq.add(4);
         pq.add(2);
 
-        while (pq.isEmpty()) {
-            System.out.println(pq.remove());
-        }
+        System.out.println(pq.remove());
+        System.out.println(pq.remove());
+        System.out.println(pq.remove());
+        System.out.println(pq.remove());
+        System.out.println();
     }
 }
