@@ -26,11 +26,9 @@ public class ListHeap {
             if (left.priority < right.priority) {
                 this.priority = left.priority;
                 left = left.remove();
-//same as return this. return left;
             } else {
                 this.priority = right.priority;
                 right = right.remove();
-//same as return this return right;
             }
             return this;
         }
