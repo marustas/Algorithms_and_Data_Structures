@@ -38,7 +38,6 @@ public class Heap {
                 priority = pr;
                 pr = temp;
             }
-
             if (right != null) {
                 right.add(pr);
             } else {
