@@ -1,12 +1,22 @@
 package by.example;
 
 public class ArrayHeap {
-    int element = 5;
-    int parent = (element - 1) /2;
     // magic needs to be the last element after the filled spot
     int[] heap;
+    int root;
 
-    public ArrayHeap() {
-        heap = new int[0];
+    public ArrayHeap(int size) {
+        heap = new int[size];
+        root = heap[0];
+    }
+
+    public void bubble(int item) {
+        int parent = item % 2 == 0 ? (item - 2) / 2 : (item - 1) / 2;
+        if (item < heap[parent]) {
+            int temp = heap[parent];
+            heap[parent] = item;
+            item = temp;
+            bubble(item);
+        }
     }
 }
