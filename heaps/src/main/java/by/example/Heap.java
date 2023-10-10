@@ -3,9 +3,12 @@ package by.example;
 public class Heap {
     Node root;
 
+
     private static class Node {
         Node left, right;
         int priority;
+        int rightLength = 0;
+        int leftLength = 0;
 
         private Node(int priority) {
             this.left = null;
@@ -38,10 +41,20 @@ public class Heap {
                 priority = pr;
                 pr = temp;
             }
-            if (right != null) {
-                right.add(pr);
+            if (rightLength >= leftLength) {
+                if (left != null) {
+                    left.add(pr);
+                } else {
+                    left = new Node(pr);
+                }
+                leftLength++;
             } else {
-                right = new Node(pr);
+                if (right != null) {
+                    right.add(pr);
+                } else {
+                    right = new Node(pr);
+                }
+                rightLength++;
             }
         }
     }
@@ -71,6 +84,11 @@ public class Heap {
         heap.enqueue(9);
         heap.enqueue(1);
         heap.enqueue(22);
+        System.out.println(heap.dequeue());
+        System.out.println(heap.dequeue());
+        System.out.println(heap.dequeue());
+        System.out.println(heap.dequeue());
+        System.out.println(heap.dequeue());
         System.out.println(heap.dequeue());
     }
 }
