@@ -1,14 +1,13 @@
 package by.example;
 
-public class Heap {
+public class ListHeap {
     Node root;
 
 
     private static class Node {
         Node left, right;
         int priority;
-        int rightLength = 0;
-        int leftLength = 0;
+        int size = 1;
 
         private Node(int priority) {
             this.left = null;
@@ -17,6 +16,7 @@ public class Heap {
         }
 
         private Node remove() {
+            size -= 1;
             if (right == null) {
                 return left;
             }
@@ -36,25 +36,24 @@ public class Heap {
         }
 
         private void add(int pr) {
+            size += 1;
             if (pr < priority) {
                 int temp = priority;
                 priority = pr;
                 pr = temp;
             }
-            if (rightLength >= leftLength) {
+            if (right != null) {
                 if (left != null) {
-                    left.add(pr);
+                    if (left.size < right.size) {
+                        left.add(pr);
+                    } else {
+                        right.add(pr);
+                    }
                 } else {
                     left = new Node(pr);
                 }
-                leftLength++;
             } else {
-                if (right != null) {
-                    right.add(pr);
-                } else {
-                    right = new Node(pr);
-                }
-                rightLength++;
+                right = new Node(pr);
             }
         }
     }
@@ -77,7 +76,7 @@ public class Heap {
     }
 
     public static void main(String[] args) {
-        Heap heap = new Heap();
+        ListHeap heap = new ListHeap();
         heap.enqueue(12);
         heap.enqueue(16);
         heap.enqueue(8);
