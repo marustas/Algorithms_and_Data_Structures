@@ -73,6 +73,35 @@ public class ListHeap {
         return p;
     }
 
+    public void push(int increment) {
+        if (root != null) {
+            root.priority += increment;
+            Node current = root;
+
+            while (true) {
+                Node left = current.left;
+                Node right = current.right;
+                Node smallestChild = null;
+
+                if (left != null && (right == null || left.priority < right.priority)) {
+                    smallestChild = left;
+                } else if (right != null) {
+                    smallestChild = right;
+                }
+
+                if (smallestChild != null && current.priority > smallestChild.priority) {
+                    int temp = current.priority;
+                    current.priority = smallestChild.priority;
+                    smallestChild.priority = temp;
+                    current = smallestChild;
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
         ListHeap heap = new ListHeap();
         heap.enqueue(12);
@@ -82,10 +111,7 @@ public class ListHeap {
         heap.enqueue(1);
         heap.enqueue(22);
         System.out.println(heap.dequeue());
-        System.out.println(heap.dequeue());
-        System.out.println(heap.dequeue());
-        System.out.println(heap.dequeue());
-        System.out.println(heap.dequeue());
+        heap.push(5);
         System.out.println(heap.dequeue());
     }
 }
