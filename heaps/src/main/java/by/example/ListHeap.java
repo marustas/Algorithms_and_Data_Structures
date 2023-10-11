@@ -105,7 +105,6 @@ public class ListHeap {
         return depth;
     }
 
-
     public static void main(String[] args) {
         ListHeap listHeap = new ListHeap();
         Random random = new Random();
