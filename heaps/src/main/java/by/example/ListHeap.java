@@ -110,7 +110,6 @@ public class ListHeap {
         heap.enqueue(9);
         heap.enqueue(1);
         heap.enqueue(22);
-        System.out.println(heap.dequeue());
         heap.push(5);
         System.out.println(heap.dequeue());
     }
