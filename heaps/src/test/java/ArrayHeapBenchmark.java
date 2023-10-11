@@ -1,13 +1,13 @@
-import by.example.ListHeap;
+import by.example.ArrayHeap;
 
 import java.util.Random;
 
-public class ListHeapBenchmark {
+public class ArrayHeapBenchmark {
     public static void main(String[] args) {
         int size = 1023;
         int bound = 100_000;
         int tries = 10;
-        int accuracy = 10_000;
+        int accuracy = 100_000;
         int operations = 1000;
         System.out.println("N\t\tPush operation\t\tEnqueue+Dequeue operation\t\tRatio");
         int attempt = 1;
@@ -19,10 +19,10 @@ public class ListHeapBenchmark {
                 min2 = Double.POSITIVE_INFINITY;
                 Random random = new Random();
 
-                ListHeap listHeap1 = new ListHeap();
+                ArrayHeap listHeap1 = new ArrayHeap(size);
                 for (int t = 0; t < size; t++) {
                     int item = random.nextInt(bound);
-                    listHeap1.enqueue(item);
+                    listHeap1.add(item);
                 }
 
                 double start1 = System.nanoTime();
@@ -35,16 +35,16 @@ public class ListHeapBenchmark {
                     min1 = time1;
                 }
 
-                ListHeap listHeap2 = new ListHeap();
+                ArrayHeap listHeap2 = new ArrayHeap(size);
                 for (int t = 0; t < size; t++) {
                     int item = random.nextInt(100_000);
-                    listHeap2.enqueue(item);
+                    listHeap2.add(item);
                 }
 
                 double start2 = System.nanoTime();
                 for (int o = 0; o < operations; o++) {
-                    int removedItem = listHeap2.dequeue();
-                    listHeap2.enqueue(removedItem);
+                    int removedItem = listHeap2.remove();
+                    listHeap2.add(removedItem);
                 }
                 double time2 = System.nanoTime() - start2;
 
@@ -57,4 +57,3 @@ public class ListHeapBenchmark {
         }
     }
 }
-
