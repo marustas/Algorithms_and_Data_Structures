@@ -81,6 +81,7 @@ public class ListHeap {
             root.priority += increment;
             Node current = root;
             while (true) {
+                depth++;
                 Node left = current.left;
                 Node right = current.right;
                 Node smallestChild = null;
@@ -99,7 +100,6 @@ public class ListHeap {
                 } else {
                     break;
                 }
-                depth++;
             }
         }
         return depth;
