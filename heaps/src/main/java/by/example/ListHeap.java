@@ -75,11 +75,11 @@ public class ListHeap {
         return p;
     }
 
-    public void push(int increment) {
+    public int push(int increment) {
+        int depth = 0;
         if (root != null) {
             root.priority += increment;
             Node current = root;
-
             while (true) {
                 Node left = current.left;
                 Node right = current.right;
@@ -99,8 +99,10 @@ public class ListHeap {
                 } else {
                     break;
                 }
+                depth++;
             }
         }
+        return depth;
     }
 
 
