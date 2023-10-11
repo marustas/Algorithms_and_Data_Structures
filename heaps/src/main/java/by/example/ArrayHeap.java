@@ -10,7 +10,6 @@ public class ArrayHeap {
         this.capacity = capacity;
         this.size = 0;
         heap = new int[capacity];
-        root = heap[0];
     }
 
     public void add(int item) {
@@ -20,6 +19,8 @@ public class ArrayHeap {
         size++;
         while (currentIndex > 0 && heap[currentIndex] < heap[parentIndex]) {
             swap(currentIndex, parentIndex);
+            currentIndex = parentIndex;
+            parentIndex = getParentIndex(currentIndex);
         }
     }
 
@@ -28,17 +29,36 @@ public class ArrayHeap {
     }
 
     public int sink() {
-        return heap[root];
+        int removedElement = heap[root];
+        heap[root] = heap[size - 1];
+        size--;
+        int currentIndex = root;
+        int left, right, smallest;
+
+        while (true) {
+            left = currentIndex * 2 + 1;
+            right = currentIndex * 2 + 2;
+            smallest = currentIndex;
+
+            smallest = (left < size && heap[left] < heap[smallest]) ? left : smallest;
+            smallest = (right < size && heap[right] < heap[smallest]) ? right : smallest;
+
+            if (smallest != currentIndex) {
+                swap(currentIndex, smallest);
+                currentIndex = smallest;
+            } else {
+                break;
+            }
+        }
+
+        heap[size] = 0;
+        return removedElement;
     }
 
     public void swap(int a, int b) {
         int temp1 = heap[a];
         heap[a] = heap[b];
         heap[b] = temp1;
-
-        int temp2 = a;
-        a = b;
-        b = temp2;
     }
 
     public static void main(String[] args) {
@@ -53,6 +73,13 @@ public class ArrayHeap {
         arrayHeap.add(8);
         arrayHeap.add(10);
         arrayHeap.add(9);
+        System.out.println(arrayHeap.sink());
+        System.out.println(arrayHeap.sink());
+        System.out.println(arrayHeap.sink());
+        System.out.println(arrayHeap.sink());
+        System.out.println(arrayHeap.sink());
+        System.out.println(arrayHeap.sink());
+        System.out.println(arrayHeap.sink());
         System.out.println(arrayHeap.sink());
     }
 }
