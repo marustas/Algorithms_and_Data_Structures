@@ -7,7 +7,7 @@ public class ListHeapBenchmark {
         int size = 1023;
         int bound = 100_000;
         int tries = 10;
-        int accuracy = 10_000;
+        int accuracy = 100_000;
         int operations = 1000;
         System.out.println("N\t\tPush operation\t\tEnqueue+Dequeue operation\t\tRatio");
         int attempt = 1;
