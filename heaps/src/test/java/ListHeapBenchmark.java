@@ -9,7 +9,7 @@ public class ListHeapBenchmark {
         int tries = 10;
         int accuracy = 100_000;
         int operations = 1000;
-        System.out.println("N\t\tPush operation\t\tEnqueue+Dequeue operation\t\tRatio\t\tDepth");
+        System.out.println("Attempt\t\tPush operation\t\tEnqueue+Dequeue operation\t\tRatio\t\tDepth");
         int attempt = 1;
         for (int i = 0; i < tries; i++) {
             double min1 = Double.POSITIVE_INFINITY;
@@ -58,7 +58,7 @@ public class ListHeapBenchmark {
                     min2 = time2;
                 }
             }
-            System.out.printf("%d \t\t\t %.2f \t\t\t\t\t %.2f \t\t\t\t\t %.2f\t\t%d\n", attempt, min1 / 1000, min2 / 1000, min1 / min2, maxDepth);
+            System.out.printf("#%d \t\t\t %.2f \t\t\t\t\t %.2f \t\t\t\t\t %.2f\t\t%d\n", attempt, min1 / 1000, min2 / 1000, min1 / min2, maxDepth);
             attempt++;
         }
     }
