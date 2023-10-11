@@ -1,5 +1,7 @@
 package by.example;
 
+import java.util.Random;
+
 public class ArrayHeap {
     int size;
     int capacity;
@@ -71,17 +73,10 @@ public class ArrayHeap {
 
     public static void main(String[] args) {
         ArrayHeap arrayHeap = new ArrayHeap(10);
-        arrayHeap.add(5);
-        arrayHeap.add(6);
-        arrayHeap.add(1);
-        arrayHeap.add(4);
-        arrayHeap.add(3);
-        arrayHeap.add(7);
-        arrayHeap.add(2);
-        arrayHeap.add(8);
-        arrayHeap.add(10);
-        arrayHeap.add(9);
-        arrayHeap.push(12);
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            arrayHeap.add(random.nextInt(100));
+        }
         int i = 0;
         while (i < 10) {
             System.out.println(arrayHeap.remove());
