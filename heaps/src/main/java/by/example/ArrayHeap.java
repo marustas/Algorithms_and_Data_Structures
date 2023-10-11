@@ -82,6 +82,5 @@ public class ArrayHeap {
             System.out.println(arrayHeap.remove());
             i++;
         }
-
     }
 }

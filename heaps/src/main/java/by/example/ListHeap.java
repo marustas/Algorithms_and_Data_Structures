@@ -1,5 +1,7 @@
 package by.example;
 
+import java.util.Random;
+
 public class ListHeap {
     Node root;
 
@@ -103,14 +105,15 @@ public class ListHeap {
 
 
     public static void main(String[] args) {
-        ListHeap heap = new ListHeap();
-        heap.enqueue(12);
-        heap.enqueue(16);
-        heap.enqueue(8);
-        heap.enqueue(9);
-        heap.enqueue(1);
-        heap.enqueue(22);
-        heap.push(5);
-        System.out.println(heap.dequeue());
+        ListHeap listHeap = new ListHeap();
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            listHeap.enqueue(random.nextInt(100));
+        }
+        int i = 0;
+        while (i < 10) {
+            System.out.println(listHeap.dequeue());
+            i++;
+        }
     }
 }
