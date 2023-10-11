@@ -16,13 +16,15 @@ public class ArrayHeap {
     public void add(int item) {
         heap[size] = item;
         int currentIndex = size;
-        int parentIndex = currentIndex % 2 == 0 ? (currentIndex - 2) / 2 : (currentIndex - 1) / 2;
+        int parentIndex = getParentIndex(currentIndex);
         size++;
         while (currentIndex > 0 && heap[currentIndex] < heap[parentIndex]) {
             swap(currentIndex, parentIndex);
-            currentIndex = parentIndex;
-            parentIndex = currentIndex % 2 == 0 ? (currentIndex - 2) / 2 : (currentIndex - 1) / 2;
         }
+    }
+
+    private int getParentIndex(int t) {
+        return t % 2 == 0 ? (t - 2) / 2 : (t - 1) / 2;
     }
 
     public int sink() {
@@ -30,18 +32,27 @@ public class ArrayHeap {
     }
 
     public void swap(int a, int b) {
-        int temp = heap[a];
+        int temp1 = heap[a];
         heap[a] = heap[b];
-        heap[b] = temp;
+        heap[b] = temp1;
+
+        int temp2 = a;
+        a = b;
+        b = temp2;
     }
 
     public static void main(String[] args) {
-        ArrayHeap arrayHeap = new ArrayHeap(6);
+        ArrayHeap arrayHeap = new ArrayHeap(10);
         arrayHeap.add(5);
-        arrayHeap.add(8);
+        arrayHeap.add(6);
         arrayHeap.add(1);
         arrayHeap.add(4);
         arrayHeap.add(3);
+        arrayHeap.add(7);
+        arrayHeap.add(2);
+        arrayHeap.add(8);
+        arrayHeap.add(10);
+        arrayHeap.add(9);
         System.out.println(arrayHeap.sink());
     }
 }
