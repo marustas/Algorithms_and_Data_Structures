@@ -71,7 +71,7 @@ public class PriorityQueueBenchmark {
                     min2 = time2;
                 }
             }
-            System.out.printf("%d\t\t\t%.2f\t\t\t\t\t%.2f\t\t\t\t\t\t%.2f\t\t\t\t%.2f\n", size, min1, min2, min3, min4);
+            System.out.printf("%d\t\t\t%.2f\t\t\t\t\t%.2f\t\t\t\t\t\t%.2f\t\t\t\t%.2f\n", size, min1/size, min2/size, min3/size, min4/size);
         }
     }
 }
