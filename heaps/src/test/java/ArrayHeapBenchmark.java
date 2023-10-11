@@ -19,15 +19,15 @@ public class ArrayHeapBenchmark {
                 min2 = Double.POSITIVE_INFINITY;
                 Random random = new Random();
 
-                ArrayHeap listHeap1 = new ArrayHeap(size);
+                ArrayHeap arrayHeap1 = new ArrayHeap(size);
                 for (int t = 0; t < size; t++) {
                     int item = random.nextInt(bound);
-                    listHeap1.add(item);
+                    arrayHeap1.add(item);
                 }
 
                 double start1 = System.nanoTime();
                 for (int o = 0; o < operations; o++) {
-                    listHeap1.push(random.nextInt(10, 100));
+                    arrayHeap1.push(random.nextInt(10, 100));
                 }
                 double time1 = System.nanoTime() - start1;
 
@@ -35,16 +35,16 @@ public class ArrayHeapBenchmark {
                     min1 = time1;
                 }
 
-                ArrayHeap listHeap2 = new ArrayHeap(size);
+                ArrayHeap arrayHeap2 = new ArrayHeap(size);
                 for (int t = 0; t < size; t++) {
                     int item = random.nextInt(100_000);
-                    listHeap2.add(item);
+                    arrayHeap2.add(item);
                 }
 
                 double start2 = System.nanoTime();
                 for (int o = 0; o < operations; o++) {
-                    int removedItem = listHeap2.remove();
-                    listHeap2.add(removedItem);
+                    int removedItem = arrayHeap2.remove();
+                    arrayHeap2.add(removedItem);
                 }
                 double time2 = System.nanoTime() - start2;
 
