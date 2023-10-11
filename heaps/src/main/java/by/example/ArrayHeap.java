@@ -28,11 +28,17 @@ public class ArrayHeap {
         return t % 2 == 0 ? (t - 2) / 2 : (t - 1) / 2;
     }
 
-    public int sink() {
+    public int remove() {
         int removedElement = heap[root];
         heap[root] = heap[size - 1];
         size--;
-        int currentIndex = root;
+        sink(root);
+        heap[size] = 0;
+        return removedElement;
+    }
+
+    private void sink(int index) {
+        int currentIndex = index;
         int left, right, smallest;
 
         while (true) {
@@ -50,9 +56,11 @@ public class ArrayHeap {
                 break;
             }
         }
+    }
 
-        heap[size] = 0;
-        return removedElement;
+    public void push(int increment) {
+        heap[root] += increment;
+        sink(root);
     }
 
     public void swap(int a, int b) {
@@ -73,13 +81,12 @@ public class ArrayHeap {
         arrayHeap.add(8);
         arrayHeap.add(10);
         arrayHeap.add(9);
-        System.out.println(arrayHeap.sink());
-        System.out.println(arrayHeap.sink());
-        System.out.println(arrayHeap.sink());
-        System.out.println(arrayHeap.sink());
-        System.out.println(arrayHeap.sink());
-        System.out.println(arrayHeap.sink());
-        System.out.println(arrayHeap.sink());
-        System.out.println(arrayHeap.sink());
+        arrayHeap.push(12);
+        int i = 0;
+        while (i < 10) {
+            System.out.println(arrayHeap.remove());
+            i++;
+        }
+
     }
 }
