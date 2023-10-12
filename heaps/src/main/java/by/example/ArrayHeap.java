@@ -39,7 +39,8 @@ public class ArrayHeap {
         return removedElement;
     }
 
-    private void sink(int index) {
+    private int sink(int index) {
+        int depth = 0;
         int currentIndex = index;
         int left, right, smallest;
 
@@ -58,11 +59,13 @@ public class ArrayHeap {
                 break;
             }
         }
+        depth++;
+        return depth;
     }
 
-    public void push(int increment) {
+    public int push(int increment) {
         heap[root] += increment;
-        sink(root);
+        return sink(root);
     }
 
     private void swap(int a, int b) {
