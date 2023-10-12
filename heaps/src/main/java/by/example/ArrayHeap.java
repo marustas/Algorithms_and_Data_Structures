@@ -45,6 +45,7 @@ public class ArrayHeap {
         int left, right, smallest;
 
         while (true) {
+            depth++;
             left = currentIndex * 2 + 1;
             right = currentIndex * 2 + 2;
             smallest = currentIndex;
@@ -59,7 +60,6 @@ public class ArrayHeap {
                 break;
             }
         }
-        depth++;
         return depth;
     }
 
