@@ -65,7 +65,7 @@ public class ArrayHeap {
         sink(root);
     }
 
-    public void swap(int a, int b) {
+    private void swap(int a, int b) {
         int temp1 = heap[a];
         heap[a] = heap[b];
         heap[b] = temp1;
