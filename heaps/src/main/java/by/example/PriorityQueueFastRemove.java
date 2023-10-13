@@ -1,6 +1,4 @@
 package by.example;
-
-//Sorted list, from small to big, add based on the priority, remove the first element
 public class PriorityQueueFastRemove {
     Node first;
 
@@ -24,13 +22,12 @@ public class PriorityQueueFastRemove {
     }
 
     public int remove() {
-        Node temp = first;
         if (isEmpty()) {
             return -1;
-        } else {
-            first = first.next;
         }
-        return temp.priority;
+        int topPriority = first.priority;
+        first = first.next;
+        return topPriority;
     }
 
     public boolean isEmpty() {

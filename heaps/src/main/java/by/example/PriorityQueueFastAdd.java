@@ -1,7 +1,5 @@
 package by.example;
 
-//Unsorted list, add to the first, remove by searching for smallest element
-// More or less better, because we can't remove more than we added
 public class PriorityQueueFastAdd {
     Node first;
 
@@ -11,9 +9,7 @@ public class PriorityQueueFastAdd {
 
     public void add(int item) {
         Node newNode = new Node(item, null);
-        if (first == null) {
-            first = newNode;
-        } else {
+        if (first != null) {
             newNode.next = first;
         }
         first = newNode;
