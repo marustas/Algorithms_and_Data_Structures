@@ -27,6 +27,7 @@ public class PriorityQueueFastAdd {
             if (minPriority > current.next.priority) {
                 previous = current;
                 candidate = current.next;
+                minPriority = candidate.priority;
             }
             current = current.next;
         }

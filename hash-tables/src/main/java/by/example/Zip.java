@@ -19,32 +19,29 @@ public class Zip {
         }
     }
 
-    public boolean linear(String zip) {
-        int zipCode = Integer.parseInt(zip);
+    public boolean linear(Integer zip) {
         for (Node datum : data) {
-            if (datum.code.equals(zipCode)) {
+            if (datum.code.equals(zip)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean binary(String zip) {
-        Integer zipCode = Integer.parseInt(zip);
+    public boolean binary(Integer zip) {
         int length = data.length;
         int start = 0;
         int end = length - 1;
-        int mid;
         while (true) {
-            mid = (start + end) / 2;
-            if (data[mid].code.equals(zipCode)) {
+            int mid = (start + end) / 2;
+            if (data[mid].code.equals(zip)) {
                 return true;
             }
-            if (data[mid].code > (zipCode)) {
+            if (data[mid].code > (zip)) {
                 end = mid - 1;
                 continue;
             }
-            if (data[mid].code < (zipCode)) {
+            if (data[mid].code < (zip)) {
                 start = mid + 1;
                 continue;
             }
@@ -70,6 +67,8 @@ public class Zip {
     }
 
     public static void main(String[] args) {
-        Zip zip = new Zip("postnummer.csv");
+        Zip zip = new Zip("postnummer");
+        System.out.println(zip.binary(11115));
+        System.out.println(zip.linear(11115));
     }
 }
