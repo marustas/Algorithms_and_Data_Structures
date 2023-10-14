@@ -29,9 +29,8 @@ public class Zip {
     }
 
     public boolean binary(Integer zip) {
-        int length = data.length;
         int start = 0;
-        int end = length - 1;
+        int end = data.length - 1;
         while (true) {
             int mid = (start + end) / 2;
             if (data[mid].code.equals(zip)) {
@@ -67,7 +66,8 @@ public class Zip {
     }
 
     public static void main(String[] args) {
-        Zip zip = new Zip("postnummer");
+        String file = "hash-tables/src/main/java/by/example/postnummer.csv";
+        Zip zip = new Zip(file);
         System.out.println(zip.binary(11115));
         System.out.println(zip.linear(11115));
     }
