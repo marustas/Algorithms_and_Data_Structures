@@ -29,6 +29,25 @@ public class Zip {
     }
 
     public boolean binary(Integer zip) {
+        int length = data.length;
+        int start = 0;
+        int end = length - 1;
+        int mid;
+        while (true) {
+            mid = (start + end) / 2;
+            if (data[mid].code.equals(zip)) {
+                return true;
+            }
+            if (data[mid].code > (zip)) {
+                end = mid - 1;
+                continue;
+            }
+            if (data[mid].code < (zip)) {
+                start = mid + 1;
+                continue;
+            }
+            break;
+        }
         return false;
     }
 
