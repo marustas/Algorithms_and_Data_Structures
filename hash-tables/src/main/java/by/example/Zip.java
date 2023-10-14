@@ -22,7 +22,7 @@ public class Zip {
     public boolean linear(String zip) {
         Integer zipCode = Integer.valueOf(zip.replaceAll(" ", ""));
         for (Node datum : data) {
-            if (datum.code.equals(zipCode)) {
+            if (datum != null && datum.code.equals(zipCode)) {
                 return true;
             }
         }
@@ -30,41 +30,44 @@ public class Zip {
     }
 
     public boolean binary(String zip) {
-        Integer zipCode = Integer.valueOf(zip.replaceAll(" ", ""));
+        Integer zipCode = Integer.valueOf(zip.replaceAll("\\s", ""));
         int start = 0;
-        int end = max - 1;
-        while (true) {
+        int end = data.length - 1;
+        while (start <= end) {
             int mid = (start + end) / 2;
-            if (data[mid].code.equals(zipCode)) {
-                return true;
+            if (data[mid] != null) {
+                if (data[mid].code.equals(zipCode)) {
+                    return true;
+                }
+                if (data[mid].code > zipCode) {
+                    end = mid - 1;
+                } else {
+                    start = mid + 1;
+                }
+            } else {
+                if (mid > zipCode) {
+                    end = mid - 1;
+                } else {
+                    start = mid + 1;
+                }
             }
-            if (data[mid].code > (zipCode)) {
-                end = mid - 1;
-                continue;
-            }
-            if (data[mid].code < (zipCode)) {
-                start = mid + 1;
-                continue;
-            }
-            break;
         }
         return false;
     }
 
     public Zip(String file) {
         data = new Node[100_000];
+        int max = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
-            int i = 0;
             while ((line = br.readLine()) != null) {
                 String[] row = line.split(",");
                 Integer code = Integer.valueOf(row[0].replaceAll("\\s", ""));
                 String name = row[1];
                 Integer pop = Integer.valueOf(row[2]);
                 data[code] = new Node(code, name, pop);
-                i++;
+                max = code > max ? code : max;
             }
-            max = i - 1;
         } catch (Exception e) {
             System.out.println(" file " + file + " not found");
         }
