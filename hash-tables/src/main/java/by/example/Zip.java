@@ -19,11 +19,16 @@ public class Zip {
         }
     }
 
-    public boolean linear(String zip) {
+    public boolean linear(Integer zip) {
+        for (Node datum : data) {
+            if (datum.code.equals(zip)) {
+                return true;
+            }
+        }
         return false;
     }
 
-    public boolean binary(String zip) {
+    public boolean binary(Integer zip) {
         return false;
     }
 
