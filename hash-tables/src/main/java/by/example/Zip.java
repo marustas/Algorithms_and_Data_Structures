@@ -32,7 +32,7 @@ public class Zip {
     public boolean binary(String zip) {
         Integer zipCode = Integer.valueOf(zip.replaceAll(" ", ""));
         int start = 0;
-        int end = data.length - 1;
+        int end = max - 1;
         while (true) {
             int mid = (start + end) / 2;
             if (data[mid].code.equals(zipCode)) {
@@ -52,14 +52,17 @@ public class Zip {
     }
 
     public Zip(String file) {
-        data = new Node[10000];
+        data = new Node[100_000];
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             int i = 0;
             while ((line = br.readLine()) != null) {
                 String[] row = line.split(",");
                 Integer code = Integer.valueOf(row[0].replaceAll("\\s", ""));
-                data[i++] = new Node(code, row[1], Integer.valueOf(row[2]));
+                String name = row[1];
+                Integer pop = Integer.valueOf(row[2]);
+                data[code] = new Node(code, name, pop);
+                i++;
             }
             max = i - 1;
         } catch (Exception e) {
