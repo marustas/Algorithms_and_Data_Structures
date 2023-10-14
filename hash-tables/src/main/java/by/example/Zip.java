@@ -8,9 +8,23 @@ public class Zip {
     int max;
 
     public static class Node {
-        private Node(String start, String end, Integer length) {
+        Integer code;
+        String name;
+        Integer pop;
 
+        private Node(Integer code, String name, Integer pop) {
+            this.code = code;
+            this.name = name;
+            this.pop = pop;
         }
+    }
+
+    public boolean linear(String zip) {
+        return false;
+    }
+
+    public boolean binary(String zip) {
+        return false;
     }
 
     public Zip(String file) {
@@ -20,12 +34,12 @@ public class Zip {
             int i = 0;
             while ((line = br.readLine()) != null) {
                 String[] row = line.split(",");
-                data[i++] = new Node(row[0], row[1], Integer.valueOf(row[2]));
+                Integer code = Integer.valueOf(row[0].replaceAll("\\s", ""));
+                data[i++] = new Node(code, row[1], Integer.valueOf(row[2]));
             }
             max = i - 1;
         } catch (Exception e) {
             System.out.println(" file " + file + " not found");
         }
     }
-
 }
