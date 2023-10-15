@@ -99,6 +99,7 @@ public class Zip {
     public static void main(String[] args) {
         String file = "hash-tables/src/main/java/by/example/postnummer.csv";
         Zip zip = new Zip(file);
+        //13513 gives the least collisions
         int[] modulos = {10_000, 20_000, 13513, 13600, 14000};
         for (int modulo : modulos) {
             zip.collisions(modulo);
