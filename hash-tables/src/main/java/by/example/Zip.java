@@ -13,7 +13,6 @@ public class Zip {
         String name;
         Integer pop;
         Node next;
-        int max;
 
         private Node(Integer code, String name, Integer pop) {
             this.code = code;
@@ -50,7 +49,6 @@ public class Zip {
     }
 
     public Zip(String file) {
-        max = 0;
         buckets = new Node[15000];
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
@@ -62,7 +60,6 @@ public class Zip {
                 Integer index = hash(code);
                 Node entry = new Node(code, name, pop);
                 put(index, entry);
-                max++;
             }
         } catch (Exception e) {
             System.out.println(" file " + file + " not found");
