@@ -22,15 +22,17 @@ public class HashLinearProbing {
         buckets[index] = node;
     }
 
-    public String lookup(Integer zip) {
+    public int lookup(Integer zip) {
         int index = hash(zip);
+        int length = 0;
         while (buckets[index] != null) {
             if (buckets[index].code.equals(zip)) {
-                return buckets[index].name;
+                return length;
             }
+            length++;
             index++;
         }
-        return null;
+        return -1;
     }
 
     public HashLinearProbing(String file) {
@@ -61,8 +63,8 @@ public class HashLinearProbing {
     public static void main(String[] args) {
         String file = "hash-tables/src/main/java/by/example/postnummer.csv";
         HashLinearProbing hashLinearProbing = new HashLinearProbing(file);
-        System.out.println(hashLinearProbing.lookup(14147));
-        System.out.println(hashLinearProbing.lookup(98499));
+        System.out.println(hashLinearProbing.lookup(11115));
+        System.out.println(hashLinearProbing.lookup(45293));
     }
 }
 
