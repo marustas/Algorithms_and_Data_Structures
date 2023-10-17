@@ -20,33 +20,31 @@ public class Zip {
         }
     }
 
-    public String linear(String zip) {
-        Integer zipCode = Integer.valueOf(zip.replaceAll(" ", ""));
+    public String linear(Integer zip) {
         for (Node datum : data) {
-            if (datum != null && datum.code.equals(zipCode)) {
+            if (datum != null && datum.code.equals(zip)) {
                 return datum.name;
             }
         }
         return null;
     }
 
-    public String binary(String zip) {
-        Integer zipCode = Integer.valueOf(zip.replaceAll("\\s", ""));
+    public String binary(Integer zip) {
         int start = 0;
         int end = max;
         while (start <= end) {
             int mid = (start + end) / 2;
             if (data[mid] != null) {
-                if (data[mid].code.equals(zipCode)) {
+                if (data[mid].code.equals(zip)) {
                     return data[mid].name;
                 }
-                if (data[mid].code > zipCode) {
+                if (data[mid].code > zip) {
                     end = mid - 1;
                 } else {
                     start = mid + 1;
                 }
             } else {
-                if (mid > zipCode) {
+                if (mid > zip) {
                     end = mid - 1;
                 } else {
                     start = mid + 1;
@@ -113,7 +111,7 @@ public class Zip {
         //								Binary search		 Linear search
         //Time to find the first element: 167.00			4292.00
         //Time to find the last element: 166.00			49209.00
-        System.out.println(zip.binary("111 15"));
-        System.out.println(zip.linear("111 15"));
+        System.out.println(zip.binary(11115));
+        System.out.println(zip.linear(11115));
     }
 }
