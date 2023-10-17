@@ -59,12 +59,5 @@ public class HashLinearProbing {
     private Integer hash(Integer key) {
         return key % 13513;
     }
-
-    public static void main(String[] args) {
-        String file = "hash-tables/src/main/java/by/example/postnummer.csv";
-        HashLinearProbing hashLinearProbing = new HashLinearProbing(file);
-        System.out.println(hashLinearProbing.lookup(11115));
-        System.out.println(hashLinearProbing.lookup(45293));
-    }
 }
 

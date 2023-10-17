@@ -33,18 +33,20 @@ public class HashBuckets {
         }
     }
 
-    public String lookup(Integer zip) {
+    public int lookup(Integer zip) {
+        int length = 0;
         int bucket = hash(zip);
         if (buckets[bucket] != null) {
             Node current = buckets[bucket];
             while (current != null) {
                 if (Objects.equals(current.code, zip)) {
-                    return current.name;
+                    return length;
                 }
+                length++;
                 current = current.next;
             }
         }
-        return null;
+        return -1;
     }
 
     public HashBuckets(String file) {
@@ -67,13 +69,5 @@ public class HashBuckets {
 
     private Integer hash(Integer key) {
         return key % 13513;
-    }
-
-    public static void main(String[] args) {
-        String file = "hash-tables/src/main/java/by/example/postnummer.csv";
-        HashBuckets hashBuckets = new HashBuckets(file);
-// converting string to integer takes more time than searching simply for an integer.
-        System.out.println(hashBuckets.lookup(11115));
-        System.out.println(hashBuckets.lookup(98499));
     }
 }
