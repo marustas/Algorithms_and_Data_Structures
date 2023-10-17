@@ -20,25 +20,25 @@ public class Zip {
         }
     }
 
-    public boolean linear(String zip) {
+    public String linear(String zip) {
         Integer zipCode = Integer.valueOf(zip.replaceAll(" ", ""));
         for (Node datum : data) {
             if (datum != null && datum.code.equals(zipCode)) {
-                return true;
+                return datum.name;
             }
         }
-        return false;
+        return null;
     }
 
-    public boolean binary(String zip) {
+    public String binary(String zip) {
         Integer zipCode = Integer.valueOf(zip.replaceAll("\\s", ""));
         int start = 0;
-        int end = data.length - 1;
+        int end = max;
         while (start <= end) {
             int mid = (start + end) / 2;
             if (data[mid] != null) {
                 if (data[mid].code.equals(zipCode)) {
-                    return true;
+                    return data[mid].name;
                 }
                 if (data[mid].code > zipCode) {
                     end = mid - 1;
@@ -53,7 +53,7 @@ public class Zip {
                 }
             }
         }
-        return false;
+        return null;
     }
 
     public Zip(String file) {
@@ -70,7 +70,7 @@ public class Zip {
                 Integer pop = Integer.valueOf(row[2]);
                 data[code] = new Node(code, name, pop);
             }
-            max = i;
+            max = data.length - 1;
         } catch (Exception e) {
             System.out.println(" file " + file + " not found");
         }
@@ -98,40 +98,7 @@ public class Zip {
     public static void main(String[] args) {
         String file = "hash-tables/src/main/java/by/example/postnummer.csv";
         Zip zip = new Zip(file);
-        int tries = 10_000;
-        double minBinary = Double.POSITIVE_INFINITY;
-        double minLinear = Double.POSITIVE_INFINITY;
-        double minBinary2 = Double.POSITIVE_INFINITY;
-        double minLinear2 = Double.POSITIVE_INFINITY;
-        for (int i = 0; i < tries; i++) {
-            double binaryStart = System.nanoTime();
-            zip.binary("111 15");
-            double binaryTime = System.nanoTime() - binaryStart;
-            if (minBinary > binaryTime) {
-                minBinary = binaryTime;
-            }
 
-            double linearStart = System.nanoTime();
-            zip.linear("111 15");
-            double linearTime = System.nanoTime() - linearStart;
-            if (minLinear > linearTime) {
-                minLinear = linearTime;
-            }
-
-            double binaryStart2 = System.nanoTime();
-            zip.binary("984 99");
-            double binaryTime2 = System.nanoTime() - binaryStart2;
-            if (minBinary2 > binaryTime2) {
-                minBinary2 = binaryTime2;
-            }
-
-            double linearStart2 = System.nanoTime();
-            zip.linear("984 99");
-            double linearTime2 = System.nanoTime() - linearStart2;
-            if (minLinear2 > linearTime2) {
-                minLinear2 = linearTime2;
-            }
-        }
         //When storing with data[i++] String code:
         //								Binary search		 Linear search
         //Time to find the first element: 1708.00			41.00
@@ -146,10 +113,7 @@ public class Zip {
         //								Binary search		 Linear search
         //Time to find the first element: 167.00			4292.00
         //Time to find the last element: 166.00			49209.00
-        System.out.println("\t\t\t\t\t\t\t\tBinary search\t\t Linear search");
-        System.out.printf("Time to find the first element: %.2f\t\t\t%.2f\n", minBinary, minLinear);
-        System.out.printf("Time to find the last element: %.2f\t\t\t%.2f\n", minBinary2, minLinear2);
-        System.out.println(zip.binary("984 99"));
-        System.out.println(zip.linear("984 99"));
+        System.out.println(zip.binary("111 15"));
+        System.out.println(zip.linear("111 15"));
     }
 }
