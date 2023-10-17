@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.util.Objects;
 
 public class Zip {
-    int max;
     Node[] buckets;
 
     private static class Node {
@@ -49,7 +48,7 @@ public class Zip {
     }
 
     public Zip(String file) {
-        buckets = new Node[15000];
+        buckets = new Node[13513];
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
