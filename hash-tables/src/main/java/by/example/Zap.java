@@ -47,7 +47,7 @@ public class Zap {
     }
 
     public Zap(String file) {
-        data = new Node[100_000];
+        data = new Node[10_000];
         int i = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
@@ -67,7 +67,38 @@ public class Zap {
     public static void main(String[] args) {
         String file = "hash-tables/src/main/java/by/example/postnummer.csv";
         Zap zap = new Zap(file);
-// converting string to integer takes more time than searching simply for an integer.
+
+        double min1 = Double.POSITIVE_INFINITY;
+        double min2 = Double.POSITIVE_INFINITY;
+        double min3 = Double.POSITIVE_INFINITY;
+        double min4 = Double.POSITIVE_INFINITY;
+        for (int i = 0; i < 10_000; i++) {
+            double start1 = System.nanoTime();
+            zap.linear(11115);
+            double time1 = System.nanoTime() - start1;
+            if (min1 > time1)
+                min1 = time1;
+
+            double start2 = System.nanoTime();
+            zap.binary(11115);
+            double time2 = System.nanoTime() - start2;
+            if (min2 > time2)
+                min2 = time2;
+
+            double start3 = System.nanoTime();
+            zap.linear(98499);
+            double time3 = System.nanoTime() - start3;
+            if (min3 > time3)
+                min3 = time3;
+
+            double start4 = System.nanoTime();
+            zap.binary(98499);
+            double time4 = System.nanoTime() - start4;
+            if (min4 > time4)
+                min4 = time4;
+        }
+        System.out.printf("Searching for first: linear(%.2f)\t\tbinary(%.2f)\nSearching for last: linear(%.2f)\t\tbinary(%.2f)\n", min1, min2, min3, min4);
+
         System.out.println(zap.linear(11115));
         System.out.println(zap.binary(11115));
         System.out.println(zap.linear(98499));

@@ -48,7 +48,7 @@ public class Zop {
     }
 
     public Zop(String file) {
-        data = new Node[100_000];
+        data = new Node[10_000];
         int i = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
@@ -68,10 +68,39 @@ public class Zop {
     public static void main(String[] args) {
         String file = "hash-tables/src/main/java/by/example/postnummer.csv";
         Zop zop = new Zop(file);
-// converting string to integer takes more time than searching simply for an integer.
+        double min1 = Double.POSITIVE_INFINITY;
+        double min2 = Double.POSITIVE_INFINITY;
+        double min3 = Double.POSITIVE_INFINITY;
+        double min4 = Double.POSITIVE_INFINITY;
+        for (int i = 0; i < 10_000; i++) {
+            double start1 = System.nanoTime();
+            zop.linear("111 15");
+            double time1 = System.nanoTime() - start1;
+            if (min1 > time1)
+                min1 = time1;
+
+            double start2 = System.nanoTime();
+            zop.binary("111 15");
+            double time2 = System.nanoTime() - start2;
+            if (min2 > time2)
+                min2 = time2;
+
+            double start3 = System.nanoTime();
+            zop.linear("984 99");
+            double time3 = System.nanoTime() - start3;
+            if (min3 > time3)
+                min3 = time3;
+
+            double start4 = System.nanoTime();
+            zop.binary("984 99");
+            double time4 = System.nanoTime() - start4;
+            if (min4 > time4)
+                min4 = time4;
+        }
+        System.out.printf("Searching for first: linear(%.2f)\t\tbinary(%.2f)\nSearching for last: linear(%.2f)\t\tbinary(%.2f)\n", min1, min2, min3, min4);
+
         System.out.println(zop.linear("111 15"));
         System.out.println(zop.binary("111 15"));
-
         System.out.println(zop.linear("984 99"));
         System.out.println(zop.binary("984 99"));
     }
