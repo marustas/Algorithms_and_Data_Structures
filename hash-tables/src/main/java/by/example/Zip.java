@@ -69,7 +69,6 @@ public class Zip {
                 String name = row[1];
                 Integer pop = Integer.valueOf(row[2]);
                 data[code] = new Node(code, name, pop);
-                i++;
             }
             max = i;
         } catch (Exception e) {
@@ -78,7 +77,7 @@ public class Zip {
     }
 
     private Integer hash(Integer code) {
-        return code % 100;
+        return code % 13513;
     }
 
     public void collisions(int mod) {
@@ -99,11 +98,57 @@ public class Zip {
     public static void main(String[] args) {
         String file = "hash-tables/src/main/java/by/example/postnummer.csv";
         Zip zip = new Zip(file);
-        //13513 gives the least collisions
-        int[] modulos = {10_000, 20_000, 13513, 13600, 14000};
-        for (int modulo : modulos) {
-            zip.collisions(modulo);
+        int tries = 10_000;
+        double minBinary = Double.POSITIVE_INFINITY;
+        double minLinear = Double.POSITIVE_INFINITY;
+        double minBinary2 = Double.POSITIVE_INFINITY;
+        double minLinear2 = Double.POSITIVE_INFINITY;
+        for (int i = 0; i < tries; i++) {
+            double binaryStart = System.nanoTime();
+            zip.binary("111 15");
+            double binaryTime = System.nanoTime() - binaryStart;
+            if (minBinary > binaryTime) {
+                minBinary = binaryTime;
+            }
+
+            double linearStart = System.nanoTime();
+            zip.linear("111 15");
+            double linearTime = System.nanoTime() - linearStart;
+            if (minLinear > linearTime) {
+                minLinear = linearTime;
+            }
+
+            double binaryStart2 = System.nanoTime();
+            zip.binary("984 99");
+            double binaryTime2 = System.nanoTime() - binaryStart2;
+            if (minBinary2 > binaryTime2) {
+                minBinary2 = binaryTime2;
+            }
+
+            double linearStart2 = System.nanoTime();
+            zip.linear("984 99");
+            double linearTime2 = System.nanoTime() - linearStart2;
+            if (minLinear2 > linearTime2) {
+                minLinear2 = linearTime2;
+            }
         }
+        //When storing with data[i++] String code:
+        //								Binary search		 Linear search
+        //Time to find the first element: 1708.00			41.00
+        //Time to find the last element: 1625.00			19209.00
+
+        //When storing with data[i++] Integer code:
+        //								Binary search		 Linear search
+        //Time to find the first element: 208.00			125.00
+        //Time to find the last element: 166.00			10416.00
+
+        //When storing with data[code]:
+        //								Binary search		 Linear search
+        //Time to find the first element: 167.00			4292.00
+        //Time to find the last element: 166.00			49209.00
+        System.out.println("\t\t\t\t\t\t\t\tBinary search\t\t Linear search");
+        System.out.printf("Time to find the first element: %.2f\t\t\t%.2f\n", minBinary, minLinear);
+        System.out.printf("Time to find the last element: %.2f\t\t\t%.2f\n", minBinary2, minLinear2);
         System.out.println(zip.binary("984 99"));
         System.out.println(zip.linear("984 99"));
     }
