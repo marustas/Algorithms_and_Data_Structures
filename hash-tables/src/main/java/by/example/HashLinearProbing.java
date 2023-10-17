@@ -2,53 +2,39 @@ package by.example;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.Objects;
 
-public class Zip {
+public class HashLinearProbing {
     Node[] buckets;
 
     private static class Node {
         Integer code;
         String name;
         Integer pop;
-        Node next;
 
         private Node(Integer code, String name, Integer pop) {
             this.code = code;
             this.name = name;
             this.pop = pop;
-            this.next = null;
         }
     }
 
     private void put(Integer index, Node node) {
-        if (buckets[index] == null) {
-            buckets[index] = node;
-        } else {
-            Node current = buckets[index];
-            while (current.next != null) {
-                current = current.next;
-            }
-            current.next = node;
-        }
+        buckets[index] = node;
     }
 
     public String lookup(Integer zip) {
-        int bucket = hash(zip);
-        if (buckets[bucket] != null) {
-            Node current = buckets[bucket];
-            while (current != null) {
-                if (Objects.equals(current.code, zip)) {
-                    return current.name;
-                }
-                current = current.next;
+        int index = hash(zip);
+        while (buckets[index] != null) {
+            if (buckets[index].code.equals(zip)) {
+                return buckets[index].name;
             }
+            index++;
         }
         return null;
     }
 
-    public Zip(String file) {
-        buckets = new Node[13513];
+    public HashLinearProbing(String file) {
+        buckets = new Node[20000];
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -58,6 +44,9 @@ public class Zip {
                 Integer pop = Integer.valueOf(row[2]);
                 Integer index = hash(code);
                 Node entry = new Node(code, name, pop);
+                while (buckets[index] != null) {
+                    index++;
+                }
                 put(index, entry);
             }
         } catch (Exception e) {
@@ -71,9 +60,9 @@ public class Zip {
 
     public static void main(String[] args) {
         String file = "hash-tables/src/main/java/by/example/postnummer.csv";
-        Zip zip = new Zip(file);
-// converting string to integer takes more time than searching simply for an integer.
-        System.out.println(zip.lookup(11115));
-        System.out.println(zip.lookup(98499));
+        HashLinearProbing hashLinearProbing = new HashLinearProbing(file);
+        System.out.println(hashLinearProbing.lookup(14147));
+        System.out.println(hashLinearProbing.lookup(98499));
     }
 }
+
