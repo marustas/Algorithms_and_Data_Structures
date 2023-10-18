@@ -9,7 +9,36 @@ public class T9 {
             next = new Node[27];
             valid = false;
         }
+        private void addRecursive(String s) {
+
+            char c = s.charAt(0);
+
+            int i = code(c);
+            Node n = next[i];
+            if (n == null) {
+                next[i] = new Node();
+            }
+
+            if (s.length() == 1) {
+                next[i].valid = true;
+                return;
+            }
+
+            String rest = s.substring(1, s.length());
+            next[i].addRecursive(rest);
+        }
     }
+
+    Node root;
+
+    private static int index(char key) {
+        return key - '1';
+    }
+
+    public void add(String word) {
+        root.addRecursive(word);
+    }
+
     private static char character(int code) {
         return switch (code) {
             case 0 -> 'a';
