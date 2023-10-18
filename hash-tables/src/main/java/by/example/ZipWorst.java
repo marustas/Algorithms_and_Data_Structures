@@ -35,7 +35,7 @@ public class ZipWorst {
         while (start <= end) {
             int mid = (start + end) / 2;
             Integer midCode = Integer.valueOf(data[mid].code.replaceAll("\\s", ""));
-            if (midCode.equals(zipCode)) {
+            if (data[mid].code.compareTo(zip) == 0) {
                 return data[mid].name;
             }
             if (midCode > zipCode) {
