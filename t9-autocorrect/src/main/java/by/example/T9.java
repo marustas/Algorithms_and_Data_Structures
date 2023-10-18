@@ -26,7 +26,6 @@ public class T9 {
                 next[i].valid = true;
                 return;
             }
-
             index++;
             next[i].addRecursive(word, index);
         }
@@ -109,7 +108,7 @@ public class T9 {
         };
     }
 
-    private void decode(Node node, ArrayList<String> list, String input, String path) {
+    private void collect(Node node, ArrayList<String> list, String input, String path) {
         if (input.length() > 0) {
             char key = input.charAt(0);
             int index = index(key);
@@ -117,6 +116,24 @@ public class T9 {
             int branch2 = index * 3 + 1;
             int branch3 = index * 3 + 2;
 
+            Node node1 = node.next[branch1];
+            Node node2 = node.next[branch2];
+            Node node3 = node.next[branch3];
+
+            if (node1 != null) {
+                String key_rest = input.substring(1);
+                collect(node1, list, key_rest, path + character(branch1));
+            }
+
+            if (node2 != null) {
+                String key_rest = input.substring(1);
+                collect(node2, list, key_rest, path + character(branch2));
+            }
+
+            if (node3 != null) {
+                String key_rest = input.substring(1);
+                collect(node3, list, key_rest, path + character(branch3));
+            }
         } else if (node.valid) {
             list.add(path);
         }
@@ -128,7 +145,7 @@ public class T9 {
 
     public ArrayList<String> decode(String keys) {
         ArrayList<String> list = new ArrayList<String>();
-        decode(root, list, keys, "");
+        collect(root, list, keys, "");
         return list;
     }
 
