@@ -1,10 +1,7 @@
 package by.example;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 
 public class T9 {
     private class Node {
@@ -36,8 +33,8 @@ public class T9 {
 
     Node root;
 
-    private static int index(char key) {
-        return key - '1';
+    private static int index(int key) {
+        return key - 1;
     }
 
     private static int key(char character) {
@@ -116,10 +113,12 @@ public class T9 {
     }
 
     T9(String file) {
-        try (BufferedReader br = new BufferedReader(new FileReader(file , StandardCharsets.UTF_8))) {
+        root = new Node();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
                 add(line);
+                System.out.println("Added: " + line);
             }
         } catch (Exception e) {
             System.out.println(" file " + file + " not found");
@@ -127,8 +126,8 @@ public class T9 {
     }
 
     public static void main(String[] args) {
-        String file = "/Users/stanislau/Developer/Algorithms_KTH/t9-autocorrect/src/main/java/by/example/kelly.txt";
+        String file = "t9-autocorrect/src/main/java/by/example/message.txt";
         T9 t9 = new T9(file);
-        System.out.println();
+        System.out.println(t9.root);
     }
 }
