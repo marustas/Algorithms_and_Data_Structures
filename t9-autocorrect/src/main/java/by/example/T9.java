@@ -34,10 +34,10 @@ public class T9 {
     Node root;
 
     private static int index(char key) {
-        return key - '1';
+        return (int) key - 1;
     }
 
-    private static int key(char character) {
+    public int key(char character) {
         int j = code(character);
         return j / 3;
     }
@@ -110,8 +110,7 @@ public class T9 {
 
     private void collect(Node node, ArrayList<String> list, String input, String path) {
         if (input.length() > 0) {
-            char key = input.charAt(0);
-            int index = index(key);
+            int index = input.charAt(0) - 48;
             int branch1 = index * 3;
             int branch2 = index * 3 + 1;
             int branch3 = index * 3 + 2;
@@ -155,7 +154,6 @@ public class T9 {
             String line;
             while ((line = br.readLine()) != null) {
                 add(line);
-                System.out.println("Added: " + line);
             }
         } catch (Exception e) {
             System.out.println(" file " + file + " not found");
@@ -165,6 +163,12 @@ public class T9 {
     public static void main(String[] args) {
         String file = "t9-autocorrect/src/main/java/by/example/message.txt";
         T9 t9 = new T9(file);
-        System.out.println(t9.root);
+        System.out.println(t9.decode("165450").toString());
+        System.out.println(t9.key('e'));
+        System.out.println(t9.key('u'));
+        System.out.println(t9.key('r'));
+        System.out.println(t9.key('o'));
+        System.out.println(t9.key('p'));
+        System.out.println(t9.key('a'));
     }
 }
