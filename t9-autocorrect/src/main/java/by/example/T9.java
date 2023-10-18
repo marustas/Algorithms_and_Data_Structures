@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 public class T9 {
+    String file = "t9-autocorrect/src/main/java/by/example/message.txt";
+
     private static class Node {
         public Node[] next;
         public boolean valid;
@@ -148,7 +150,7 @@ public class T9 {
         return list;
     }
 
-    T9(String file) {
+    T9() {
         root = new Node();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
@@ -160,15 +162,29 @@ public class T9 {
         }
     }
 
+    public void print() {
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                StringBuilder s = new StringBuilder();
+                for (char c : line.toCharArray())
+                    s.append(key(c));
+                System.out.println(decode(s.toString()).toString());
+            }
+        } catch (Exception e) {
+            System.out.println(" file " + file + " not found");
+        }
+    }
+
     public static void main(String[] args) {
-        String file = "t9-autocorrect/src/main/java/by/example/message.txt";
-        T9 t9 = new T9(file);
-        System.out.println(t9.decode("165450").toString());
-        System.out.println(t9.key('e'));
-        System.out.println(t9.key('u'));
-        System.out.println(t9.key('r'));
-        System.out.println(t9.key('o'));
-        System.out.println(t9.key('p'));
-        System.out.println(t9.key('a'));
+        T9 t9 = new T9();
+        t9.print();
+//        System.out.println(t9.decode("165450").toString());
+//        System.out.println(t9.key('e'));
+//        System.out.println(t9.key('u'));
+//        System.out.println(t9.key('r'));
+//        System.out.println(t9.key('o'));
+//        System.out.println(t9.key('p'));
+//        System.out.println(t9.key('a'));
     }
 }
