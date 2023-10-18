@@ -1,7 +1,10 @@
 package by.example;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class T9 {
     private class Node {
@@ -113,8 +116,7 @@ public class T9 {
     }
 
     T9(String file) {
-        root = new Node();
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(file , StandardCharsets.UTF_8))) {
             String line;
             while ((line = br.readLine()) != null) {
                 add(line);
@@ -125,6 +127,8 @@ public class T9 {
     }
 
     public static void main(String[] args) {
-
+        String file = "/Users/stanislau/Developer/Algorithms_KTH/t9-autocorrect/src/main/java/by/example/kelly.txt";
+        T9 t9 = new T9(file);
+        System.out.println();
     }
 }
