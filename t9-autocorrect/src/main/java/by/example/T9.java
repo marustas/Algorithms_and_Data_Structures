@@ -37,13 +37,8 @@ public class T9 {
     }
 
     private static int key(char character) {
-        int i = 0;
         int j = code(character);
-        while (j >= 3) {
-            i++;
-            j -= 3;
-        }
-        return i;
+        return j / 3;
     }
 
     public void add(String word) {
