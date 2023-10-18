@@ -9,6 +9,7 @@ public class T9 {
             next = new Node[27];
             valid = false;
         }
+
         private void addRecursive(String s) {
 
             char c = s.charAt(0);
@@ -33,6 +34,16 @@ public class T9 {
 
     private static int index(char key) {
         return key - '1';
+    }
+
+    private static int key(char character) {
+        int i = 0;
+        int j = code(character);
+        while (j >= 3) {
+            i++;
+            j -= 3;
+        }
+        return i;
     }
 
     public void add(String word) {
