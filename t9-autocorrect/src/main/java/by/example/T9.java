@@ -2,9 +2,10 @@ package by.example;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 public class T9 {
-    private class Node {
+    private static class Node {
         public Node[] next;
         public boolean valid;
 
@@ -33,8 +34,8 @@ public class T9 {
 
     Node root;
 
-    private static int index(int key) {
-        return key - 1;
+    private static int index(char key) {
+        return key - '1';
     }
 
     private static int key(char character) {
@@ -108,8 +109,27 @@ public class T9 {
         };
     }
 
+    private void decode(Node node, ArrayList<String> list, String input, String path) {
+        if (input.length() > 0) {
+            char key = input.charAt(0);
+            int index = index(key);
+            int branch1 = index * 3;
+            int branch2 = index * 3 + 1;
+            int branch3 = index * 3 + 2;
+
+        } else if (node.valid) {
+            list.add(path);
+        }
+    }
+
     public void add(String word) {
         root.addRecursive(word, 0);
+    }
+
+    public ArrayList<String> decode(String keys) {
+        ArrayList<String> list = new ArrayList<String>();
+        decode(root, list, keys, "");
+        return list;
     }
 
     T9(String file) {
