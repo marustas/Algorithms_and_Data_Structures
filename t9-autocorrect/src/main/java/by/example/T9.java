@@ -1,5 +1,8 @@
 package by.example;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 public class T9 {
     private class Node {
         public Node[] next;
@@ -10,23 +13,21 @@ public class T9 {
             valid = false;
         }
 
-        private void addRecursive(String s) {
-
-            char c = s.charAt(0);
-
+        private void addRecursive(String word, int index) {
+            char c = word.charAt(index);
             int i = code(c);
-            Node n = next[i];
-            if (n == null) {
+            Node node = next[i];
+
+            if (node == null) {
                 next[i] = new Node();
             }
-
-            if (s.length() == 1) {
+            if (index == word.length() - 1) {
                 next[i].valid = true;
                 return;
             }
 
-            String rest = s.substring(1, s.length());
-            next[i].addRecursive(rest);
+            index++;
+            next[i].addRecursive(word, index);
         }
     }
 
@@ -39,10 +40,6 @@ public class T9 {
     private static int key(char character) {
         int j = code(character);
         return j / 3;
-    }
-
-    public void add(String word) {
-        root.addRecursive(word);
     }
 
     private static char character(int code) {
@@ -111,7 +108,23 @@ public class T9 {
         };
     }
 
+    public void add(String word) {
+        root.addRecursive(word, 0);
+    }
+
+    T9(String file) {
+        root = new Node();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                add(line);
+            }
+        } catch (Exception e) {
+            System.out.println(" file " + file + " not found");
+        }
+    }
+
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+
     }
 }
