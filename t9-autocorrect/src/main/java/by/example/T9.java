@@ -10,66 +10,70 @@ public class T9 {
             valid = false;
         }
     }
+    private static char character(int code) {
+        return switch (code) {
+            case 0 -> 'a';
+            case 1 -> 'b';
+            case 2 -> 'c';
+            case 3 -> 'd';
+            case 4 -> 'e';
+            case 5 -> 'f';
+            case 6 -> 'g';
+            case 7 -> 'h';
+            case 8 -> 'i';
+            case 9 -> 'j';
+            case 10 -> 'k';
+            case 11 -> 'l';
+            case 12 -> 'm';
+            case 13 -> 'n';
+            case 14 -> 'o';
+            case 15 -> 'p';
+            case 16 -> 'r';
+            case 17 -> 's';
+            case 18 -> 't';
+            case 19 -> 'u';
+            case 20 -> 'v';
+            case 21 -> 'x';
+            case 22 -> 'y';
+            case 23 -> 'z';
+            case 24 -> 'å';
+            case 25 -> 'ä';
+            case 26 -> 'ö';
+            default -> ' ';
+        };
+    }
 
     private static int code(char w) {
-        switch (w) {
-            case 'a':
-                return 0;
-            case 'b':
-                return 1;
-            case 'c':
-                return 2;
-            case 'd':
-                return 3;
-            case 'e':
-                return 4;
-            case 'f':
-                return 5;
-            case 'g':
-                return 6;
-            case 'h':
-                return 7;
-            case 'i':
-                return 8;
-            case 'j':
-                return 9;
-            case 'k':
-                return 10;
-            case 'l':
-                return 11;
-            case 'm':
-                return 12;
-            case 'n':
-                return 13;
-            case 'o':
-                return 14;
-            case 'p':
-                return 15;
-            case 'r':
-                return 16;
-            case 's':
-                return 17;
-            case 't':
-                return 18;
-            case 'u':
-                return 19;
-            case 'v':
-                return 20;
-            case 'x':
-                return 21;
-            case 'y':
-                return 22;
-            case 'z':
-                return 23;
-            case 'å':
-                return 24;
-            case 'ä':
-                return 25;
-            case 'ö':
-                return 26;
-            default:
-                return -1;
-        }
+        return switch (w) {
+            case 'a' -> 0;
+            case 'b' -> 1;
+            case 'c' -> 2;
+            case 'd' -> 3;
+            case 'e' -> 4;
+            case 'f' -> 5;
+            case 'g' -> 6;
+            case 'h' -> 7;
+            case 'i' -> 8;
+            case 'j' -> 9;
+            case 'k' -> 10;
+            case 'l' -> 11;
+            case 'm' -> 12;
+            case 'n' -> 13;
+            case 'o' -> 14;
+            case 'p' -> 15;
+            case 'r' -> 16;
+            case 's' -> 17;
+            case 't' -> 18;
+            case 'u' -> 19;
+            case 'v' -> 20;
+            case 'x' -> 21;
+            case 'y' -> 22;
+            case 'z' -> 23;
+            case 'å' -> 24;
+            case 'ä' -> 25;
+            case 'ö' -> 26;
+            default -> -1;
+        };
     }
 
     public static void main(String[] args) {
