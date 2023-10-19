@@ -36,12 +36,12 @@ public class T9 {
     Node root;
 
     private static int index(char key) {
-        return (int) key - 1;
+        return key - '1';
     }
 
     public int key(char character) {
         int j = code(character);
-        return j / 3;
+        return 1 + j / 3;
     }
 
     private static char character(int code) {
@@ -112,7 +112,7 @@ public class T9 {
 
     private void collect(Node node, ArrayList<String> list, String input, String path) {
         if (input.length() > 0) {
-            int index = input.charAt(0) - 48;
+            int index = index(input.charAt(0));
             int branch1 = index * 3;
             int branch2 = index * 3 + 1;
             int branch3 = index * 3 + 2;
@@ -179,7 +179,7 @@ public class T9 {
     public static void main(String[] args) {
         T9 t9 = new T9();
         t9.print();
-//        System.out.println(t9.decode("165450").toString());
+//        System.out.println(t9.decode("276561").toString());
 //        System.out.println(t9.key('e'));
 //        System.out.println(t9.key('u'));
 //        System.out.println(t9.key('r'));
