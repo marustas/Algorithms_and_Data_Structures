@@ -178,13 +178,13 @@ public class T9 {
 
     public static void main(String[] args) {
         T9 t9 = new T9();
-        t9.print();
-//        System.out.println(t9.decode("276561").toString());
-//        System.out.println(t9.key('e'));
-//        System.out.println(t9.key('u'));
-//        System.out.println(t9.key('r'));
-//        System.out.println(t9.key('o'));
-//        System.out.println(t9.key('p'));
-//        System.out.println(t9.key('a'));
+//        t9.print();
+        System.out.println(t9.decode("4961").toString());
+//        [köpa, köra, låsa, lära, läsa, löpa, lösa]
+        System.out.println(t9.key('k'));
+        System.out.println(t9.key('ö'));
+        System.out.println(t9.key('p'));
+        System.out.println(t9.key('a'));
+
     }
 }
