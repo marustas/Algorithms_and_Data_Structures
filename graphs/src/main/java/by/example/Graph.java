@@ -30,6 +30,14 @@ public class Graph {
         }
     }
 
+    private Integer hash(String name) {
+        int hash = 0;
+        for (int i = 0; i < name.length(); i++) {
+            hash = (hash * 31 % 541) + name.charAt(i);
+        }
+        return hash % 541;
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello world!");
     }
