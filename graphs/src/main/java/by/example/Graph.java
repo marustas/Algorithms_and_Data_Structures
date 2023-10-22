@@ -9,8 +9,7 @@ import java.util.List;
 public class Graph {
     public static class City {
         String name;
-        private final List<Connection> neighbours;
-        City next;
+        private List<Connection> neighbours;
 
         public City(String name) {
             this.name = name;
@@ -20,7 +19,6 @@ public class Graph {
         public void connect(City next, int distance) {
             Connection connection = new Connection(next, distance);
             neighbours.add(connection);
-            this.next = null;
         }
     }
 
@@ -40,7 +38,7 @@ public class Graph {
         private final int mod = 541;
 
         public Map() {
-            cities = new City[mod];
+            cities = new City[900];
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
                 String line;
                 while ((line = br.readLine()) != null) {
@@ -52,6 +50,7 @@ public class Graph {
                         City city1 = lookup(cityName1);
                         City city2 = lookup(cityName2);
                         city1.connect(city2, distance);
+                        city2.connect(city1, distance);
                     }
                 }
             } catch (Exception e) {
@@ -61,15 +60,17 @@ public class Graph {
 
         private City lookup(String cityName) {
             int index = hash(cityName);
-            if (cities[index] == null) {
-                cities[index] = new City(cityName);
-            } else {
-                while (cities[index] != null) {
-                    index++;
-                }
-                cities[index] = new City(cityName);
+            while (cities[index] != null && !cities[index].name.equals(cityName)) {
+                index++;
             }
-            return cities[index];
+
+            if (cities[index] == null) {
+                City newCity = new City(cityName);
+                cities[index] = newCity;
+                return newCity;
+            } else {
+                return cities[index];
+            }
         }
 
         private Integer hash(String name) {
