@@ -3,6 +3,7 @@ package by.example;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Graph {
@@ -42,7 +43,7 @@ public class Graph {
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
                 String line;
                 while ((line = br.readLine()) != null) {
-                    String[] parts = line.split(" ");
+                    String[] parts = line.split(",");
                     if (parts.length == 3) {
                         String cityName1 = parts[0];
                         String cityName2 = parts[1];
@@ -77,6 +78,7 @@ public class Graph {
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Map map = new Map();
+        System.out.println(Arrays.toString(map.cities));
     }
 }
