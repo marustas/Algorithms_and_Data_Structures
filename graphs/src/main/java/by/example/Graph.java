@@ -58,6 +58,21 @@ public class Graph {
             }
         }
 
+        private City lookup(String cityName) {
+            int index = hash(cityName);
+            if (cities[index] == null) {
+                cities[index] = new City(cityName);
+            }
+            return cities[index];
+        }
+
+        private Integer hash(String name) {
+            int hash = 0;
+            for (int i = 0; i < name.length(); i++) {
+                hash = (hash * 31 % mod) + name.charAt(i);
+            }
+            return hash % mod;
+        }
 
     }
 
