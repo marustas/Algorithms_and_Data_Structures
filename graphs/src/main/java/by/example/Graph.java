@@ -9,12 +9,11 @@ import java.util.List;
 public class Graph {
     public static class City {
         String name;
-        private List<Connection> neighbours;
+        private final List<Connection> neighbours;
 
         public City(String name) {
             this.name = name;
             this.neighbours = new ArrayList<>();
-            ;
         }
 
         public void connect(City next, int distance) {
@@ -35,7 +34,7 @@ public class Graph {
 
     public static class Map {
         String file = "graphs/src/main/java/by/example/trains.csv";
-        private City[] cities;
+        private final City[] cities;
         private final int mod = 541;
 
         public Map() {
@@ -51,7 +50,6 @@ public class Graph {
                         City city1 = lookup(cityName1);
                         City city2 = lookup(cityName2);
                         city1.connect(city2, distance);
-                        city2.connect(city1, distance);
                     }
                 }
             } catch (Exception e) {
