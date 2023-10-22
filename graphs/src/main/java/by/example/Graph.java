@@ -10,6 +10,7 @@ public class Graph {
     public static class City {
         String name;
         private final List<Connection> neighbours;
+        City next;
 
         public City(String name) {
             this.name = name;
@@ -19,6 +20,7 @@ public class Graph {
         public void connect(City next, int distance) {
             Connection connection = new Connection(next, distance);
             neighbours.add(connection);
+            this.next = null;
         }
     }
 
@@ -60,6 +62,11 @@ public class Graph {
         private City lookup(String cityName) {
             int index = hash(cityName);
             if (cities[index] == null) {
+                cities[index] = new City(cityName);
+            } else {
+                while (cities[index] != null) {
+                    index++;
+                }
                 cities[index] = new City(cityName);
             }
             return cities[index];
