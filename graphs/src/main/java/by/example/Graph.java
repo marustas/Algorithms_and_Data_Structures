@@ -1,5 +1,7 @@
 package by.example;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,12 +32,33 @@ public class Graph {
         }
     }
 
-    private Integer hash(String name) {
-        int hash = 0;
-        for (int i = 0; i < name.length(); i++) {
-            hash = (hash * 31 % 541) + name.charAt(i);
+    public static class Map {
+        String file = "graphs/src/main/java/by/example/trains.csv";
+        private City[] cities;
+        private final int mod = 541;
+
+        public Map() {
+            cities = new City[mod];
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] parts = line.split(" ");
+                    if (parts.length == 3) {
+                        String cityName1 = parts[0];
+                        String cityName2 = parts[1];
+                        int distance = Integer.parseInt(parts[2]);
+                        City city1 = lookup(cityName1);
+                        City city2 = lookup(cityName2);
+                        city1.connect(city2, distance);
+                        city2.connect(city1, distance);
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println(" file " + file + " not found or corrupt");
+            }
         }
-        return hash % 541;
+
+
     }
 
     public static void main(String[] args) {
