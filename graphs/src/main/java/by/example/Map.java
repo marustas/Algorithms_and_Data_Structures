@@ -9,7 +9,7 @@ import java.util.List;
 public class Map {
     public static class City {
         String name;
-        private List<Connection> neighbours;
+        public List<Connection> neighbours;
 
         public City(String name) {
             this.name = name;
