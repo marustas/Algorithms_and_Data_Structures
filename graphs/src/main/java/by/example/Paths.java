@@ -29,12 +29,35 @@ public class Paths {
                 if ((distance != null) && ((shortest == null) || (shortest > distance + conn.distance))) {
                     shortest = distance + conn.distance;
                 }
-                if ((shortest != null) && (sp > shortest)) {
-                    sp = shortest;
-                }
             }
         }
         path[sp--] = null;
         return shortest;
+    }
+
+    public static void main(String[] args) {
+        Map map = new Map("graphs/src/main/java/by/example/trains.csv");
+        String[] cityPairs = {
+                "Malmö,Göteborg",
+                "Göteborg,Stockholm",
+                "Malmö,Stockholm,600",
+                "Stockholm,Sundsvall",
+                "Stockholm,Umeå",
+                "Göteborg,Sundsvall",
+                "Sundsvall,Umeå",
+                "Umeå,Göteborg",
+                "Göteborg,Umeå"
+        };
+        for (String pair : cityPairs) {
+            String[] cities = pair.split(",");
+            String from = cities[0];
+            String to = cities[1];
+            Paths paths = new Paths();
+            long startTime = System.nanoTime();
+            Integer dist = paths.shortest(map.lookup(from), map.lookup(to));
+            long endTime = System.nanoTime();
+            long duration = (endTime - startTime) / 1_000_000;
+            System.out.println(pair + ": shortest path is " + dist + " min (" + duration + " ms)");
+        }
     }
 }
