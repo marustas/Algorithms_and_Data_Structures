@@ -15,10 +15,10 @@ public class Naive {
                 "Göteborg,Umeå,300"
         };
         for (String cityPair : cityPairs) {
-            String[] cities = cityPair.split(",");
-            String from = cities[0];
-            String to = cities[1];
-            Integer max = Integer.valueOf(args[2]);
+            String[] data = cityPair.split(",");
+            String from = data[0];
+            String to = data[1];
+            Integer max = Integer.valueOf(data[2]);
             long t0 = System.nanoTime();
             Integer dist = shortest(map.lookup(from), map.lookup(to), max);
             long time = (System.nanoTime() - t0) / 1_000_000;
