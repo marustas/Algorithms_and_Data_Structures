@@ -33,7 +33,6 @@ public class Map {
     }
 
     private final City[] cities;
-    private final int mod = 541;
 
     public Map(String file) {
         cities = new City[900];
@@ -58,21 +57,20 @@ public class Map {
 
     public City lookup(String cityName) {
         int index = hash(cityName);
-        while (cities[index] != null && !cities[index].name.equals(cityName)) {
+        while (cities[index] != null) {
+            if (cities[index].name.equals(cityName)) {
+                return cities[index];
+            }
             index++;
         }
-
-        if (cities[index] == null) {
-            City newCity = new City(cityName);
-            cities[index] = newCity;
-            return newCity;
-        } else {
-            return cities[index];
-        }
+        City newCity = new City(cityName);
+        cities[index] = newCity;
+        return newCity;
     }
 
     private Integer hash(String name) {
         int hash = 0;
+        int mod = 541;
         for (int i = 0; i < name.length(); i++) {
             hash = (hash * 31 % mod) + name.charAt(i);
         }
