@@ -4,25 +4,26 @@ public class Naive {
     public static void main(String[] args) {
         Map map = new Map("graphs/src/main/java/by/example/trains.csv");
         String[] cityPairs = {
-                "Malmö,Göteborg,300",
-                "Göteborg,Stockholm,300",
-                "Malmö,Stockholm,300",
-                "Stockholm,Sundsvall,300",
-                "Stockholm,Umeå,300",
-                "Göteborg,Sundsvall,300",
-                "Sundsvall,Umeå,300",
-                "Umeå,Gvteborg,300",
-                "Göteborg,Umeå,300"
+                "Malmö,Göteborg,600",
+                "Göteborg,Stockholm,600",
+                "Malmö,Stockholm,600",
+                "Stockholm,Sundsvall,600",
+                "Stockholm,Umeå,600",
+                "Göteborg,Sundsvall,600",
+                "Sundsvall,Umeå,600",
+                "Umeå,Göteborg,600",
+                "Göteborg,Umeå,600"
         };
-        for (String cityPair : cityPairs) {
-            String[] data = cityPair.split(",");
-            String from = data[0];
-            String to = data[1];
-            Integer max = Integer.valueOf(data[2]);
-            long t0 = System.nanoTime();
+        for (String pair : cityPairs) {
+            String[] cities = pair.split(",");
+            String from = cities[0];
+            String to = cities[1];
+            Integer max = Integer.valueOf(cities[2]);
+            long startTime = System.nanoTime();
             Integer dist = shortest(map.lookup(from), map.lookup(to), max);
-            long time = (System.nanoTime() - t0) / 1_000_000;
-            System.out.println("shortest: " + dist + " min (" + time + " ms)");
+            long endTime = System.nanoTime();
+            long duration = (endTime - startTime) / 1_000_000;
+            System.out.println(pair + ": shortest path is " + dist + " min (" + duration + " ms)");
         }
     }
 
@@ -32,24 +33,21 @@ public class Naive {
         if (from == to)
             return 0;
 
-        Integer shrt = null;
-        int connections = from.neighbours.size();
-        for (int i = 0; i < connections; i++) {
-            Map.Connection connection = from.neighbours.get(i);
-            if (connection != null) {
-                int distance = connection.distance;
-                Map.City nextCity = connection.city;
-                if (max - distance >= 0) {
-                    Integer subShortest = shortest(nextCity, to, max - distance);
-                    if (subShortest != null) {
-                        int totalDistance = distance + subShortest;
-                        if (shrt == null || totalDistance < shrt) {
-                            shrt = totalDistance;
-                        }
-                    }
+        Integer shortest = null;
+
+        for (int i = 0; i < from.neighbours.size(); i++) {
+            if (from.neighbours.get(i) != null) {
+                Map.Connection conn = from.neighbours.get(i);
+                Map.City nextCity = conn.city;
+                Integer distance = shortest(nextCity, to, max - conn.distance);
+                if ((distance != null) && ((shortest == null) || (shortest > distance + conn.distance))) {
+                    shortest = distance + conn.distance;
+                }
+                if ((shortest != null) && (max > shortest)) {
+                    max = shortest;
                 }
             }
         }
-        return shrt;
+        return shortest;
     }
 }

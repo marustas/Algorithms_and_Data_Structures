@@ -33,9 +33,10 @@ public class Map {
     }
 
     private final City[] cities;
+    private final int mod = 541;
 
     public Map(String file) {
-        cities = new City[900];
+        cities = new City[mod];
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -51,7 +52,7 @@ public class Map {
                 }
             }
         } catch (Exception e) {
-            System.out.println(" file " + file + " not found or corrupt");
+            System.out.println(" file " + file + " not found");
         }
     }
 
@@ -69,8 +70,7 @@ public class Map {
     }
 
     private Integer hash(String name) {
-        int hash = 0;
-        int mod = 541;
+        int hash = 3;
         for (int i = 0; i < name.length(); i++) {
             hash = (hash * 31 % mod) + name.charAt(i);
         }
