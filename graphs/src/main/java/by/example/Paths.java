@@ -38,16 +38,16 @@ public class Paths {
     public static void main(String[] args) {
         Map map = new Map("graphs/src/main/java/by/example/trains.csv");
         String[] cityPairs = {
-                "Malmö,Göteborg,600",
-                "Göteborg,Stockholm,600",
-                "Malmö,Stockholm,600",
-                "Stockholm,Sundsvall,600",
-                "Stockholm,Umeå,600",
-                "Göteborg,Sundsvall,600",
-                "Sundsvall,Umeå,600",
-                "Umeå,Göteborg,1000",
-                "Göteborg,Umeå,1000",
-                "Malmö,Kiruna,1000"
+                "Malmö,Göteborg",
+                "Göteborg,Stockholm",
+                "Malmö,Stockholm",
+                "Stockholm,Sundsvall",
+                "Stockholm,Umeå",
+                "Göteborg,Sundsvall",
+                "Sundsvall,Umeå",
+                "Umeå,Göteborg",
+                "Göteborg,Umeå",
+                "Malmö,Kiruna"
         };
         for (String pair : cityPairs) {
             String[] cities = pair.split(",");

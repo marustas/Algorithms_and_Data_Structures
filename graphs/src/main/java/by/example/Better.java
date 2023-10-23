@@ -28,7 +28,7 @@ public class Better {
             if (from.neighbours.get(i) != null) {
                 Map.Connection conn = from.neighbours.get(i);
                 Map.City nextCity = conn.city;
-                Integer distance = shortest(nextCity, to, (max != null ? max = conn.distance : null));
+                Integer distance = shortest(nextCity, to, (max != null) ? max - conn.distance : null);
                 if ((distance != null) && ((shortest == null) || (shortest > distance + conn.distance))) {
                     shortest = distance + conn.distance;
                 }
@@ -44,25 +44,24 @@ public class Better {
     public static void main(String[] args) {
         Map map = new Map("graphs/src/main/java/by/example/trains.csv");
         String[] cityPairs = {
-                "Malmö,Göteborg,600",
-                "Göteborg,Stockholm,600",
-                "Malmö,Stockholm,600",
-                "Stockholm,Sundsvall,600",
-                "Stockholm,Umeå,600",
-                "Göteborg,Sundsvall,600",
-                "Sundsvall,Umeå,600",
-                "Umeå,Göteborg,600",
-                "Göteborg,Umeå,600",
-                "Malmö,Kiruna,600"
+                "Malmö,Göteborg",
+                "Göteborg,Stockholm",
+                "Malmö,Stockholm",
+                "Stockholm,Sundsvall",
+                "Stockholm,Umeå",
+                "Göteborg,Sundsvall",
+                "Sundsvall,Umeå",
+                "Umeå,Göteborg",
+                "Göteborg,Umeå",
+                "Malmö,Kiruna"
         };
         for (String pair : cityPairs) {
             String[] cities = pair.split(",");
             String from = cities[0];
             String to = cities[1];
-            Integer max = Integer.valueOf(cities[2]);
             Better better = new Better();
             long startTime = System.nanoTime();
-            Integer dist = better.shortest(map.lookup(from), map.lookup(to), max);
+            Integer dist = better.shortest(map.lookup(from), map.lookup(to), null);
             long endTime = System.nanoTime();
             long duration = (endTime - startTime) / 1_000_000;
             System.out.println(pair + ": shortest path is " + dist + " min (" + duration + " ms)");
