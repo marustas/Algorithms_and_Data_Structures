@@ -12,7 +12,8 @@ public class Naive {
                 "Göteborg,Sundsvall,600",
                 "Sundsvall,Umeå,600",
                 "Umeå,Göteborg,1000",
-                "Göteborg,Umeå,1000"
+                "Göteborg,Umeå,1000",
+                "Malmö,Kiruna,1000"
         };
         for (String pair : cityPairs) {
             String[] cities = pair.split(",");
