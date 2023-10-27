@@ -9,7 +9,7 @@ public class Queue {
         heap = new Path[capacity];
     }
 
-    private boolean isEmpty() {
+    public boolean isEmpty() {
         return last == 0;
     }
 
@@ -20,7 +20,7 @@ public class Queue {
         last++;
     }
 
-    private void bubble(Integer index) {
+    public void bubble(Integer index) {
         int currentIndex = index;
         int parentIndex = getParentIndex(currentIndex);
         while (currentIndex > 0 && heap[currentIndex].dist < heap[parentIndex].dist) {
