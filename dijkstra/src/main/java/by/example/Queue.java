@@ -42,12 +42,12 @@ public class Queue {
         heap[0].index = 0;
         heap[last - 1] = null;
         last--;
-        sink(0);
+        sink();
         return next;
     }
 
-    private void sink(int index) {
-        int currentIndex = index;
+    private void sink() {
+        int currentIndex = 0;
         int left, right, smallest;
 
         while (true) {

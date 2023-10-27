@@ -52,8 +52,11 @@ public class Dijkstra {
     public static void main(String[] args) {
         Map map1 = new Map();
         Dijkstra dijkstra = new Dijkstra(map1);
-        City city1 = map1.lookup("Stockholm");
-        City city2 = map1.lookup("Manchester");
+        City city1 = map1.lookup("Umeå");
+        City city2 = map1.lookup("Göteborg");
+        double start = System.nanoTime();
         dijkstra.search(city1, city2);
+        double end = System.nanoTime()-start;
+        System.out.println(end/1_000_000);
     }
 }
