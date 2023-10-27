@@ -6,16 +6,16 @@ import java.util.List;
 public class City {
     String name;
     public List<Connection> neighbours;
-    public Integer id;
+    public Integer id = 0;
 
-    public City(String name, Integer i) {
+    public City(String name) {
         this.name = name;
         this.neighbours = new ArrayList<>();
-        this.id = i;
     }
 
     public void connect(City next, int distance) {
         Connection connection = new Connection(next, distance);
         neighbours.add(connection);
+        id++;
     }
 }

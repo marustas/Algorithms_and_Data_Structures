@@ -3,7 +3,6 @@ package by.example;
 public class Dijkstra {
     private final Path[] done;
     private final Queue queue;
-    private Map map;
 
     public Dijkstra(Map map) {
         int n = map.size();
@@ -18,7 +17,7 @@ public class Dijkstra {
     }
 
     public void search(City from, City to) {
-        Path ex = new Path(from, null, null);
+        Path ex = new Path(from, null, 0);
         queue.add(ex);
         done[from.id] = ex;
         shortest(to);
@@ -31,6 +30,7 @@ public class Dijkstra {
             if (city == destination)
                 break;
             Integer sofar = entry.dist;
+            System.out.println(sofar);
             for (Connection connection : city.neighbours) {
                 City to = connection.city;
                 if (done[to.id] == null) {
@@ -55,6 +55,5 @@ public class Dijkstra {
         City city1 = map1.lookup("Stockholm");
         City city2 = map1.lookup("Manchester");
         dijkstra.search(city1, city2);
-        System.out.println("Hello world!");
     }
 }

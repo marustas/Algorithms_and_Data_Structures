@@ -43,7 +43,7 @@ public class Map {
             }
             index++;
         }
-        City newCity = new City(cityName, index);
+        City newCity = new City(cityName);
         cities[index] = newCity;
         return newCity;
     }
