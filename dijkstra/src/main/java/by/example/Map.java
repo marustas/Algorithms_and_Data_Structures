@@ -2,13 +2,12 @@ package by.example;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Map {
-    String file = "";
+    String file = "Dijkstra/src/main/java/by/example/europe.csv";
     private final City[] cities;
     private final int mod = 541;
+    private int size = 0;
 
     public Map() {
         cities = new City[mod];
@@ -24,11 +23,16 @@ public class Map {
                     City city2 = lookup(cityName2);
                     city1.connect(city2, distance);
                     city2.connect(city1, distance);
+                    size++;
                 }
             }
         } catch (Exception e) {
             System.out.println(" file " + file + " not found");
         }
+    }
+
+    public int size() {
+        return size;
     }
 
     public City lookup(String cityName) {
@@ -39,7 +43,7 @@ public class Map {
             }
             index++;
         }
-        City newCity = new City(cityName);
+        City newCity = new City(cityName, index);
         cities[index] = newCity;
         return newCity;
     }
