@@ -1,11 +1,15 @@
 package by.example;
 
+import java.util.Queue;
+
 public class Dijkstra {
-    private class Path {
-        private City city;
-        private City prev;
-        private Integer dist;
-        private Integer index;
+    private Path[] done;
+    private Queue queue;
+    private Map map;
+
+
+    public void search(City from, City to){
+
     }
 
     public static void main(String[] args) {

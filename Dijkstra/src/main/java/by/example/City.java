@@ -6,10 +6,12 @@ import java.util.List;
 public class City {
     String name;
     public List<Connection> neighbours;
+    public Integer id;
 
-    public City(String name) {
+    public City(String name, Integer i) {
         this.name = name;
         this.neighbours = new ArrayList<>();
+        this.id = i;
     }
 
     public void connect(City next, int distance) {
