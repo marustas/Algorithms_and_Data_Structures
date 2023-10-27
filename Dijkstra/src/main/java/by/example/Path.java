@@ -6,10 +6,10 @@ public class Path {
     public Integer dist;
     public Integer index;
 
-    private Path(City city) {
+    public Path(City city) {
         this.city = city;
         this.prev = null;
         this.index = null;
-        this.dist = 15;
+        this.dist = null;
     }
 }

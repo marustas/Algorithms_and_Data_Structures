@@ -41,7 +41,8 @@ public class Queue {
         heap[0] = heap[last - 1];
         heap[0].index = 0;
         heap[last - 1] = null;
-        sink(last);
+        last--;
+        sink(0);
         return next;
     }
 
