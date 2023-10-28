@@ -13,7 +13,8 @@ public class Dijkstra {
     public Integer dist(City city) {
         if (city != null && done[city.id] != null)
             return done[city.id].dist;
-        return null;
+        else
+            return null;
     }
 
     public void search(City from, City to) {
@@ -51,22 +52,8 @@ public class Dijkstra {
     public static void main(String[] args) {
         Map map1 = new Map();
         Dijkstra dijkstra = new Dijkstra(map1);
-        City test = map1.lookup("Malmö");
-        dijkstra.search(test, null);
         String[] trips = {
-                "Malmö,Kiruna",
-                "Malmö,München",
-                "Malmö,Stockholm",
-                "Malmö,Zürich",
-                "Malmö,Milano",
-                "Malmö,Oslo",
-                "Malmö,Wien",
-                "Malmö,Amsterdam",
-                "Malmö,Prag",
-                "Malmö,Paris",
-                "Malmö,Bukarest",
-                "Malmö,Barcelona",
-                "Malmö,Rom"
+                "Umeå,Göteborg"
         };
         for (String trip : trips) {
             String[] parts = trip.split(",");
@@ -78,7 +65,7 @@ public class Dijkstra {
             dijkstra.search(city1, city2);
             double end = System.nanoTime();
             double time = end - start;
-            System.out.printf("Time to travel from %s to %s: %f\n", cityName1, cityName2, time / 1_000);
+            System.out.printf("Time to travel from %s to %s: %.0f\t Distance: %d\n", cityName1, cityName2, time, dijkstra.dist(city2));
         }
     }
 }

@@ -38,9 +38,9 @@ public class Queue {
         if (last == 0)
             return null;
         Path next = heap[0];
-        heap[0] = heap[last - 1];
+        heap[0] = heap[(last - 1)];
         heap[0].index = 0;
-        heap[last - 1] = null;
+        heap[(last - 1)] = null;
         last--;
         sink();
         return next;
