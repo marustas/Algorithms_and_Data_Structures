@@ -23,14 +23,13 @@ public class Better {
         }
         path[sp++] = from;
         Integer shortest = null;
-
-        for (int i = 0; i < from.neighbours.size(); i++) {
-            if (from.neighbours.get(i) != null) {
-                Map.Connection conn = from.neighbours.get(i);
-                Map.City nextCity = conn.city;
-                Integer distance = shortest(nextCity, to, (max != null) ? max - conn.distance : null);
-                if ((distance != null) && ((shortest == null) || (shortest > distance + conn.distance))) {
-                    shortest = distance + conn.distance;
+        var neighbours = from.neighbours;
+        for (Map.Connection neighbour : neighbours) {
+            if (neighbour != null) {
+                Map.City nextCity = neighbour.city;
+                Integer distance = shortest(nextCity, to, (max != null) ? max - neighbour.distance : null);
+                if ((distance != null) && ((shortest == null) || (shortest > distance + neighbour.distance))) {
+                    shortest = distance + neighbour.distance;
                 }
                 if ((shortest != null) && ((max == null) || (max > shortest))) {
                     max = shortest;
