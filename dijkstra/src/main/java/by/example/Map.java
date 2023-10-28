@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class Map {
-    String file = "Dijkstra/src/main/java/by/example/europe.csv";
+    String file = "dijkstra/src/main/java/by/example/europe.csv";
     private final City[] cities;
     private final int mod = 541;
     private int size = 0;
@@ -23,29 +23,11 @@ public class Map {
                     City city2 = lookup(cityName2);
                     city1.connect(city2, distance);
                     city2.connect(city1, distance);
-                    size++;
                 }
             }
         } catch (Exception e) {
             System.out.println(" file " + file + " not found");
         }
-    }
-
-    public int size() {
-        return size;
-    }
-
-    public City lookup(String cityName) {
-        int index = hash(cityName);
-        while (cities[index] != null) {
-            if (cities[index].name.equals(cityName)) {
-                return cities[index];
-            }
-            index++;
-        }
-        City newCity = new City(cityName);
-        cities[index] = newCity;
-        return newCity;
     }
 
     private Integer hash(String name) {
@@ -54,5 +36,24 @@ public class Map {
             hash = (hash * 31 % mod) + name.charAt(i);
         }
         return hash % mod;
+    }
+
+    public Integer size() {
+        return size;
+    }
+
+    public City lookup(String name) {
+        Integer index = hash(name);
+        while (true) {
+            if (cities[index] == null) {
+                City city = new City(name, size());
+                size++;
+                cities[index] = city;
+                return city;
+            }
+            if (cities[index].name.equals(name))
+                return cities[index];
+            index++;
+        }
     }
 }

@@ -50,22 +50,34 @@ public class Dijkstra {
     }
 
     public static void main(String[] args) {
-        Map map1 = new Map();
-        Dijkstra dijkstra = new Dijkstra(map1);
+        Map map = new Map();
+        City test = map.lookup("Malmö");
+        Dijkstra dijkstra = new Dijkstra(map);
+        dijkstra.search(test, null);
         String[] trips = {
-                "Umeå,Göteborg"
+                "Malmö,Kiruna",
+                "Malmö,München",
+                "Malmö,Stockholm",
+                "Malmö,Zürich",
+                "Malmö,Milano",
+                "Malmö,Paris",
+                "Malmö,Bukarest",
+                "Malmö,Barcelona",
+                "Malmö,Rom"
         };
         for (String trip : trips) {
             String[] parts = trip.split(",");
-            String cityName1 = parts[0];
-            String cityName2 = parts[1];
-            City city1 = map1.lookup(cityName1);
-            City city2 = map1.lookup(cityName2);
+            City from = map.lookup(parts[0]);
+            City to = map.lookup(parts[1]);
             double start = System.nanoTime();
-            dijkstra.search(city1, city2);
+            dijkstra.search(from, to);
             double end = System.nanoTime();
             double time = end - start;
-            System.out.printf("Time to travel from %s to %s: %.0f\t Distance: %d\n", cityName1, cityName2, time, dijkstra.dist(city2));
+            Integer dist = dijkstra.dist(to);
+            if (to != null) {
+                System.out.println("Trip from " + from.name + " to " + to.name + " takes " + dist + " minutes");
+                System.out.printf("Search time: %.2f ms\n", (time / 1_000));
+            }
         }
     }
 }

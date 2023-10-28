@@ -9,7 +9,7 @@ public class Path {
     public Path(City city, City prev, Integer dist) {
         this.city = city;
         this.prev = prev;
-        this.index = null;
         this.dist = dist;
+        this.index = null;
     }
 }

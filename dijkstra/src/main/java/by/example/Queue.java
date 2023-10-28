@@ -20,20 +20,6 @@ public class Queue {
         last++;
     }
 
-    public void bubble(Integer index) {
-        int currentIndex = index;
-        int parentIndex = getParentIndex(currentIndex);
-        while (currentIndex > 0 && heap[currentIndex].dist < heap[parentIndex].dist) {
-            swap(currentIndex, parentIndex);
-            currentIndex = parentIndex;
-            parentIndex = getParentIndex(currentIndex);
-        }
-    }
-
-    private int getParentIndex(int t) {
-        return t % 2 == 0 ? (t - 2) / 2 : (t - 1) / 2;
-    }
-
     public Path remove() {
         if (last == 0)
             return null;
@@ -44,6 +30,20 @@ public class Queue {
         last--;
         sink();
         return next;
+    }
+
+    private int getParentIndex(int t) {
+        return t % 2 == 0 ? (t - 2) / 2 : (t - 1) / 2;
+    }
+
+    public void bubble(int index) {
+        int currentIndex = index;
+        int parentIndex = getParentIndex(index);
+        while (currentIndex > 0 && heap[currentIndex].dist < heap[parentIndex].dist) {
+            swap(currentIndex, parentIndex);
+            currentIndex = parentIndex;
+            parentIndex = getParentIndex(currentIndex);
+        }
     }
 
     private void sink() {
@@ -67,12 +67,12 @@ public class Queue {
         }
     }
 
-    private void swap(int a, int b) {
-        Path temp = heap[a];
-        heap[b].index = a;
-        heap[a] = heap[b];
-        temp.index = b;
-        heap[b] = temp;
+    private void swap(int i, int j) {
+        Path k = heap[i];
+        heap[j].index = i;
+        heap[i] = heap[j];
+        k.index = j;
+        heap[j] = k;
     }
 }
 
