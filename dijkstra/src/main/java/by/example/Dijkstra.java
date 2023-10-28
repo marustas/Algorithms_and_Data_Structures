@@ -51,6 +51,8 @@ public class Dijkstra {
     public static void main(String[] args) {
         Map map1 = new Map();
         Dijkstra dijkstra = new Dijkstra(map1);
+        City test = map1.lookup("Malmö");
+        dijkstra.search(test, null);
         String[] trips = {"Malmö,München",
                 "Malmö,Stockholm",
                 "Malmö,Zürich",
