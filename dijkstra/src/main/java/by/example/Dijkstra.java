@@ -72,11 +72,15 @@ public class Dijkstra {
             double start = System.nanoTime();
             dijkstra.search(from, to);
             double end = System.nanoTime();
-            double time = end - start;
+            double time = (end - start) / 1000;
             Integer dist = dijkstra.dist(to);
+            Integer stops = 0;
+            for (City prv = to; prv != null; prv = dijkstra.done[prv.id].prev) {
+                stops++;
+            }
             if (to != null) {
                 System.out.println("Trip from " + from.name + " to " + to.name + " takes " + dist + " minutes");
-                System.out.printf("Search time: %.2f ms\n", (time / 1_000));
+                System.out.printf("Search time: %.2f ms\t Number of stops: %d\n", time, stops);
             }
         }
     }
