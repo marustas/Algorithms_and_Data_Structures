@@ -55,7 +55,7 @@ public class Dijkstra {
         Dijkstra dijkstra = new Dijkstra(map);
         dijkstra.search(test, null);
         String[] trips = {
-                "Malmö,Kiruna",
+                "Malmö,Dresden",
                 "Malmö,München",
                 "Malmö,Stockholm",
                 "Malmö,Zürich",
@@ -63,7 +63,10 @@ public class Dijkstra {
                 "Malmö,Paris",
                 "Malmö,Bukarest",
                 "Malmö,Barcelona",
-                "Malmö,Rom"
+                "Malmö,Rom",
+                "Malmö,Hamburg",
+                "Malmö,Leipzig",
+                "Malmö,Oslo"
         };
         for (String trip : trips) {
             String[] parts = trip.split(",");
